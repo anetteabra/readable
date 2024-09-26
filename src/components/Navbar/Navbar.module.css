@@ -1,0 +1,56 @@
+.navbar {
+  width: 100%;
+  display: flex;
+  justify-content: space-between;
+  align-items: center;
+  padding: 0rem 2rem 2rem 2rem;
+  z-index: 10;
+  font-weight: 500;
+  padding: 1rem 0 0;
+}
+
+.header {
+  display: flex;
+  align-items: center;
+  gap: 0.5rem;
+  text-decoration: none;
+  transition: 0.25s ease;
+  padding-left: 3rem;
+}
+
+.header h1 {
+  font-weight: 700;
+  font-size: 2.25rem;
+  color:black;
+  padding: 0;
+  margin: 0;
+}
+
+.header img {
+  width: 10%;
+  height: auto;
+}
+
+.links {
+  display: flex;
+  gap: 1rem;
+  padding-right: 3rem;
+}
+
+.links a {
+  color: grey;
+  font-size: 1.5rem;
+  text-decoration: none;
+  border: none;
+  padding: 0.25rem 1rem;
+  margin: 0.25rem;
+  white-space: nowrap;
+
+  &:hover {
+    color: var(--color-green);
+  }
+}
+
+.links a.active {
+  color: var(--color-green-dark);
+}
