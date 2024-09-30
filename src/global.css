@@ -4,7 +4,7 @@
 @tailwind utilities;
 
 :root {
-  font-family: "Lucida Console", "Courier New", monospace;
+  font-family: var(--font-geist-sans),ui-sans-serif,system-ui,-apple-system,BlinkMacSystemFont,"Segoe UI",Roboto,"Helvetica Neue",Arial,"Noto Sans",sans-serif,"Apple Color Emoji","Segoe UI Emoji","Segoe UI Symbol","Noto Color Emoji";
   line-height: 1.5;
   font-weight: 400;
 
@@ -35,6 +35,8 @@
 
   */
 
+  --font-geist-sans: "__GeistSans_ac79ff","__GeistSans_Fallback_ac79ff";
+
   --font-color: rgb(44, 44, 44);
 
   --bg-color: rgb(255, 255, 255);
@@ -61,8 +63,8 @@
   --color-yellow-dark: rgb(231, 231, 14);
 
   --color-green-light: rgb(128, 175, 145);
-  --color-green: rgb(88, 132, 109);
-  --color-green-dark: rgb(96, 134, 96);
+  --color-green-dark: rgb(63, 93, 77);
+  --color-green: rgb(117, 141, 117);
 
   --color-blue-light: #6098d3;
   --color-blue: #4e7daf;

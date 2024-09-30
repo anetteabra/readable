@@ -33,13 +33,13 @@
 
 .links {
   display: flex;
-  gap: 1rem;
+  gap: 0.25rem;
   padding-right: 3rem;
 }
 
 .links a {
-  color: grey;
-  font-size: 1.5rem;
+  color:black;
+  font-size: 1rem;
   text-decoration: none;
   border: none;
   padding: 0.25rem 1rem;
@@ -53,4 +53,11 @@
 
 .links a.active {
   color: var(--color-green-dark);
+}
+
+.searchBar{
+  width: 100% !important; 
+  padding-right: 3rem !important;
+  margin: 0.05rem 3rem !important;
+
 }
