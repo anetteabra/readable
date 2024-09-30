@@ -1,15 +1,18 @@
 import { Link, NavLink } from 'react-router-dom';
 import styles from './Navbar.module.css';
-
+import { Input } from "@/components/ui/input"
 const Navbar = () => {
   return (
     <div className={styles.navbar}>
       <Link to="/" className={styles.header}>
         <h1>Readable</h1>
       </Link>
+      
       <div className={styles.links}>
-        <NavbarLink to="/">Home</NavbarLink>
-        <NavbarLink to="/new">Library</NavbarLink>
+        <Input type="input" placeholder="Search" className={styles.searchBar}/>
+        
+        <NavbarLink to="/">HOME</NavbarLink>
+        <NavbarLink to="/new">LIBRARY</NavbarLink>
       </div>
     </div>
   );
