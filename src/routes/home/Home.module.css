@@ -1,3 +1,40 @@
+.Home{
+  position: relative;
+  padding: 20px;
+
+}
+
+body{
+  background-image: url(/susan-q-yin-YQhhlCS9Hto-unsplash-kopi.jpg);
+  background-size: cover;
+  background-repeat: no-repeat;
+  background-position: center;
+  min-height: 100vh;
+  display: flex;
+}
+.header{
+  color: var(--light-font-color);
+  font-weight: bolder;
+  font-size: 5rem;
+  margin-top: 10rem;
+  position: absolute;
+  top: 50px;
+  left: 20px;
+  padding: 1rem;
+  text-align: left;
+  max-width: 50rem;
+}
+
+.paragraph {
+  color: var(--light-font-color);
+  font-size: 2rem;
+  position: absolute;
+  top: calc(50px + 5rem + 1rem);
+  left: 20px;
+  padding: 1rem;
+  max-width: 50rem;
+}
+
 .root {
   max-width: 1280px;
   margin: 0 auto;
@@ -6,6 +43,7 @@
 }
 
 .controls {
+  position: relative;
   display: flex;
   flex-direction: column;
   align-items: center;

@@ -21,7 +21,7 @@
 .header h1 {
   font-weight: 700;
   font-size: 2.25rem;
-  color:black;
+  color: var(--light-font-color);
   padding: 0;
   margin: 0;
 }
@@ -38,8 +38,9 @@
 }
 
 .links a {
-  color:black;
-  font-size: 1rem;
+  color:var(--light-font-color);
+  font-size: 1.1rem;
+  font-weight: bolder;
   text-decoration: none;
   border: none;
   padding: 0.25rem 1rem;
@@ -47,12 +48,12 @@
   white-space: nowrap;
 
   &:hover {
-    color: var(--color-green);
+    color: var(--footer-color);
   }
 }
 
 .links a.active {
-  color: var(--color-green-dark);
+  color: var(--active-light-font-color);
 }
 
 .searchBar{
