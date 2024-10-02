@@ -1,3 +1,4 @@
+import BookBox from '@/components/BookBox';
 import styles from './Home.module.css';
 
 const Home = () => {
@@ -6,6 +7,7 @@ const Home = () => {
     <>
       <div className={styles.controls}>
       </div>
+      <BookBox></BookBox>
     </>
   );
 };
