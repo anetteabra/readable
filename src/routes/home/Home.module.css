@@ -52,6 +52,20 @@ body{
   margin: 0 auto;
   padding-top: 2rem;
 }
+.button {
+  background-color: var(--footer-color) !important;
+  color: var(--light-font-color) !important;
+  padding: 1rem 2rem !important;
+  position: absolute !important;
+  top: 30rem;
+  left: 3rem;
+
+}
+
+.button:hover {
+  background-color: var(--light-font-color) !important;
+  color: var(--footer-color) !important;
+}
 
 /* Responsive styling for screens smaller than 768px */
 @media (max-width: 768px) {
@@ -62,7 +76,13 @@ body{
 
   .paragraph {
     font-size: 1.5rem;
-    top: 7rem;
+    top: 6.5rem;
+  }
+
+  .button {
+    top: 20rem;
+    left: 2rem;
+    padding: 0 1rem !important;
   }
 }
 
@@ -76,5 +96,11 @@ body{
   .paragraph {
     font-size: 1rem;
     top: 5rem;
+  }
+
+  .button {
+    top: 17rem;
+    left: 2rem;
+    padding: 0 1rem !important;
   }
 }
