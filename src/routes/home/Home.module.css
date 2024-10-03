@@ -53,8 +53,8 @@ body{
   padding-top: 2rem;
 }
 .button {
-  background-color: var(--footer-color) !important;
-  color: var(--light-font-color) !important;
+  background-color: var(--light-font-color) !important;
+  color: var(--footer-color) !important;
   padding: 1rem 2rem !important;
   position: absolute !important;
   top: 30rem;
@@ -63,8 +63,8 @@ body{
 }
 
 .button:hover {
-  background-color: var(--light-font-color) !important;
-  color: var(--footer-color) !important;
+  background-color: var(--footer-color) !important;
+  color: var(--light-font-color) !important;
 }
 
 /* Responsive styling for screens smaller than 768px */
