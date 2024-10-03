@@ -8,16 +8,6 @@ const Footer = () => {
       <div className={styles.love}>
         <FontAwesomeIcon icon={faHeart} />
         <p></p>
-        <a
-          href=""
-          target="_blank"
-          rel="noopener noreferrer">
-          <img
-            src=""
-            alt=""
-            className={styles.logo}
-          />
-        </a>
       </div>
     </div>
   );

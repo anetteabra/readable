@@ -29,7 +29,7 @@ body{
   color: var(--light-font-color);
   font-size: 2rem;
   position: absolute;
-  top: calc(50px + 5rem + 1rem);
+  top: 11rem;
   left: 20px;
   padding: 1rem;
   max-width: 50rem;
@@ -51,4 +51,30 @@ body{
   width: 100%;
   margin: 0 auto;
   padding-top: 2rem;
+}
+
+/* Responsive styling for screens smaller than 768px */
+@media (max-width: 768px) {
+  .header {
+    font-size: 3rem;
+    margin-top: 5rem;
+  }
+
+  .paragraph {
+    font-size: 1.5rem;
+    top: 7rem;
+  }
+}
+
+/* Very small screens (max-width: 480px) */
+@media (max-width: 480px) {
+  .header {
+    font-size: 2rem;
+    margin-top: 3rem;
+  }
+
+  .paragraph {
+    font-size: 1rem;
+    top: 5rem;
+  }
 }
