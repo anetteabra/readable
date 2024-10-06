@@ -1,3 +1,40 @@
+.Home{
+  position: relative;
+  padding: 20px;
+
+}
+
+body{
+  background-image: url(/susan-q-yin-YQhhlCS9Hto-unsplash-kopi.jpg);
+  background-size: cover;
+  background-repeat: no-repeat;
+  background-position: center;
+  min-height: 100vh;
+  display: flex;
+}
+.header{
+  color: var(--light-font-color);
+  font-weight: bolder;
+  font-size: 5rem;
+  margin-top: 10rem;
+  position: absolute;
+  top: 50px;
+  left: 20px;
+  padding: 1rem;
+  text-align: left;
+  max-width: 50rem;
+}
+
+.paragraph {
+  color: var(--light-font-color);
+  font-size: 2rem;
+  position: absolute;
+  top: 11rem;
+  left: 20px;
+  padding: 1rem;
+  max-width: 50rem;
+}
+
 .root {
   max-width: 1280px;
   margin: 0 auto;
@@ -6,6 +43,7 @@
 }
 
 .controls {
+  position: relative;
   display: flex;
   flex-direction: column;
   align-items: center;
@@ -13,4 +51,56 @@
   width: 100%;
   margin: 0 auto;
   padding-top: 2rem;
+}
+.button {
+  background-color: var(--light-font-color) !important;
+  color: var(--footer-color) !important;
+  padding: 1rem 2rem !important;
+  position: absolute !important;
+  top: 30rem;
+  left: 3rem;
+
+}
+
+.button:hover {
+  background-color: var(--footer-color) !important;
+  color: var(--light-font-color) !important;
+}
+
+/* Responsive styling for screens smaller than 768px */
+@media (max-width: 768px) {
+  .header {
+    font-size: 3rem;
+    margin-top: 5rem;
+  }
+
+  .paragraph {
+    font-size: 1.5rem;
+    top: 6.5rem;
+  }
+
+  .button {
+    top: 20rem;
+    left: 2rem;
+    padding: 0 1rem !important;
+  }
+}
+
+/* Very small screens (max-width: 480px) */
+@media (max-width: 480px) {
+  .header {
+    font-size: 2rem;
+    margin-top: 3rem;
+  }
+
+  .paragraph {
+    font-size: 1rem;
+    top: 5rem;
+  }
+
+  .button {
+    top: 17rem;
+    left: 2rem;
+    padding: 0 1rem !important;
+  }
 }
