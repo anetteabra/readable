@@ -7,6 +7,8 @@
     left: 2rem;
     overflow-x: hidden;
     padding-top: 20px;
+    background-color: var(--light-font-color) !important;
+    color: var(--footer-color) !important;
 }
 
 .sortingSection {
