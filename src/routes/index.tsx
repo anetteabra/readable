@@ -10,7 +10,7 @@ const RouterConfig = () => (
     <div style={{ minHeight: '100vh' }}>
       <Routes>
         <Route index element={<Home />} />
-        <Route path="/new" element={<Page />} />
+        <Route path="/library" element={<Page />} />
         <Route
           path="*"
           element={<h1 style={{ textAlign: 'center' }}>404 Page Not Found</h1>}

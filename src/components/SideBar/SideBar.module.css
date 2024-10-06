@@ -1,0 +1,42 @@
+.sidebar {
+    height: 80%;
+    width: 250px;
+    position: absolute;
+    z-index: 1;
+    top: 10rem;
+    left: 2rem;
+    overflow-x: hidden;
+    padding-top: 20px;
+}
+
+.sortingSection {
+    display: flex;
+    flex-direction: column;
+    text-align: left;
+    margin-top: 1rem;
+    margin-bottom: 2rem;
+}
+
+.filteringSection {
+    display: flex;
+    flex-direction: column;
+    text-align: left;
+    margin-top: 1rem;
+}
+
+.sortingLabel {
+    margin-bottom: 1rem;
+}
+
+.filteringLabel {
+    margin-bottom: 1rem;
+}
+
+.footer {
+    position: absolute;
+    bottom: 0;
+    width: 100%;
+    text-align: left;
+    padding: 1rem;
+    font-size: 0.8rem;
+}
