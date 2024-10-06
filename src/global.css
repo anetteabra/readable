@@ -38,8 +38,13 @@
   --font-geist-sans: "__GeistSans_ac79ff","__GeistSans_Fallback_ac79ff";
 
   --font-color: rgb(44, 44, 44);
+  --light-font-color: rgb(237, 234, 224);
+  --light-font-color-trans: rgba(237, 234, 224, 0.6);
+  --active-light-font-color: rgb(255, 255, 255);
 
   --bg-color: rgb(255, 255, 255);
+
+  --footer-color:rgb(61, 43, 31);
 
   --shadow-color: rgba(0, 0, 0, 0.25);
   --shadow-color-hover: rgba(0, 0, 0, 0.45);
