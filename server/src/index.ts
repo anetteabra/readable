@@ -1,30 +1,25 @@
-/* const { ApolloServer } = require('@apollo/server');
-const { startStandaloneServer } = require('@apollo/server/standalone');
-const { addMocksToSchema } = require('@graphql-tools/mock');
-const { makeExecutableSchema } = require('@graphql-tools/schema'); */
 import { ApolloServer } from '@apollo/server';
 import { startStandaloneServer } from '@apollo/server/standalone';
 import { makeExecutableSchema } from '@graphql-tools/schema';
 import { addMocksToSchema } from '@graphql-tools/mock';
 import typeDefs from './schema';
+import { stopCoverage } from 'v8';
 
-
-/* const typeDefs = require('./schema');  */
 
 const mocks = {
   Query: () => ({
     tracksForHome: () => [...new Array(6)],
   }),
   Book: () => ({
-    id: () => 'track_01',
-    title: () => 'Astro Kitty, Space Explorer',
+    id: () => '_01',
+    title: () => 'Little women',
     author: () => {
       return {
-        name: 'Grumpy Cat',
-        photo: 'https://res.cloudinary.com/dety84pbu/image/upload/v1606816219/kitty-veyron-sm_mctf3c.jpg',
+        name: 'Louisa May Alcott',
+        photo: 'https://upload.wikimedia.org/wikipedia/commons/thumb/8/82/Louisa_May_Alcott%2C_c._1870_-_Warren%27s_Portraits%2C_Boston.jpg/800px-Louisa_May_Alcott%2C_c._1870_-_Warren%27s_Portraits%2C_Boston.jpg',
       };
     },
-    thumbnail: () => 'https://res.cloudinary.com/dety84pbu/image/upload/v1598465568/nebula_cat_djkt9r.jpg',
+    cover: () => 'https://proconian.com/wp-content/uploads/2020/01/littlewomen.png',
     length: () => 1210,
     modulesCount: () => 6,
   }),
