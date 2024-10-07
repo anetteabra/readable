@@ -1,0 +1,24 @@
+.bookList {
+  display: grid; 
+  grid-template-columns: repeat(auto-fill, minmax(180px, 1fr)); /* Responsive columns */
+  gap: 16px; 
+  padding: 16px; 
+}
+
+@media (min-width: 600px) {
+  .bookList {
+    grid-template-columns: repeat(auto-fill, minmax(200px, 1fr)); /* Medium screens */
+  }
+}
+
+@media (min-width: 900px) {
+  .bookList {
+    grid-template-columns: repeat(auto-fill, minmax(220px, 1fr)); /* Larger screens */
+  }
+}
+
+@media (min-width: 1200px) {
+  .bookList {
+    grid-template-columns: repeat(auto-fill, minmax(250px, 1fr)); /* Very large screens */
+  }
+}
