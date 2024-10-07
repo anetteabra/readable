@@ -1,6 +1,7 @@
-
+import React from 'react';
 import BookBox from '@/components/BookBox';
 import styles from './page.module.css';
+import SideBar from '@/components/SideBar';
 import LoadingButton from '@/components/Loading/LoadingButton';
 
 
@@ -10,6 +11,7 @@ const Page: React.FC = () => {
   return (
     <><><div className={styles.root}>
     </div><BookBox></BookBox></>
+        <SideBar />
     <LoadingButton></LoadingButton></>
   );
 };

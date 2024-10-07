@@ -12,7 +12,7 @@ const Navbar = () => {
 
         <div className={styles.linkButtons}> 
           <NavbarLink to="/">HOME</NavbarLink>
-          <NavbarLink to="/new">LIBRARY</NavbarLink>
+          <NavbarLink to="/library">LIBRARY</NavbarLink>
         </div>
         <Input type="input" placeholder="Search" className={styles.searchBar}/>
       </div>
