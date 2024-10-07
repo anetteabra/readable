@@ -7,12 +7,14 @@ const Navbar = () => {
       <Link to="/" className={styles.header}>
         <h1>Readable</h1>
       </Link>
-      
+
       <div className={styles.links}>
+
+        <div className={styles.linkButtons}> 
+          <NavbarLink to="/">HOME</NavbarLink>
+          <NavbarLink to="/library">LIBRARY</NavbarLink>
+        </div>
         <Input type="input" placeholder="Search" className={styles.searchBar}/>
-        
-        <NavbarLink to="/">HOME</NavbarLink>
-        <NavbarLink to="/new">LIBRARY</NavbarLink>
       </div>
     </div>
   );

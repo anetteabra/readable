@@ -23,6 +23,7 @@
 }
 
 .search {
+  background-color: var(--light-font-color);
   flex-grow: 1;
   border: none;
   border-top-right-radius: var(--border-radius);
