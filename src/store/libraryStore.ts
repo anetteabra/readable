@@ -11,7 +11,7 @@ interface LibraryState {
 }
 
 const useLibraryStore = create<LibraryState>((set) => ({
-  sortBy: 'name', // default sorting by name
+  sortBy: 'Title', // default sorting by Title
   filterBy: { available: false, unavailable: false }, // default filter settings
 
   // Actions
