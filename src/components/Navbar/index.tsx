@@ -8,21 +8,26 @@ const Navbar = () => {
   const isHomePage = location.pathname === "/"; // Check if the current page is the home page
 
   return (
-    <div
+    <header
       className={`${styles.navbar} ${isHomePage ? styles.transparentNavbar : ""}`}
     >
       <Link to="/" className={styles.header}>
         <h1>Readable</h1>
       </Link>
 
-      <div className={styles.links}>
+      <nav className={styles.links} aria-label="Main Navigation">
         <div className={styles.linkButtons}>
           <NavbarLink to="/">HOME</NavbarLink>
           <NavbarLink to="/library">LIBRARY</NavbarLink>
         </div>
-        <Input type="input" placeholder="Search" className={styles.searchBar} />
-      </div>
-    </div>
+        <Input
+          type="input"
+          placeholder="Search"
+          className={styles.searchBar}
+          aria-label="Search"
+        />
+      </nav>
+    </header>
   );
 };
 

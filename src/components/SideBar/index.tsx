@@ -47,23 +47,26 @@ const SideBar = () => {
 
         <CardContent className={styles.cardContent}>
           {/* Sorting Section */}
-          <div className={styles.sortingSection}>
+          <section className={styles.sortingSection}>
             <Label className={styles.sortingLabel} htmlFor="sort">
               {" "}
               Sort by:{" "}
             </Label>
             <Select value={sortBy} onValueChange={setSortBy}>
-              <SelectTrigger className={styles.trigger} id="sort"> {sortBy} </SelectTrigger>
+              <SelectTrigger className={styles.trigger} id="sort">
+                {" "}
+                {sortBy}{" "}
+              </SelectTrigger>
               <SelectContent>
                 <SelectItem value="Title"> Title </SelectItem>
                 <SelectItem value="Author"> Author </SelectItem>
-                <SelectItem value="Date"> Popularity </SelectItem>
+                <SelectItem value="Popularity"> Popularity </SelectItem>
               </SelectContent>
             </Select>
-          </div>
+          </section>
 
           {/* Filtering Section */}
-          <div className={styles.filteringSection}>
+          <section className={styles.filteringSection}>
             <Label className={styles.filteringLabel}> Filter by: </Label>
             <div className={styles.filterOptions}>
               <div className={styles.filterItems}>
@@ -83,7 +86,7 @@ const SideBar = () => {
                 <Label htmlFor="unavailable"> Unavailable </Label>
               </div>
             </div>
-          </div>
+          </section>
         </CardContent>
       </Card>
 

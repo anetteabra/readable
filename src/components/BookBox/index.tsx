@@ -19,11 +19,11 @@ const BookBox: React.FC = () => {
   }, []);
 
   return (
-    <div className={styles.bookList}>
+    <section className={styles.bookList}>
       {books.map((book) => (
         <BookCard key={book.id} book={book} />
       ))}
-    </div>
+    </section>
   );
 };
 
