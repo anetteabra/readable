@@ -23,6 +23,7 @@ const SideBar = () => {
 
   const toggleSidebar = () => {
     setIsOpen((prev) => !prev);
+    console.log("sidebar is now", !isOpen ? "open" : "closed");
   };
 
   return (
@@ -38,7 +39,7 @@ const SideBar = () => {
         </button>
       )}
 
-      <Card className={`${styles.sidebar} ${isOpen ? "open" : ""}`}>
+      <Card className={`${styles.sidebar} ${isOpen ? styles.open : ""}`}>
         <CardHeader>
           <CardTitle> Sort and filter your library </CardTitle>
           <CardDescription> Select your preferences below </CardDescription>
@@ -52,7 +53,7 @@ const SideBar = () => {
               Sort by:{" "}
             </Label>
             <Select value={sortBy} onValueChange={setSortBy}>
-              <SelectTrigger id="sort"> {sortBy} </SelectTrigger>
+              <SelectTrigger className={styles.trigger} id="sort"> {sortBy} </SelectTrigger>
               <SelectContent>
                 <SelectItem value="Title"> Title </SelectItem>
                 <SelectItem value="Author"> Author </SelectItem>

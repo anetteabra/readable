@@ -56,19 +56,18 @@
   position: fixed; /* Keep it fixed */
   z-index: 1; /* Ensure it is above other content */
   top: 12rem; /* Position from the top */
+  left: -280px; /* Hide off-screen */
   margin-left: 1rem;
-  transform: translateX(-250px);
   overflow-y: auto; /* Allow scrolling if content overflows */
   padding-top: 15px; /* Padding from the top */
   background-color: var(--light-font-color) !important; /* Background color */
   color: var(--footer-color) !important; /* Text color */
   transition:
-    transform 0.3s ease,
     left 0.3s ease; /* Smooth transition */
 }
 
 .sidebar.open {
-  transform: translateX(0);
+  left: 0;
 }
 
 .sortingSection {
@@ -92,6 +91,10 @@
 
 .filteringLabel {
   margin-bottom: 1rem;
+}
+
+.trigger {
+  border: solid 1px var(--footer-color) !important;
 }
 
 /* Toggle Button Styles */
@@ -118,12 +121,12 @@
 /* Media Queries for Responsiveness */
 @media (max-width: 768px) {
   .sidebar {
-    transform: translateX(-280px); /* Hide off-screen */
+    left: -280px; /* Hide off-screen */
     /* Other properties remain unchanged */
   }
 
   .sidebar.open {
-    transform: translateX(0);
+    left: 0;
   }
 
   .toggleButton {
@@ -134,7 +137,7 @@
 @media (min-width: 769px) {
   .sidebar {
     left: 0; /* Show the sidebar */
-    transform: none;
+
   }
 
   .toggleButton {
