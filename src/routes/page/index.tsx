@@ -9,9 +9,13 @@ const Page: React.FC = () => {
     <>
       {/* <div className={styles.root}></div> */}
       <main className={styles.library}>
-        <BookBox />
+        <aside className={styles.sidebar}>
         <SideBar />
+        </aside>
+        <section className={styles.bookBox}>
+        <BookBox />
         <LoadingButton />
+        </section>
       </main>
     </>
   );
