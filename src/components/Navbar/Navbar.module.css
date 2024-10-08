@@ -1,12 +1,33 @@
 .navbar {
+  background-color: var(--navbar-color);
+  background: linear-gradient(
+    to bottom,
+    var(--navbar-color) 0%,
+    var(--background-color) 99%
+  );
+  border-style: solid;
   width: 100%;
   display: flex;
   justify-content: space-between;
   align-items: center;
-  padding: 0rem 2rem 2rem 2rem;
+  padding: 1rem 2rem 1rem 2rem;
   z-index: 10;
   font-weight: 500;
+}
 
+.transparentNavbar {
+  /* background-color: transparent; */
+  background: linear-gradient(
+    to bottom,
+    rgba(255, 255, 255, 0.3) 0%,
+    rgba(0, 0, 0, 0) 80%
+  );
+  backdrop-filter: blur(1.5px);
+  position: absolute; /* So it overlaps the background image */
+  top: 0;
+  left: 0;
+  width: 100%;
+  z-index: 10;
 }
 
 .header {
@@ -20,7 +41,7 @@
 
 .header h1 {
   font-weight: 700;
-  font-size: 2.25rem;
+  font-size: 2rem;
   color: var(--light-font-color);
   margin: 0;
 }
@@ -33,7 +54,7 @@
 }
 
 .links a {
-  color:var(--light-font-color);
+  color: var(--light-font-color);
   font-size: 1.1rem;
   font-weight: bolder;
   text-decoration: none;
@@ -41,10 +62,10 @@
   padding: 0.25rem 1rem;
   margin: 0.25rem;
   white-space: nowrap;
-  transition: color 0.3s ease text-shadow 0.3s ease;
+  transition: all 0.3s ease;
 
   &:hover {
-    color: var(--footer-color);
+    color: var(--background-color);
     text-shadow: 0 0 0.5rem var(--active-light-font-color);
   }
 }
@@ -54,12 +75,11 @@
   text-shadow: 0 0 0.5rem var(--active-light-font-color);
 }
 
-.searchBar{
-  width: 100% !important; 
+.searchBar {
+  width: 100% !important;
   padding-right: 3rem !important;
   margin: 0.05rem 3rem !important;
   background-color: var(--light-font-color-trans) !important;
-
 }
 
 /* Responsive styling for screens smaller than 768px */
@@ -68,8 +88,8 @@
   .navbar {
     flex-direction: column;
     align-items: flex-start;
-    padding: 1rem;
-    position: relative; /* Allows for absolute positioning of search bar */
+    padding: 1rem 1rem 4rem 1rem;
+    position: absolute; /* So it overlaps the background image */
   }
 
   .header {
@@ -86,12 +106,12 @@
   /* Keep 'Readable' for larger screens */
   @media (min-width: 769px) {
     .header h1 {
-      content: 'Readable';
+      content: "Readable";
     }
   }
 
   .header::after {
-    content: 'R';
+    content: "R";
     display: block;
     font-size: 2.25rem;
     color: var(--light-font-color);

@@ -1,44 +1,143 @@
-.sidebar {
-    height: 80%;
-    width: 250px;
+/* .sidebar {
+  height: 80%;
+  width: 250px;
+  position: absolute;
+  z-index: 1;
+  top: 7rem;
+  left: 2rem;
+  overflow-x: hidden;
+  padding-top: 20px;
+  background-color: var(--light-font-color) !important;
+  color: var(--footer-color) !important;
+  transition: width 0.3s ease, transform 0.3s ease; 
+}
+
+.sidebar.open {
+  transform: translateX(250px); /* Bring into view when open */
+
+/* Responsive styles */
+/* @media (max-width: 768px) {
+  .toggleButton {
+    display: block; 
     position: absolute;
-    z-index: 1;
-    top: 10rem;
+    top: 1rem;
     left: 2rem;
-    overflow-x: hidden;
-    padding-top: 20px;
-    background-color: var(--light-font-color) !important;
-    color: var(--footer-color) !important;
+    z-index: 2;
+    background-color: var(--footer-color);
+    color: var(--light-font-color);
+    padding: 0.5rem 1rem;
+    border: none;
+    cursor: pointer;
+    border-radius: 5px;
+  }
+}
+
+.toggleButton:hover {
+  background-color: var(--active-light-font-color);
+}
+ */
+
+/* Responsive styles */
+/* @media (max-width: 768px) {
+  .sidebar {
+    width: 200px; 
+    transform: translateX(-100%);
+  }
+
+  .sidebar.open {
+    transform: translateX(0);
+  }
+} */
+
+/* Sidebar Styles */
+.sidebar {
+  height: 30rem; /* Set the height of the sidebar */
+  width: 250px; /* Fixed width for the sidebar */
+  position: fixed; /* Keep it fixed */
+  z-index: 1; /* Ensure it is above other content */
+  top: 12rem; /* Position from the top */
+  margin-left: 1rem;
+  transform: translateX(-250px);
+  overflow-y: auto; /* Allow scrolling if content overflows */
+  padding-top: 15px; /* Padding from the top */
+  background-color: var(--light-font-color) !important; /* Background color */
+  color: var(--footer-color) !important; /* Text color */
+  transition:
+    transform 0.3s ease,
+    left 0.3s ease; /* Smooth transition */
+}
+
+.sidebar.open {
+  transform: translateX(0);
 }
 
 .sortingSection {
-    display: flex;
-    flex-direction: column;
-    text-align: left;
-    margin-top: 1rem;
-    margin-bottom: 2rem;
+  display: flex;
+  flex-direction: column;
+  text-align: left;
+  margin-top: 1rem;
+  margin-bottom: 2rem;
 }
 
 .filteringSection {
-    display: flex;
-    flex-direction: column;
-    text-align: left;
-    margin-top: 1rem;
+  display: flex;
+  flex-direction: column;
+  text-align: left;
+  margin-top: 1rem;
 }
 
 .sortingLabel {
-    margin-bottom: 1rem;
+  margin-bottom: 1rem;
 }
 
 .filteringLabel {
-    margin-bottom: 1rem;
+  margin-bottom: 1rem;
 }
 
-.footer {
-    position: absolute;
-    bottom: 0;
-    width: 100%;
-    text-align: left;
-    padding: 1rem;
-    font-size: 0.8rem;
+/* Toggle Button Styles */
+.toggleButton {
+  background-color: var(--footer-color); /* Background color for contrast */
+  color: var(--light-font-color); /* Text color */
+  border: none; /* No border */
+  border-radius: 5px; /* Rounded corners */
+  padding: 10px 15px; /* Padding */
+  cursor: pointer; /* Pointer on hover */
+  position: fixed; /* Fix position */
+  top: 8rem; /* Position from the top */
+  left: 1rem; /* Align with sidebar */
+  z-index: 10; /* Above the sidebar */
+  transition: background-color 0.3s ease; /* Transition effect */
+}
+
+/* Hover effect for the toggle button */
+.toggleButton:hover {
+  background-color: var(--active-light-font-color);
+  color: (var(--background-color));
+}
+
+/* Media Queries for Responsiveness */
+@media (max-width: 768px) {
+  .sidebar {
+    transform: translateX(-280px); /* Hide off-screen */
+    /* Other properties remain unchanged */
+  }
+
+  .sidebar.open {
+    transform: translateX(0);
+  }
+
+  .toggleButton {
+    display: block; /* Show toggle button */
+  }
+}
+
+@media (min-width: 769px) {
+  .sidebar {
+    left: 0; /* Show the sidebar */
+    transform: none;
+  }
+
+  .toggleButton {
+    display: none; /* Hide toggle button on larger screens */
+  }
 }

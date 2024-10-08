@@ -1,25 +1,20 @@
-.Home{
+.Home {
   position: relative;
   padding: 20px;
-
-}
-
-body{
   background-image: url(/susan-q-yin-YQhhlCS9Hto-unsplash-kopi.jpg);
   background-size: cover;
   background-repeat: no-repeat;
   background-position: center;
   min-height: 100vh;
-  display: flex;
 }
-.header{
+
+.header {
   color: var(--light-font-color);
   font-weight: bolder;
   font-size: 5rem;
-  margin-top: 10rem;
-  position: absolute;
-  top: 50px;
-  left: 20px;
+  margin-top: 6rem;
+  margin-left: 0;
+  position: relative;
   padding: 1rem;
   text-align: left;
   max-width: 50rem;
@@ -28,25 +23,25 @@ body{
 .paragraph {
   color: var(--light-font-color);
   font-size: 2rem;
-  position: absolute;
-  top: 11rem;
-  left: 20px;
+  position: relative;
+  margin-top: 0rem;
   padding: 1rem;
   max-width: 50rem;
+  text-align: left;
 }
 
-.root {
+/* .root {
   max-width: 1280px;
   margin: 0 auto;
   padding: 2rem;
   text-align: center;
-}
+} */
 
 .controls {
   position: relative;
   display: flex;
   flex-direction: column;
-  align-items: center;
+  align-items: flex-start;
   gap: 1rem;
   width: 100%;
   margin: 0 auto;
@@ -56,10 +51,9 @@ body{
   background-color: var(--light-font-color) !important;
   color: var(--footer-color) !important;
   padding: 1rem 2rem !important;
-  position: absolute !important;
-  top: 30rem;
-  left: 3rem;
-
+  position: relative !important;
+  margin-top: 1rem !important;
+  text-align: left !important;
 }
 
 .button:hover {
@@ -71,17 +65,17 @@ body{
 @media (max-width: 768px) {
   .header {
     font-size: 3rem;
-    margin-top: 5rem;
+    margin-top: 10rem;
   }
 
   .paragraph {
     font-size: 1.5rem;
-    top: 6.5rem;
+    margin-top: 0rem;
   }
 
   .button {
-    top: 20rem;
-    left: 2rem;
+    top: 10rem;
+    left: 0;
     padding: 0 1rem !important;
   }
 }
@@ -90,17 +84,18 @@ body{
 @media (max-width: 480px) {
   .header {
     font-size: 2rem;
-    margin-top: 3rem;
+    margin-top: 7rem;
   }
 
   .paragraph {
     font-size: 1rem;
-    top: 5rem;
+    top: -2rem;
+    left: 0;
   }
 
   .button {
-    top: 17rem;
-    left: 2rem;
+    top: 1rem;
+    left: 0;
     padding: 0 1rem !important;
   }
 }
