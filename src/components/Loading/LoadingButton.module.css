@@ -1,0 +1,10 @@
+.LoadingButton {
+  background-color: #8b622cca !important;
+  color: white !important;
+  margin-bottom: 16px;
+  border: none !important;
+}
+
+.LoadingButton:hover {
+  background-color: #805b2d !important;
+}

@@ -1,7 +1,7 @@
-import axios from 'axios';
+import axios from "axios";
 
-const API_KEY = '';
-const BASE_URL = 'https://api';
+const API_KEY = "";
+const BASE_URL = "https://api";
 
 export const fetchMovies = async () => {
   const response = await axios.get(`${BASE_URL}`, {
