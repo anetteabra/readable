@@ -1,5 +1,11 @@
-import { Card, CardContent, CardDescription, CardHeader, CardTitle } from "../ui/card";
-import styles from './BookCard.module.css';
+import {
+  Card,
+  CardContent,
+  CardDescription,
+  CardHeader,
+  CardTitle,
+} from "../ui/card";
+import styles from "./BookCard.module.css";
 
 // Can change the params when database is up
 export interface Book {
@@ -19,7 +25,9 @@ export default function BookCard({ book }: BookCardProps) {
     <Card className={styles.bookCard}>
       <CardHeader className={styles.bookCardHeader}>
         <CardTitle className={styles.bookCardTitle}>{book.title}</CardTitle>
-        <CardDescription className={styles.bookCardAuthor}>by {book.author}</CardDescription>
+        <CardDescription className={styles.bookCardAuthor}>
+          by {book.author}
+        </CardDescription>
       </CardHeader>
       <CardContent className={styles.bookCardContent}>
         <img

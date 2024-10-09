@@ -1,4 +1,4 @@
-import { create } from 'zustand';
+import { create } from "zustand";
 
 interface LibraryState {
   sortBy: string;
@@ -7,21 +7,22 @@ interface LibraryState {
     unavailable: boolean;
   };
   setSortBy: (sortBy: string) => void;
-  toggleFilter: (filter: 'available' | 'unavailable') => void;
+  toggleFilter: (filter: "available" | "unavailable") => void;
 }
 
 const useLibraryStore = create<LibraryState>((set) => ({
-  sortBy: 'Title', // default sorting by Title
+  sortBy: "Title", // default sorting by Title
   filterBy: { available: false, unavailable: false }, // default filter settings
 
   // Actions
   setSortBy: (sortBy) => set({ sortBy }),
-  toggleFilter: (filter) => set((state) => ({
-    filterBy: {
-      ...state.filterBy,
-      [filter]: !state.filterBy[filter],
-    },
-  })),
+  toggleFilter: (filter) =>
+    set((state) => ({
+      filterBy: {
+        ...state.filterBy,
+        [filter]: !state.filterBy[filter],
+      },
+    })),
 }));
 
 export default useLibraryStore;
