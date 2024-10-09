@@ -1,0 +1,21 @@
+
+.trigger {
+    font-weight: bold;
+    font-size: large;
+}
+
+.content{
+    /*Finn ut av hvorfor denne ikke vil endre på hele greia*/
+}
+
+.nameField{
+    margin-top: 5%;
+}
+
+.textField{
+    margin-top: 5%;
+}
+
+.submit{
+    margin-top: 5%;
+}
