@@ -14,7 +14,7 @@ const ReviewPopUp = () => {
   <PopoverTrigger className ={styles.trigger}>Give review</PopoverTrigger>
   <PopoverContent className= {styles.content}> Give a review on this book!
     <Input placeholder="Name" className={styles.nameField}/>
-    <p> <br></br>
+    <p> <br></br> {/* bad practice, change before finishing */}
         How many stars for this book?
         <br></br>
         * * * * {/* under construction */}
