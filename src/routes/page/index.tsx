@@ -8,16 +8,21 @@ import { Link } from 'react-router-dom';
 
 
 const Page: React.FC = () => {
-
-  
   return (
-    <><><div className={styles.root}>
-    </div><BookBox></BookBox></>
-        <SideBar />
+    <>
+      <main className={styles.library}>
+        <aside className={styles.sidebar} aria-label="Sidebar">
+          <SideBar />
         <Link to="/details">
           <Button >Go to details page</Button>
         </Link>
-    <LoadingButton></LoadingButton></>
+        </aside>
+        <section className={styles.bookBox} aria-label="Book List">
+          <BookBox />
+          <LoadingButton />
+        </section>
+      </main>
+    </>
   );
 };
 
