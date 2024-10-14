@@ -1,6 +1,7 @@
 import styles from "./Home.module.css";
 import { Button } from "@/components/ui/button";
 import { Link } from "react-router-dom";
+import BookBook from '@/components/Book/book';
 
 const Home = () => {
   return (
@@ -17,6 +18,9 @@ const Home = () => {
           <Button className={styles.button}>Go to your library</Button>
         </Link>
       </main>
+      <div className={styles.mockBookContainer}>
+        <BookBook/>
+      </div>
     </>
   );
 };
