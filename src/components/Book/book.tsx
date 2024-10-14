@@ -1,23 +1,6 @@
 import { useQuery, gql } from '@apollo/client';
-import { GetBooksData, Book } from '../../queries';
+import { GetBooksData, Book, GET_BOOKS } from '../../queries';
 import './book.css'; // Import the CSS file
-
-// GraphQL query to fetch books
-const GET_BOOKS = gql`
-  query GetBooks {
-    books {
-      id
-      title
-      cover
-      length
-      modulesCount
-      author {
-        name
-        photo
-      }
-    }
-  }
-`;
 
 // React component to display books
 function Books() {
