@@ -1,3 +1,4 @@
+import { Link } from "react-router-dom";
 import {
   Card,
   CardContent,
@@ -22,6 +23,7 @@ interface BookCardProps {
 
 export default function BookCard({ book }: BookCardProps) {
   return (
+    <Link to={`/details/${book.id}`} className={styles.bookCardLink}>
     <Card className={styles.bookCard}>
       <CardHeader className={styles.bookCardHeader}>
         <CardTitle className={styles.bookCardTitle}>{book.title}</CardTitle>
@@ -40,5 +42,6 @@ export default function BookCard({ book }: BookCardProps) {
         <p className={styles.bookCardDescription}>{book.description}</p>
       </CardContent>
     </Card>
+    </Link>
   );
 }

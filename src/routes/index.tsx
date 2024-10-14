@@ -12,7 +12,8 @@ const RouterConfig = () => (
       <Routes>
         <Route index element={<Home />} />
         <Route path="/library" element={<Page />} />
-        <Route path="/details" element={<Details />}/>
+        {/* <Route path="/details" element={<Details />}/> */}
+        <Route path="/details/:id" element={<Details />} />
         <Route
           path="*"
           element={<h1 style={{ textAlign: "center" }}>404 Page Not Found</h1>}
