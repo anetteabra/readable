@@ -30,6 +30,10 @@ export interface Book {
   modulesCount: number;
 }
 
+export interface BookCardProps {
+  book: Book;
+} 
+
 export interface GetBooksData {
   books: Book[];  // Change from tracksForHome to books
 }
