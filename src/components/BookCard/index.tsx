@@ -24,24 +24,24 @@ interface BookCardProps {
 export default function BookCard({ book }: BookCardProps) {
   return (
     <Link to={`/details/${book.id}`} className={styles.bookCardLink}>
-    <Card className={styles.bookCard}>
-      <CardHeader className={styles.bookCardHeader}>
-        <CardTitle className={styles.bookCardTitle}>{book.title}</CardTitle>
-        <CardDescription className={styles.bookCardAuthor}>
-          by {book.author}
-        </CardDescription>
-      </CardHeader>
-      <CardContent className={styles.bookCardContent}>
-        <img
-          className={styles.bookImage}
-          src={book.image}
-          alt={`${book.title} cover`}
-          width="150"
-          height="200"
-        />
-        <p className={styles.bookCardDescription}>{book.description}</p>
-      </CardContent>
-    </Card>
+      <Card className={styles.bookCard}>
+        <CardHeader className={styles.bookCardHeader}>
+          <CardTitle className={styles.bookCardTitle}>{book.title}</CardTitle>
+          <CardDescription className={styles.bookCardAuthor}>
+            by {book.author}
+          </CardDescription>
+        </CardHeader>
+        <CardContent className={styles.bookCardContent}>
+          <img
+            className={styles.bookImage}
+            src={book.image}
+            alt={`${book.title} cover`}
+            width="150"
+            height="200"
+          />
+          <p className={styles.bookCardDescription}>{book.description}</p>
+        </CardContent>
+      </Card>
     </Link>
   );
 }

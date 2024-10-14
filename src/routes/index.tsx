@@ -3,7 +3,7 @@ import Navbar from "../components/Navbar";
 import Footer from "../components/Footer";
 import Home from "./home";
 import Page from "./page";
-import Details from './details';
+import Details from "./details";
 
 const RouterConfig = () => (
   <div data-testid="auth-wrapper">

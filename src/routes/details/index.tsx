@@ -1,9 +1,9 @@
-import React, { useEffect, useState } from 'react';
-import { useParams } from 'react-router-dom';
+import React, { useEffect, useState } from "react";
+import { useParams } from "react-router-dom";
 import ReviewList from "@/components/ReviewList";
 import ReviewPopUp from "../../components/ReviewPopUp";
 import { fetchBooksFromMockData } from "../../components/BookBox/SimulateBookApi"; // Simulert API for å hente bokdata
-import styles from './Details.module.css';
+import styles from "./Details.module.css";
 
 interface Book {
   id: number;
@@ -29,11 +29,11 @@ const Details: React.FC = () => {
   }, [id]);
 
   if (loading) {
-    return <div>Loading book details...</div>; 
+    return <div>Loading book details...</div>;
   }
 
   if (!book) {
-    return <div>Book not found</div>; 
+    return <div>Book not found</div>;
   }
 
   return (
@@ -43,7 +43,9 @@ const Details: React.FC = () => {
           <img src={book.image} alt={book.title} className={styles.bookImage} />
           <div className={styles.bookInfo}>
             <h1>{book.title}</h1>
-            <p><strong>Author:</strong> {book.author}</p>
+            <p>
+              <strong>Author:</strong> {book.author}
+            </p>
             <p>{book.description}</p>
           </div>
         </section>
