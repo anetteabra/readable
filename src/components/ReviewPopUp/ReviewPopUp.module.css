@@ -1,10 +1,13 @@
 .trigger {
-  font-weight: bold;
-  font-size: large;
-}
-
-.content {
-  /*Finn ut av hvorfor denne ikke vil endre på hele greia*/
+  padding: 10px 15px;
+  background-color: beige;
+  color: black;
+  border: none;
+  border-radius: 5px;
+  cursor: pointer;
+  transition: background-color 0.3s;
+  font-size: 16px;
+  text-align: center;
 }
 
 .nameField {
@@ -17,4 +20,10 @@
 
 .submit {
   margin-top: 5%;
+}
+
+.starsContainer {
+  display: flex;
+  justify-content: center;
+  align-items: center;
 }

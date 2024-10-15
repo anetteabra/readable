@@ -7,6 +7,19 @@ import styles from "./ReviewPopUp.module.css";
 import { Input } from "../ui/input";
 import { Textarea } from "../ui/textarea";
 import { Button } from "../ui/button";
+import { FaStar } from "react-icons/fa";
+
+const stars = 4;
+
+const renderStars = () => {
+  return (
+    <div className={styles.starsContainer}>
+      {[...Array(5)].map((_, index) => (
+        <FaStar key={index} color={index < stars ? "#ffc107" : "#e4e5e9"} />
+      ))}
+    </div>
+  );
+};
 
 const ReviewPopUp = () => {
   return (
@@ -16,12 +29,8 @@ const ReviewPopUp = () => {
         {" "}
         Give a review on this book!
         <Input placeholder="Name" className={styles.nameField} />
-        <p>
-          {" "}
-          <br></br> {/* bad practice, change before finishing */}
-          How many stars for this book?
-          <br></br>* * * * {/* under construction */}
-        </p>
+        <p>How many stars for this book?</p>
+        {renderStars()}
         <Textarea
           placeholder="Please leave a comment with your thoughts on this book"
           className={styles.textField}
