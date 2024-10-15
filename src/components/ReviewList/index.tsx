@@ -1,57 +1,71 @@
+import React from "react";
 import { ScrollArea } from "@/components/ui/scroll-area";
 import { Separator } from "@/components/ui/separator";
-import Comment from "../ReviewComment";
+import Comment from "../ReviewComment"; // Import your Comment component
 
 const reviews = [
-  // just for testing purposes
   {
-    author: "John Doe",
-    content: "Excellent book, highly recommended!",
-    date: "2024-01-12",
+    name: "John Doe",
+    stars: 5,
+    comment: "Excellent book, highly recommended!",
   },
   {
-    author: "Jane Smith",
-    content: "Very insightful, but some chapters were too long.",
-    date: "2024-01-10",
+    name: "Jane Smith",
+    stars: 4,
+    comment: "Very insightful, but some chapters were too long.",
   },
   {
-    author: "Mark Wilson",
-    content: "Not as engaging as I hoped.",
-    date: "2024-01-08",
+    name: "Mark Wilson",
+    stars: 3,
+    comment: "Not as engaging as I hoped.",
   },
   {
-    author: "Alice Johnson",
-    content: "Good read, but could be shorter.",
-    date: "2024-01-05",
+    name: "Alice Johnson",
+    stars: 4,
+    comment: "Good read, but could be shorter.",
   },
   {
-    author: "Bob Brown",
-    content: "A must-read for anyone interested in the subject!",
-    date: "2024-01-03",
+    name: "Bob Brown",
+    stars: 5,
+    comment: "A must-read for anyone interested in the subject!",
   },
 ];
 
 const ReviewList: React.FC = () => {
   return (
     <ScrollArea
-      // need to redo this, do not use tailwind
-      // also, style it nicer, it looks boring now
+      // still need to redo this
       style={{
-        height: "150px",
-        width: "250px",
-        border: "1px solid black",
+        height: "300px",
+        width: "400px",
+        border: "1px solid #ccc",
+        borderRadius: "8px",
+        padding: "16px",
+        backgroundColor: "#f9f9f9",
+        boxShadow: "0px 4px 8px rgba(0, 0, 0, 0.1)",
         overflowY: "auto",
       }}
     >
-      <h1>List of reviews</h1>
+      <h1
+        style={{
+          textAlign: "center",
+          marginBottom: "16px",
+          fontSize: "18px",
+          color: "#333",
+        }}
+      >
+        List of Reviews
+      </h1>
       {reviews.map((review, index) => (
         <div key={index}>
           <Comment
-            author={review.author}
-            content={review.content}
-            date={review.date}
+            name={review.name}
+            stars={review.stars}
+            comment={review.comment}
           />
-          {index < reviews.length - 1 && <Separator className="my-4" />}
+          {index < reviews.length - 1 && (
+            <Separator style={{ margin: "16px 0" }} />
+          )}
         </div>
       ))}
     </ScrollArea>
