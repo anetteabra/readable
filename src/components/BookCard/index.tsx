@@ -6,8 +6,7 @@ import {
   CardTitle,
 } from "../ui/card";
 import styles from "./BookCard.module.css";
-import {BookCardProps} from '../../queries';
-
+import { BookCardProps } from "../../queries";
 
 // Can change the params when database is up
 /* export interface Book {
@@ -23,7 +22,6 @@ import {BookCardProps} from '../../queries';
 }  */
 
 export default function BookCard({ book }: BookCardProps) {
-
   return (
     <Card className={styles.bookCard}>
       <CardHeader className={styles.bookCardHeader}>

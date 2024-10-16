@@ -1,4 +1,4 @@
-import { gql } from '@apollo/client';
+import { gql } from "@apollo/client";
 
 // Define the GraphQL query
 export const GET_BOOKS = gql`
@@ -32,8 +32,8 @@ export interface Book {
 
 export interface BookCardProps {
   book: Book;
-} 
+}
 
 export interface GetBooksData {
-  books: Book[];  // Change from tracksForHome to books
+  books: Book[]; // Change from tracksForHome to books
 }

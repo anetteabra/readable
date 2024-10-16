@@ -4,7 +4,7 @@ Readable is a webpage where you can view and search for your favorite books. Rig
 
 Further plans include having a details page for each book, where the user can find more details about each book, and give it a review and rating. The plan is to also display all the reviews for that book. The group is also currently working on the backend side of the project. The server is up and running, and currently the group is working on connecting the backend and frontend. Next steps will also include setting up the database and connecting this.
 
-## Link to virtual machine 
+## Link to virtual machine
 
 http://it2810-34.idi.ntnu.no/project2
 
@@ -13,10 +13,13 @@ http://it2810-34.idi.ntnu.no/project2
 ### From VS Code
 
 1. Build the project:
+
 ```sh
     npm run build
 ```
+
 2.
+
 ```sh
     scp -r dist yourusername@it2810-34.idi.ntnu.no:/tmp/
 ```
@@ -24,23 +27,27 @@ http://it2810-34.idi.ntnu.no/project2
 ### From Terminal on PC
 
 1.
+
 ```sh
     ssh yourusername@it2810-34.idi.ntnu.no
 ```
 
 2.
+
 ```sh
     sudo rm -r /var/www/html/project2
 ```
 
-
 1.
+
 ```sh
     sudo mv /tmp/dist /var/www/html/project2
 ```
 
 ## Features
+
 What we have now, and what is the plan ahead…
+
 - **List view of books**: List view showcasing books for easy browsing.
 - **Search Functionality**: Search for books using keywords.
 - **Sorting Options**: Sort books.
@@ -51,7 +58,8 @@ What we have now, and what is the plan ahead…
 Additionally, we've implemented a responsive design that makes most features adaptable to various screen sizes. The testing of responsive design was done in Google Chrome (by changing the dimensions). It is also tested on mobile phone using the vm.
 
 ## Installation and Usage
-First, clone the repo in your preferred way. 
+
+First, clone the repo in your preferred way.
 
 1. **Install dependencies**:
 
@@ -69,21 +77,26 @@ First, clone the repo in your preferred way.
    Open your browser and go to http://localhost:5173/project2
 
 ### To run the server
+
 1. **To run the server go into the server folder**:
-The server is up and running, but currently not connected to anything. 
+   The server is up and running, but currently not connected to anything.
 
    ```sh
    cd server
    ```
+
 2. **Start the server**:
-    ```sh
-    npm run start
-    ```
+   ```sh
+   npm run start
+   ```
+
 ## Testing
-For the testing of the web application vitest is going to be used, to write component tests and snapshot tests. For end to end testing, cypress is going to be utilized. At this point, we do not have any tests, but the plan is to implement some tests as soon as possible. 
- 
+
+For the testing of the web application vitest is going to be used, to write component tests and snapshot tests. For end to end testing, cypress is going to be utilized. At this point, we do not have any tests, but the plan is to implement some tests as soon as possible.
+
 ### Web accessibility
-Focus on readability of the web page, and having appropriate html tags and aria-labels. Also ensuring the page is intuitive and logical. 
+
+Focus on readability of the web page, and having appropriate html tags and aria-labels. Also ensuring the page is intuitive and logical.
 When running google lighthouse the scores are good but they also show room for improvement.
 
 ## To lint your code, run:
@@ -99,7 +112,9 @@ npx prettier --write .
 ```
 
 ## Run tests with vitest
-For running the test, when implemented, use: 
+
+For running the test, when implemented, use:
+
 ```sh
 npm run test
 ```
