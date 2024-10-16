@@ -9,13 +9,13 @@
   padding: 16px;
 }
 
-.loadingMessage{
+.loadingMessage {
   font-size: 1.5rem;
   color: var(--light-font-color);
   margin-top: 2rem;
 }
 
-.errorMessage{
+.errorMessage {
   font-size: 1.5rem;
   color: var(--light-font-color);
   margin-top: 2rem;

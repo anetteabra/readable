@@ -11,16 +11,17 @@ const queryClient = new QueryClient();
 
 ReactDOM.createRoot(document.getElementById("root")!).render(
   <React.StrictMode>
-    <ApolloProvider client={client}> {/* Wrap your app with ApolloProvider */}
+    <ApolloProvider client={client}>
+      {" "}
+      {/* Wrap your app with ApolloProvider */}
       <QueryClientProvider client={queryClient}>
         <BrowserRouter basename="/project2">
           <RouterConfig />
         </BrowserRouter>
       </QueryClientProvider>
     </ApolloProvider>
-  </React.StrictMode>
+  </React.StrictMode>,
 );
-
 
 // import React from "react";
 // import ReactDOM from "react-dom/client";
