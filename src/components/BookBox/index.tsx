@@ -8,8 +8,8 @@ const BookBox: React.FC = () => {
 
   const { loading, error, data } = useQuery<GetBooksData>(GET_BOOKS);
 
-  if (loading) return <p>Loading...</p>;
-  if (error) return <p>Error: {error.message}</p>;
+  if (loading) return <p className={styles.loadingMessage}>Loading...</p>;
+  if (error) return <p className={styles.errorMessage}>Error: {error.message}</p>;
 
   return (
     <section className={styles.bookList}>
