@@ -1,4 +1,4 @@
-import { useQuery, gql } from '@apollo/client';
+import { useQuery } from '@apollo/client';
 import { GetBooksData, Book, GET_BOOKS } from '../../queries';
 import './book.css'; // Import the CSS file
 
