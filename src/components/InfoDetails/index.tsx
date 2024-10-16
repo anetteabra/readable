@@ -1,4 +1,4 @@
-import styles from "./InfoDetails.module.css"; 
+import styles from "./InfoDetails.module.css";
 
 interface Book {
   id: number;
@@ -8,9 +8,8 @@ interface Book {
   image: string;
 }
 
-
 interface InfoDetailsProps {
-  book: Book; 
+  book: Book;
 }
 
 const InfoDetails: React.FC<InfoDetailsProps> = ({ book }) => {
@@ -18,11 +17,17 @@ const InfoDetails: React.FC<InfoDetailsProps> = ({ book }) => {
     <section className={styles.bookDetails}>
       <img src={book.image} alt={book.title} className={styles.bookImage} />
       <div className={styles.bookInfo}>
-        <h1> <strong>Title:</strong> {book.title}</h1>
+        <h1>
+          {" "}
+          <strong>Title:</strong> {book.title}
+        </h1>
         <p>
           <strong>Author:</strong> {book.author}
         </p>
-        <p> <strong>Description:</strong> {book.description}</p>
+        <p>
+          {" "}
+          <strong>Description:</strong> {book.description}
+        </p>
       </div>
     </section>
   );

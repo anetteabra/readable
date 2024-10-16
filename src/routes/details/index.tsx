@@ -2,7 +2,7 @@ import React, { useEffect, useState } from "react";
 import { useParams } from "react-router-dom";
 import ReviewList from "@/components/ReviewList";
 import ReviewPopUp from "../../components/ReviewPopUp";
-import { fetchBooksFromMockData } from "../../components/BookBox/SimulateBookApi"; 
+import { fetchBooksFromMockData } from "../../components/BookBox/SimulateBookApi";
 import styles from "./Details.module.css";
 import InfoDetails from "@/components/InfoDetails";
 
@@ -40,8 +40,8 @@ const Details: React.FC = () => {
   return (
     <>
       <main className={styles.detailsPage}>
-      <InfoDetails book={book} /> 
-        <ReviewList /> 
+        <InfoDetails book={book} />
+        <ReviewList />
         <ReviewPopUp />
       </main>
     </>
