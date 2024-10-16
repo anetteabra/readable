@@ -2,8 +2,9 @@ import React, { useEffect, useState } from "react";
 import { useParams } from "react-router-dom";
 import ReviewList from "@/components/ReviewList";
 import ReviewPopUp from "../../components/ReviewPopUp";
-import { fetchBooksFromMockData } from "../../components/BookBox/SimulateBookApi"; // Simulert API for å hente bokdata
+import { fetchBooksFromMockData } from "../../components/BookBox/SimulateBookApi"; 
 import styles from "./Details.module.css";
+import InfoDetails from "@/components/InfoDetails";
 
 interface Book {
   id: number;
@@ -39,18 +40,9 @@ const Details: React.FC = () => {
   return (
     <>
       <main className={styles.detailsPage}>
-        <section className={styles.bookDetails}>
-          <img src={book.image} alt={book.title} className={styles.bookImage} />
-          <div className={styles.bookInfo}>
-            <h1>{book.title}</h1>
-            <p>
-              <strong>Author:</strong> {book.author}
-            </p>
-            <p>{book.description}</p>
-          </div>
-        </section>
+      <InfoDetails book={book} /> 
+        <ReviewList /> 
         <ReviewPopUp />
-        <ReviewList />
       </main>
     </>
   );

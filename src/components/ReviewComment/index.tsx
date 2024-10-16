@@ -20,7 +20,7 @@ const renderStars = (stars: number) => {
 
 export const Comment = ({ name, stars, comment }: CommentProps) => {
   return (
-    <Card>
+    <Card className={styles.CardContainer}>
       <CardHeader>
         <CardTitle>{name}</CardTitle>
       </CardHeader>

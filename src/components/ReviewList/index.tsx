@@ -1,7 +1,8 @@
 import React from "react";
 import { ScrollArea } from "@/components/ui/scroll-area";
 import { Separator } from "@/components/ui/separator";
-import Comment from "../ReviewComment"; // Import your Comment component
+import Comment from "../ReviewComment"; 
+import styles from "./ReviewList.module.css"; 
 
 const reviews = [
   {
@@ -33,29 +34,8 @@ const reviews = [
 
 const ReviewList: React.FC = () => {
   return (
-    <ScrollArea
-      // still need to redo this
-      style={{
-        height: "300px",
-        width: "400px",
-        border: "1px solid #ccc",
-        borderRadius: "8px",
-        padding: "16px",
-        backgroundColor: "#f9f9f9",
-        boxShadow: "0px 4px 8px rgba(0, 0, 0, 0.1)",
-        overflowY: "auto",
-      }}
-    >
-      <h1
-        style={{
-          textAlign: "center",
-          marginBottom: "16px",
-          fontSize: "18px",
-          color: "#333",
-        }}
-      >
-        List of Reviews
-      </h1>
+    <ScrollArea className={styles.scrollArea}>
+      <h1 className={styles.title}>Reviews of this book</h1>
       {reviews.map((review, index) => (
         <div key={index}>
           <Comment
@@ -64,7 +44,7 @@ const ReviewList: React.FC = () => {
             comment={review.comment}
           />
           {index < reviews.length - 1 && (
-            <Separator style={{ margin: "16px 0" }} />
+            <Separator className={styles.separator} />
           )}
         </div>
       ))}

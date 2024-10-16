@@ -1,7 +1,7 @@
 .trigger {
   padding: 10px 15px;
-  background-color: beige;
-  color: black;
+  background-color: var(--background-color);
+  color: beige;
   border: none;
   border-radius: 5px;
   cursor: pointer;

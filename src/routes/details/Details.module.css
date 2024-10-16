@@ -1,3 +1,13 @@
 .detailsPage {
-  background-color: var(--background-color);
+  padding: 20px;
+  display: grid;
+  grid-template-columns: 1fr 1fr; /* To kolonner med lik størrelse */
+  gap: 20px; /* Space between grid items */
+  background-color: var(--light-font-color-trans);
+}
+
+@media (max-width: 768px) {
+  .detailsPage {
+    grid-template-columns: 1fr; /* En kolonne på små skjermer */
+  }
 }
