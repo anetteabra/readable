@@ -43,8 +43,8 @@ const Details: React.FC = () => {
       </section>
       <section className={styles.reviewsSection}>
         <ReviewList />
-        </section>
-        <ReviewPopUp />
+      </section>
+      <ReviewPopUp />
     </main>
   );
 };
