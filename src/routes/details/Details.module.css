@@ -3,6 +3,9 @@
   display: grid;
   grid-template-columns: 1fr 1fr; /* To kolonner med lik størrelse */
   gap: 20px; /* Space between grid items */
+}
+
+:root{
   background-color: var(--light-font-color-trans);
 }
 

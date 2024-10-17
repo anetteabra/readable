@@ -3,8 +3,8 @@ import { useParams } from "react-router-dom";
 import ReviewList from "@/components/ReviewList";
 import ReviewPopUp from "../../components/ReviewPopUp";
 import { fetchBooksFromMockData } from "../../components/BookBox/SimulateBookApi";
-import styles from "./Details.module.css";
 import InfoDetails from "@/components/InfoDetails";
+import styles from "./Details.module.css";
 
 interface Book {
   id: number;
@@ -15,17 +15,16 @@ interface Book {
 }
 
 const Details: React.FC = () => {
-  const { id } = useParams<{ id: string }>(); // Henter bok-ID fra URL-en
+  const { id } = useParams<{ id: string }>();
   const [book, setBook] = useState<Book | null>(null);
-  const [loading, setLoading] = useState<boolean>(true); // Legger til loading state
+  const [loading, setLoading] = useState<boolean>(true);
 
   useEffect(() => {
-    setLoading(true); // Starter loading når vi henter data
-    // Henter spesifikk bok basert på ID
+    setLoading(true);
     fetchBooksFromMockData().then((data) => {
       const foundBook = data.find((book) => book.id === Number(id));
       setBook(foundBook || null);
-      setLoading(false); // Data er lastet, så vi stopper loading
+      setLoading(false);
     });
   }, [id]);
 
@@ -38,13 +37,15 @@ const Details: React.FC = () => {
   }
 
   return (
-    <>
-      <main className={styles.detailsPage}>
+    <main className={styles.detailsPage}>
+      <section className={styles.infoSection}>
         <InfoDetails book={book} />
+      </section>
+      <section className={styles.reviewsSection}>
         <ReviewList />
+        </section>
         <ReviewPopUp />
-      </main>
-    </>
+    </main>
   );
 };
 
