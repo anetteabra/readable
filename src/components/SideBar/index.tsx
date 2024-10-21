@@ -58,9 +58,10 @@ const SideBar = () => {
                 {sortBy}{" "}
               </SelectTrigger>
               <SelectContent>
-                <SelectItem value="Title"> Title </SelectItem>
-                <SelectItem value="Author"> Author </SelectItem>
-                <SelectItem value="Popularity"> Popularity </SelectItem>
+                <SelectItem value="Title a-z"> Title a-z </SelectItem>
+                <SelectItem value="Author a-z"> Author a-z</SelectItem>
+                <SelectItem value="Oldest first"> Oldest first </SelectItem>
+                <SelectItem value="Newest first"> Newest first </SelectItem>
               </SelectContent>
             </Select>
           </section>
