@@ -1,35 +1,30 @@
 import React, { useEffect, useState } from "react";
 import { useParams } from "react-router-dom";
+import { useQuery } from "@apollo/client"; 
+import { GET_BOOKS, Book, GetBooksData } from "../../queries"; 
 import ReviewList from "@/components/ReviewList";
 import ReviewPopUp from "../../components/ReviewPopUp";
-import { fetchBooksFromMockData } from "../../components/BookBox/SimulateBookApi";
 import InfoDetails from "@/components/InfoDetails";
 import styles from "./Details.module.css";
-
-interface Book {
-  id: number;
-  title: string;
-  author: string;
-  description: string;
-  image: string;
-}
 
 const Details: React.FC = () => {
   const { id } = useParams<{ id: string }>();
   const [book, setBook] = useState<Book | null>(null);
-  const [loading, setLoading] = useState<boolean>(true);
+  const { loading, error, data } = useQuery<GetBooksData>(GET_BOOKS);
 
   useEffect(() => {
-    setLoading(true);
-    fetchBooksFromMockData().then((data) => {
-      const foundBook = data.find((book) => book.id === Number(id));
+    if (data && data.books) {
+      const foundBook = data.books.find((book) => book.id === id);
       setBook(foundBook || null);
-      setLoading(false);
-    });
-  }, [id]);
+    }
+  }, [data, id]);
 
   if (loading) {
     return <div>Loading book details...</div>;
+  }
+
+  if (error) {
+    return <div>Error loading book details</div>;
   }
 
   if (!book) {
