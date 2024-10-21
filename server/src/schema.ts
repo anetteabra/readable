@@ -1,28 +1,54 @@
 import { gql } from "graphql-tag";
-/* const gql = require('graphql-tag'); */
 
+// Define the GraphQL schema using the gql template literal
 const typeDefs = gql`
   type Query {
-    # Query to get tracks array for the homepage grid
-    tracksForHome: [Book!]!
+    # Query to get an array of books for the homepage grid
+    books: [Book!]! 
+    reviews(bookId: ID!): [Review] 
   }
 
-  # A track is a group of Modules that teaches about a specific topic
   type Book {
-    id: ID!
-    title: String!
-    author: Author!
-    cover: String
-    about: String
-    length: Int
-    modulesCount: Int
+    id: ID!                  # Unique identifier for the book
+    title: String!            # Title of the book
+    author: Author! @relationship(type: "WROTE", direction: IN) # The author of the book
+    cover: String             # URL of the book's cover image
+    about: String             # Description or synopsis of the book
+    length: Int               # Length of the book in pages or other units
+    modulesCount: Int         # Count of modules associated with the book
   }
 
-  # Author of a complete Track or a Module
+  
   type Author {
+    id: ID!                   # Unique identifier for the author
+    name: String!             # Name of the author
+    photo: String             # URL of the author's photo
+    books: [Book!]! @relationship(type: "WROTE", direction: OUT) # Books written by the author
+  }
+
+ type Review {
     id: ID!
     name: String!
-    photo: String
+    stars: Int!
+    comment: String!
+  }
+
+  type Mutation {
+    addBook(
+      title: String!,
+      cover: String,
+      length: Int,
+      modulesCount: Int,
+      authorName: String!,
+      authorPhoto: String
+    ): Book
+
+    addReview(
+      bookId: ID!,
+      name: String!,
+      stars: Int!,
+      comment: String!
+    ): Review
   }
 `;
 

@@ -1,26 +1,19 @@
-import { useEffect, useState } from "react";
 import BookCard from "../BookCard";
 import styles from "./BookBox.module.css";
-import { fetchBooksFromMockData } from "./SimulateBookApi";
+import {useQuery } from '@apollo/client';
+import {GET_BOOKS,GetBooksData} from '../../queries';
 
-interface Book {
-  id: number;
-  title: string;
-  author: string;
-  description: string;
-  image: string;
-}
 
 const BookBox: React.FC = () => {
-  const [books, setBooks] = useState<Book[]>([]);
 
-  useEffect(() => {
-    fetchBooksFromMockData().then((data) => setBooks(data));
-  }, []);
+  const { loading, error, data } = useQuery<GetBooksData>(GET_BOOKS);
+
+  if (loading) return <p>Loading...</p>;
+  if (error) return <p>Error: {error.message}</p>;
 
   return (
     <section className={styles.bookList}>
-      {books.map((book) => (
+      {data?.books.map((book: any) => (
         <BookCard key={book.id} book={book} />
       ))}
     </section>
