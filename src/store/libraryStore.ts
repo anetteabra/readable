@@ -26,9 +26,9 @@ const useLibraryStore = create<LibraryState>((set) => ({
 
   sortBy: "Title", // default sorting by Title
   filterBy: { favorited: false, unavailable: false }, // default filter settings
-  favorites: JSON.parse(localStorage.getItem('favorites') || '[]'), // Load favorites from local storage
+  favorites: JSON.parse(localStorage.getItem("favorites") || "[]"), // Load favorites from local storage
 
-  // Actions for setting books, loading, and error (external fetched in book component and stored in zustand) 
+  // Actions for setting books, loading, and error (external fetched in book component and stored in zustand)
   setBooks: (books) => set((state) => ({ ...state, books })),
   setLoading: (loading) => set((state) => ({ ...state, loading })),
   setError: (error) => set((state) => ({ ...state, error })),
@@ -44,17 +44,17 @@ const useLibraryStore = create<LibraryState>((set) => ({
     })),
 
   // Favorites actions
-  toggleFavorite: (bookId) => set((state) => {
-    const updatedFavorites = state.favorites.includes(bookId)
-      ? state.favorites.filter((id) => id !== bookId)
-      : [...state.favorites, bookId];
-      
-    // Update local storage
-    localStorage.setItem('favorites', JSON.stringify(updatedFavorites));
+  toggleFavorite: (bookId) =>
+    set((state) => {
+      const updatedFavorites = state.favorites.includes(bookId)
+        ? state.favorites.filter((id) => id !== bookId)
+        : [...state.favorites, bookId];
 
-    return { favorites: updatedFavorites };
-  }),
+      // Update local storage
+      localStorage.setItem("favorites", JSON.stringify(updatedFavorites));
 
+      return { favorites: updatedFavorites };
+    }),
 }));
 
 export default useLibraryStore;
