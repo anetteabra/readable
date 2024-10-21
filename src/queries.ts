@@ -8,11 +8,21 @@ export const GET_BOOKS = gql`
       title
       cover
       length
-      modulesCount
       author {
         name
         photo
       }
+    }
+  }
+`;
+
+export const GET_REVIEWS = gql`
+  query GetReviews($bookId: ID!) {
+    reviews(bookId: $bookId) {
+      id
+      name
+      stars
+      comment
     }
   }
 `;
@@ -23,17 +33,47 @@ export interface Book {
   title: string;
   author: {
     name: string;
-    photo: string;
   };
   cover: string;
   length: number;
-  modulesCount: number;
 }
 
 export interface BookCardProps {
   book: Book;
 } 
 
+
 export interface GetBooksData {
   books: Book[];  // Change from tracksForHome to books
 }
+
+export interface AddReview{
+  bookId:string;
+  name: string;
+  stars: number;
+  comment: string;
+}
+
+export interface Review {
+  id: string;
+  name: string;
+  stars: number;
+  comment: string;
+}
+
+export interface ReviewsProps {
+  bookId: string; 
+}
+
+
+export const ADD_REVIEW = gql`
+  mutation AddReview($bookId: ID!, $name: String!, $stars: Int!, $comment: String!) {
+    addReview(bookId: $bookId, name: $name, stars: $stars, comment: $comment) {
+      id
+      name
+      stars
+      comment
+    }
+  }
+`;
+

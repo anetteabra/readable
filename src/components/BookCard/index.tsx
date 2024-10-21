@@ -9,19 +9,6 @@ import styles from "./BookCard.module.css";
 import {BookCardProps} from '../../queries';
 
 
-// Can change the params when database is up
-/* export interface Book {
-  id: number;
-  title: string;
-  author: string;
-  description: string;
-  image: string;
-}*/
-
-/* interface BookCardProps {
-  book: Book;
-}  */
-
 export default function BookCard({ book }: BookCardProps) {
 
   return (

@@ -1,8 +1,8 @@
-import { Book } from "../BookCard";
+/* import { Book } from "../BookCard"; */
 // Just to have something to show, will not be used in final product
 
 // Simulate a delay to mimic fetching from a database
-export const fetchBooksFromMockData = async (): Promise<Book[]> => {
+/* export const fetchBooksFromMockData = async (): Promise<Book[]> => {
   return new Promise((resolve) => {
     setTimeout(() => {
       resolve([
@@ -82,4 +82,4 @@ export const fetchBooksFromMockData = async (): Promise<Book[]> => {
       ]);
     }, 1000); // Simulate a 1-second delay
   });
-};
+}; */
