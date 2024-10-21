@@ -1,11 +1,34 @@
+import { useEffect } from "react";
+import useLibraryStore from "@/store/libraryStore";
+import styles from "./book.module.css"; // Import the CSS file
+import { Book, GET_BOOKS, GetBooksData } from "@/queries";
 import { useQuery } from "@apollo/client";
-import { GetBooksData, Book, GET_BOOKS } from "../../queries";
-import "./book.css"; // Import the CSS file
 
 // React component to display books
 function Books() {
-  // Execute the query with useQuery hook
   const { loading, error, data } = useQuery<GetBooksData>(GET_BOOKS);
+
+  // Zustand store actions
+  const setBooks = useLibraryStore((state) => state.setBooks);
+  const setLoading = useLibraryStore((state) => state.setLoading);
+  const setError = useLibraryStore((state) => state.setError);
+
+  // Get books from Zustand store
+  const books = useLibraryStore((state) => state.books);
+
+  // When the data, loading, or error state changes, update Zustand store
+  useEffect(() => {
+    // Only update Zustand state if it's actually different
+  if (loading !== useLibraryStore.getState().loading) {
+    setLoading(loading);
+  }
+  if (error && error.message !== useLibraryStore.getState().error) {
+    setError(error.message);
+  } else if (data) {
+    setBooks(data.books);
+    setError(null);
+  }
+}, [loading, error, data, setBooks, setLoading, setError]);
 
   // Display loading state
   if (loading) return <p>Loading...</p>;
@@ -15,14 +38,14 @@ function Books() {
 
   // Display books once data is available
   return (
-    <div className="books-container">
-      {data?.books.map((book: Book) => (
-        <div className="book-card" key={book.id}>
+    <div className={styles.bookContainer}>
+      {books.map((book: Book) => (
+        <div className={styles.bookCard} key={book.id}>
           <img src={book.cover} alt={book.title} />
-          <div className="book-info">
-            <h2 className="book-title">{book.title}</h2>
-            <p className="book-author">By: {book.author.name}</p>
-            <p className="book-length">Length: {book.length} pages</p>
+          <div className={styles.bookInfo}>
+            <h2 className={styles.bookTitle}>{book.title}</h2>
+            <p className={styles.bookAuthor}>By: {book.author.name}</p>
+            <p className={styles.bookLength}>Length: {book.length} pages</p>
           </div>
         </div>
       ))}
