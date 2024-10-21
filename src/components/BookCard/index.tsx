@@ -8,6 +8,7 @@ import {
 import styles from "./BookCard.module.css";
 import { BookCardProps } from "../../queries";
 import FaveButton from "../FaveButton";
+import useLibraryStore from "../../store/libraryStore";
 
 // Can change the params when database is up
 /* export interface Book {
@@ -22,7 +23,10 @@ import FaveButton from "../FaveButton";
   book: Book;
 }  */
 
+
 export default function BookCard({ book }: BookCardProps) {
+  // const isFavorite = useLibraryStore((state) => state.isFavorited(book.id)); // Check if book is favorite
+
   return (
     <Card className={styles.bookCard}>
       <CardHeader className={styles.bookCardHeader}>

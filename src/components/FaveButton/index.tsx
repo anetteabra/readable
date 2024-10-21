@@ -5,10 +5,9 @@ import { faHeart } from "@fortawesome/free-solid-svg-icons";
 import { FontAwesomeIcon } from "@fortawesome/react-fontawesome";
 
 const FaveButton = ({ bookId }: { bookId: string }) => {
-  const favorites = useLibraryStore((state) => state.favorites);
+  // const favorites = useLibraryStore((state) => state.favorites);
   const toggleFavorite = useLibraryStore((state) => state.toggleFavorite);
-
-  const isFavorited = favorites.includes(bookId);
+  const isFavorited = useLibraryStore((state) => state.isFavorited(bookId));
 
   return (
     <Button
@@ -22,7 +21,9 @@ const FaveButton = ({ bookId }: { bookId: string }) => {
         className={`${styles.heartIcon} ${isFavorited ? styles.favorited : styles.notFavorited}`}
       />
     </Button>
+    
   );
 };
 
 export default FaveButton;
+
