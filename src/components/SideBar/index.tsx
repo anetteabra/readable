@@ -71,11 +71,11 @@ const SideBar = () => {
             <div className={styles.filterOptions}>
               <div className={styles.filterItems}>
                 <Checkbox
-                  id="available"
-                  checked={filterBy.available}
-                  onCheckedChange={() => toggleFilter("available")}
+                  id="favorited"
+                  checked={filterBy.favorited}
+                  onCheckedChange={() => toggleFilter("favorited")}
                 />
-                <Label htmlFor="available"> Available </Label>
+                <Label htmlFor="favorited"> Favorited </Label>
               </div>
               <div className={styles.filterItems}>
                 <Checkbox
@@ -83,7 +83,7 @@ const SideBar = () => {
                   checked={filterBy.unavailable}
                   onCheckedChange={() => toggleFilter("unavailable")}
                 />
-                <Label htmlFor="unavailable"> Unavailable </Label>
+                <Label htmlFor="unavailable"> ... </Label>
               </div>
             </div>
           </section>
