@@ -37,9 +37,9 @@ const Details: React.FC = () => {
         <InfoDetails book={book} />
       </section>
       <section className={styles.reviewsSection}>
-        <ReviewList />
+        <ReviewList bookId={book.id} />
       </section>
-      <ReviewPopUp />
+      <ReviewPopUp bookId={book.id} />
     </main>
   );
 };

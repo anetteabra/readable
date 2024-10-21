@@ -19,7 +19,6 @@ const Home = () => {
           <Button className={styles.button}>Go to your library</Button>
         </Link>
       </main>
-      <Reviews bookId={"_01"}/>
     </>
   );
 };
