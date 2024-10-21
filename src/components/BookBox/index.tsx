@@ -13,15 +13,9 @@ const BookBox: React.FC = () => {
   const setBooks = useLibraryStore((state) => state.setBooks);
   const setLoading = useLibraryStore((state) => state.setLoading);
   const setError = useLibraryStore((state) => state.setError);
-  // const filterBy = useLibraryStore((state) => state.filterBy); // Get filters
-  //const favorites = useLibraryStore((state) => state.favorites); // Get favorite book IDs
-  const filteredBooks = useLibraryStore((state) => state.filteredBooks); // Use Zustand state for sorted and filtered books 
+  const filteredBooks = useLibraryStore((state) => state.filteredBooks); // Use Zustand state for sorted and filtered books
 
   useEffect(() => {
-    // Only update Zustand state if it's actually different
-    // if (loading !== useLibraryStore.getState().loading) {
-    //   setLoading(loading);
-    // }
     setLoading(loading);
 
     if (error) {
@@ -35,11 +29,6 @@ const BookBox: React.FC = () => {
   if (loading) return <p className={styles.loadingMessage}>Loading...</p>;
   if (error)
     return <p className={styles.errorMessage}>Error: {error.message}</p>;
-
-  // Apply favorites filter if `filterBy.favorited` is true
-  // const filteredBooks = filterBy.favorited
-  //   ? data?.books.filter((book: any) => favorites.includes(book.id))
-  //   : data?.books;
 
   if (!filteredBooks.length) {
     return <p className={styles.errorMessage}> No books found </p>;

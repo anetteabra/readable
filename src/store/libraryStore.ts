@@ -56,7 +56,6 @@ const useLibraryStore = create<LibraryState>((set, get) => ({
     get().sortBooks(); // Apply filtering again after toggling the filter
   },
 
-
   // Favorites toggle
   toggleFavorite: (bookId) => {
     set((state) => {
@@ -70,47 +69,50 @@ const useLibraryStore = create<LibraryState>((set, get) => ({
     get().sortBooks(); // Reapply filtering after favorites change
   },
 
-    // Sorting functionality combines with filtering
-    sortBooks: () => {
-      const { books, sortBy, filterBy, favorites } = get();
+  // Sorting functionality combines with filtering
+  sortBooks: () => {
+    const { books, sortBy, filterBy, favorites } = get();
 
-      // Step 1: Filter the books first based on the current filters
-      let filteredBooks = [...books];
+    //Filter the books first based on the current filters
+    let filteredBooks = [...books];
 
-      if (filterBy.favorited) {
-        filteredBooks = filteredBooks.filter((book) =>
-          favorites.includes(book.id)
+    if (filterBy.favorited) {
+      filteredBooks = filteredBooks.filter((book) =>
+        favorites.includes(book.id),
+      );
+    }
+    // (You can add more filtering logic for 'unavailable' if needed)
+    // if (filterBy.unavailable) {
+    //   Implement your logic for unavailable books here
+    //   Example: filteredBooks = filteredBooks.filter(book => !book.available);
+    // }
+
+    // Sort the filtered books based on the current sortBy option
+
+    switch (sortBy) {
+      case "Title a-z":
+        filteredBooks.sort((a, b) => a.title.localeCompare(b.title));
+        break;
+      case "Title z-a":
+        filteredBooks.sort((a, b) => b.title.localeCompare(a.title));
+        break;
+      case "Author a-z":
+        filteredBooks.sort((a, b) =>
+          a.author.name.localeCompare(b.author.name),
         );
-      }
+        break;
+      case "Author z-a":
+        filteredBooks.sort((a, b) =>
+          b.author.name.localeCompare(a.author.name),
+        );
+        break;
+      default:
+        break;
+    }
 
-      // (You can add more filtering logic for 'unavailable' if needed)
-      // if (filterBy.unavailable) {
-      //   Implement your logic for unavailable books here
-      //   Example: filteredBooks = filteredBooks.filter(book => !book.available);
-      // }
-
-    // Step 2: Sort the filtered books based on the current sortBy option
-  
-      switch (sortBy) {
-        case "Title a-z":
-          filteredBooks.sort((a, b) => a.title.localeCompare(b.title));
-          break;
-        case "Title z-a":
-          filteredBooks.sort((a, b) => b.title.localeCompare(a.title));
-          break;
-        case "Author a-z":
-          filteredBooks.sort((a, b) => a.author.name.localeCompare(b.author.name));
-          break;
-        case "Author z-a":
-          filteredBooks.sort((a, b) => b.author.name.localeCompare(a.author.name));
-          break;
-        default:
-          break;
-      }
-      
-      // Step 3: Update the Zustand state with the sorted and filtered books
-      set({ filteredBooks });
-    },
+    //Update the Zustand state with the sorted and filtered books
+    set({ filteredBooks });
+  },
 }));
 
 export default useLibraryStore;
