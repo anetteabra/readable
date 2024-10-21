@@ -19,16 +19,16 @@ function Books() {
   // When the data, loading, or error state changes, update Zustand store
   useEffect(() => {
     // Only update Zustand state if it's actually different
-  if (loading !== useLibraryStore.getState().loading) {
-    setLoading(loading);
-  }
-  if (error && error.message !== useLibraryStore.getState().error) {
-    setError(error.message);
-  } else if (data) {
-    setBooks(data.books);
-    setError(null);
-  }
-}, [loading, error, data, setBooks, setLoading, setError]);
+    if (loading !== useLibraryStore.getState().loading) {
+      setLoading(loading);
+    }
+    if (error && error.message !== useLibraryStore.getState().error) {
+      setError(error.message);
+    } else if (data) {
+      setBooks(data.books);
+      setError(null);
+    }
+  }, [loading, error, data, setBooks, setLoading, setError]);
 
   // Display loading state
   if (loading) return <p>Loading...</p>;
