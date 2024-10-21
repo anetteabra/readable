@@ -1,7 +1,7 @@
 import React, { useEffect, useState } from "react";
 import { useParams } from "react-router-dom";
-import { useQuery } from "@apollo/client"; 
-import { GET_BOOKS, Book, GetBooksData } from "../../queries"; 
+import { useQuery } from "@apollo/client";
+import { GET_BOOKS, Book, GetBooksData } from "../../queries";
 import ReviewList from "@/components/ReviewList";
 import ReviewPopUp from "../../components/ReviewPopUp";
 import InfoDetails from "@/components/InfoDetails";

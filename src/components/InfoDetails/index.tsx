@@ -1,5 +1,5 @@
 import styles from "./InfoDetails.module.css";
-import { Book as BookType } from "../../queries"; 
+import { Book as BookType } from "../../queries";
 
 interface InfoDetailsProps {
   book: BookType; // Use the updated Book type from GraphQL
@@ -17,9 +17,7 @@ const InfoDetails: React.FC<InfoDetailsProps> = ({ book }) => {
           <strong>Author:</strong> {book.author.name}
         </p>
         {/* <img src={book.author.photo} alt={book.author.name} className={styles.authorPhoto} /> */}
-        <p>
-          {/* <strong>Description:</strong> {book.description} */}
-        </p>
+        <p>{/* <strong>Description:</strong> {book.description} */}</p>
       </div>
     </section>
   );

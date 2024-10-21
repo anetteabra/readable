@@ -40,7 +40,9 @@ export default function BookCard({ book }: BookCardProps) {
             width="150"
             height="200"
           />
-          <p className={styles.bookCardDescription}>{/* {book.description} */}</p>
+          <p className={styles.bookCardDescription}>
+            {/* {book.description} */}
+          </p>
         </CardContent>
       </Card>
     </Link>
