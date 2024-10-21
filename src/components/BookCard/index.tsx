@@ -6,11 +6,9 @@ import {
   CardTitle,
 } from "../ui/card";
 import styles from "./BookCard.module.css";
-import {BookCardProps} from '../../queries';
-
+import { BookCardProps } from "../../queries";
 
 export default function BookCard({ book }: BookCardProps) {
-
   return (
     <Card className={styles.bookCard}>
       <CardHeader className={styles.bookCardHeader}>
