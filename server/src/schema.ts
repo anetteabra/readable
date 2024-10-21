@@ -2,13 +2,12 @@ import { gql } from "graphql-tag";
 
 // Define the GraphQL schema using the gql template literal
 const typeDefs = gql`
-  # The root Query type
   type Query {
     # Query to get an array of books for the homepage grid
-    books: [Book!]! # Updated to match the books query structure
+    books: [Book!]! 
+    reviews(bookId: ID!): [Review] 
   }
 
-  # A Book is a resource that has associated details
   type Book {
     id: ID! # Unique identifier for the book
     title: String! # Title of the book
@@ -19,12 +18,37 @@ const typeDefs = gql`
     modulesCount: Int # Count of modules associated with the book
   }
 
-  # An Author represents the creator of a Book
+  
   type Author {
     id: ID! # Unique identifier for the author
     name: String! # Name of the author
     photo: String # URL of the author's photo
     books: [Book!]! @relationship(type: "WROTE", direction: OUT) # Books written by the author
+  }
+
+ type Review {
+    id: ID!
+    name: String!
+    stars: Int!
+    comment: String!
+  }
+
+  type Mutation {
+    addBook(
+      title: String!,
+      cover: String,
+      length: Int,
+      modulesCount: Int,
+      authorName: String!,
+      authorPhoto: String
+    ): Book
+
+    addReview(
+      bookId: ID!,
+      name: String!,
+      stars: Int!,
+      comment: String!
+    ): Review
   }
 `;
 

@@ -1,6 +1,8 @@
+import Reviews from "@/components/deletelaterReview/showreviews";
 import styles from "./Home.module.css";
 import { Button } from "@/components/ui/button";
 import { Link } from "react-router-dom";
+
 
 const Home = () => {
   return (
@@ -17,6 +19,7 @@ const Home = () => {
           <Button className={styles.button}>Go to your library</Button>
         </Link>
       </main>
+      <Reviews bookId={"_01"}/>
     </>
   );
 };
