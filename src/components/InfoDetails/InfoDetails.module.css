@@ -1,0 +1,80 @@
+/* InfoDetails.module.css */
+.bookDetails {
+  display: flex;
+  flex-direction: row;
+  gap: 2rem; /* Avstand mellom bildet og teksten */
+  margin: 4rem 0 2rem 5vw; /* 4rem margin på toppen, 5vw på venstre side */
+  align-items: flex-start;
+  flex-wrap: wrap; /* Bryter innholdet ved små skjermer */
+}
+
+.bookImage {
+  max-width: 100%; /* Sørger for at bildet ikke overstiger sin container */
+  width: 20vw; /* Bildet tar 20% av skjermens bredde */
+  height: auto; /* Sørger for at bildets høyde justeres i forhold til bredden */
+  object-fit: contain; /* Sørger for at bildet ikke kuttes, det skaleres inne i containeren */
+  flex-shrink: 0;
+}
+
+.bookInfo {
+  flex: 1; /* Teksten tar opp tilgjengelig plass */
+  display: flex;
+  flex-direction: column;
+  justify-content: flex-start;
+  text-align: left;
+}
+
+h1 {
+  font-size: 2rem;
+  margin-bottom: 1rem;
+}
+
+p {
+  margin-bottom: 1rem;
+  font-size: 1rem;
+}
+
+@media (max-width: 768px) {
+  .bookDetails {
+    flex-direction: column;
+    align-items: center;
+    padding-left: 2rem;
+    margin-top: 2rem; /* Justerer marginen på toppen for mindre skjermer */
+  }
+
+  .bookImage {
+    width: 50vw;
+    margin-bottom: 1rem;
+  }
+
+  .bookInfo {
+    text-align: center;
+  }
+
+  h1 {
+    font-size: 1.5rem;
+  }
+
+  p {
+    font-size: 0.9rem;
+  }
+}
+
+@media (max-width: 480px) {
+  .bookDetails {
+    padding-left: 1rem;
+    margin-top: 1rem; /* Justerer marginen på toppen for svært små skjermer */
+  }
+
+  .bookImage {
+    width: 70vw;
+  }
+
+  h1 {
+    font-size: 1.2rem;
+  }
+
+  p {
+    font-size: 0.8rem;
+  }
+}
