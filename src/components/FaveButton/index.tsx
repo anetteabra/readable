@@ -8,9 +8,14 @@ const FaveButton = ({ bookId }: { bookId: string }) => {
   const toggleFavorite = useLibraryStore((state) => state.toggleFavorite);
   const isFavorited = useLibraryStore((state) => state.isFavorited(bookId));
 
+  const handleClick = (event: React.MouseEvent) => {
+    event.stopPropagation();
+    toggleFavorite(bookId);
+  }
+
   return (
     <Button
-      onClick={() => toggleFavorite(bookId)}
+      onClick={handleClick}
       variant="ghost"
       className={styles.favebutton}
       aria-label={isFavorited ? "Remove from favorites" : "Add to favorites"}
