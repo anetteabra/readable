@@ -1,5 +1,6 @@
 import { Book } from "@/queries";
 import { create } from "zustand";
+import { persist } from "zustand/middleware";
 
 interface LibraryState {
   books: Book[]; // All books fetched from the server
@@ -22,7 +23,7 @@ interface LibraryState {
   isFavorited: (bookId: string) => boolean;
 }
 
-const useLibraryStore = create<LibraryState>((set, get) => ({
+const useLibraryStore = create(persist<LibraryState>((set, get) => ({
   books: [],
   filteredBooks: [], // Filtered and sorted books to be displayed
   loading: false,
@@ -91,19 +92,20 @@ const useLibraryStore = create<LibraryState>((set, get) => ({
     // Sort the filtered books based on the current sortBy option
     switch (sortBy) {
       case "Title a-z":
-        filteredBooks.sort((a, b) => a.title.localeCompare(b.title));
+        filteredBooks.sort((a, b) => a.title.toLowerCase() > b.title.toLowerCase() ? 1 : -1);
         break;
       case "Title z-a":
-        filteredBooks.sort((a, b) => b.title.localeCompare(a.title));
+        filteredBooks.sort((a, b) => a.title.toLowerCase() < b.title.toLowerCase() ? 1 : -1);
         break;
+        
       case "Author a-z":
         filteredBooks.sort((a, b) =>
-          a.author.name.localeCompare(b.author.name),
+          a.author.name.toLowerCase() > b.author.name.toLowerCase() ? 1 : -1
         );
         break;
       case "Author z-a":
         filteredBooks.sort((a, b) =>
-          b.author.name.localeCompare(a.author.name),
+          a.author.name.toLowerCase() < b.author.name.toLowerCase() ? 1 : -1
         );
         break;
       default:
@@ -113,6 +115,11 @@ const useLibraryStore = create<LibraryState>((set, get) => ({
     //Update the Zustand state with the sorted and filtered books
     set({ filteredBooks });
   },
-}));
+}),
+{
+  name: 'library-storage' // The key to use for saving state in localStorage
+}
+)
+);
 
 export default useLibraryStore;
