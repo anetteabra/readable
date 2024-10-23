@@ -87,8 +87,8 @@ const useLibraryStore = create<LibraryState>((set, get) => ({
     //   Example: filteredBooks = filteredBooks.filter(book => !book.available);
     // }
 
-    // Sort the filtered books based on the current sortBy option
 
+    // Sort the filtered books based on the current sortBy option
     switch (sortBy) {
       case "Title a-z":
         filteredBooks.sort((a, b) => a.title.localeCompare(b.title));
