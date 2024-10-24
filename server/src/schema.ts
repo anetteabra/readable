@@ -13,7 +13,7 @@ const typeDefs = gql`
     title: String! # Title of the book
     author: Author! @relationship(type: "WROTE", direction: IN) # The author of the book
     cover: String # URL of the book's cover image
-    about: String # Description or synopsis of the book
+    description: String # Description or synopsis of the book
     length: Int # Length of the book in pages or other units
     modulesCount: Int # Count of modules associated with the book
   }
@@ -40,7 +40,8 @@ const typeDefs = gql`
       length: Int,
       modulesCount: Int,
       authorName: String!,
-      authorPhoto: String
+      authorPhoto: String,
+      description: String
     ): Book
 
     addReview(

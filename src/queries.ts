@@ -8,6 +8,7 @@ export const GET_BOOKS = gql`
       title
       cover
       length
+      description
       author {
         name
         photo
@@ -36,6 +37,7 @@ export interface Book {
   };
   cover: string;
   length: number;
+  description: string;
 }
 
 export interface BookCardProps {
