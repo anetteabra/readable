@@ -65,7 +65,7 @@
   transition: all 0.3s ease;
 
   &:hover {
-    color: var(--background-color);
+    color: whitesmoke;
     text-shadow: 0 0 0.5rem var(--active-light-font-color);
   }
 }

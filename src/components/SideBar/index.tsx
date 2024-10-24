@@ -58,9 +58,10 @@ const SideBar = () => {
                 {sortBy}{" "}
               </SelectTrigger>
               <SelectContent>
-                <SelectItem value="Title"> Title </SelectItem>
-                <SelectItem value="Author"> Author </SelectItem>
-                <SelectItem value="Popularity"> Popularity </SelectItem>
+                <SelectItem value="Title a-z">Title a-z</SelectItem>
+                <SelectItem value="Title z-a">Title z-a</SelectItem>
+                <SelectItem value="Author a-z">Author a-z</SelectItem>
+                <SelectItem value="Author z-a">Author z-a</SelectItem>
               </SelectContent>
             </Select>
           </section>
@@ -71,11 +72,11 @@ const SideBar = () => {
             <div className={styles.filterOptions}>
               <div className={styles.filterItems}>
                 <Checkbox
-                  id="available"
-                  checked={filterBy.available}
-                  onCheckedChange={() => toggleFilter("available")}
+                  id="favorited"
+                  checked={filterBy.favorited}
+                  onCheckedChange={() => toggleFilter("favorited")}
                 />
-                <Label htmlFor="available"> Available </Label>
+                <Label htmlFor="favorited"> Favorited </Label>
               </div>
               <div className={styles.filterItems}>
                 <Checkbox
@@ -83,7 +84,7 @@ const SideBar = () => {
                   checked={filterBy.unavailable}
                   onCheckedChange={() => toggleFilter("unavailable")}
                 />
-                <Label htmlFor="unavailable"> Unavailable </Label>
+                <Label htmlFor="unavailable"> ... </Label>
               </div>
             </div>
           </section>
