@@ -1,29 +1,92 @@
+/* ReviewPopUp.module.css */
+
 .trigger {
   padding: 10px 15px;
+  color: white;
   background-color: var(--background-color);
-  color: beige;
   border: none;
-  border-radius: 5px;
+  border-radius: 8px;
   cursor: pointer;
-  transition: background-color 0.3s;
   font-size: 16px;
   text-align: center;
 }
 
-.nameField {
-  margin-top: 5%;
+.content {
+  width: 100%;
+  max-width: 750px !important; /* Increased width for larger display */
+  padding: 32px !important; /* Extra padding for a roomier feel */
+  border-radius: 12px;
+  box-shadow: 0px 6px 15px rgba(0, 0, 0, 0.2); /* Slightly stronger shadow */
+  display: flex !important;
+  flex-direction: column;
+  gap: 20px; /* Increased gap for spacing between elements */
 }
 
-.textField {
-  margin-top: 5%;
-}
-
-.submit {
-  margin-top: 5%;
-}
-
+/* Star container and individual stars styling */
 .starsContainer {
   display: flex;
   justify-content: center;
-  align-items: center;
+  gap: 8px;
+}
+
+.star {
+  cursor: pointer;
+  font-size: 28px; /* Increased star size */
+}
+
+.star:hover {
+  color: #ffb400 !important;
+}
+
+/* Input and TextArea styling */
+.nameField,
+.textField {
+  width: 100%;
+  padding: 12px; /* Slightly increased padding for better UX */
+  font-size: 15px;
+  border: 1px solid #ddd;
+  border-radius: 8px;
+}
+
+.nameField:focus,
+.textField:focus {
+  border-color: black;
+}
+
+/* Submit button styling */
+.submit {
+  padding: 12px;
+  font-size: 17px;
+  font-weight: bold;
+  background-color: var(--background-color) !important;
+  color: white !important;
+  border: none;
+  border-radius: 8px;
+  cursor: pointer;
+}
+
+.submit:hover {
+  background-color: black !important;
+}
+
+/* Responsive design adjustments */
+@media (max-width: 480px) {
+  .content {
+    width: 90% !important;
+    padding: 20px !important;
+  }
+
+  .trigger {
+    font-size: 14px !important;
+  }
+
+  .nameField,
+  .textField,
+  .submit {
+    font-size: 14px !important;
+  }
+
+  .star {
+    font-size: 22px !important;
+  }
 }

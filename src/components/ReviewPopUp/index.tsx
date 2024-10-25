@@ -92,7 +92,7 @@ const ReviewPopUp: React.FC<ReviewsProps> = ({ bookId }) => {
         <Input
           value={name}
           onChange={(e) => setName(e.target.value)}
-          placeholder="Your Name"
+          placeholder="Your name"
           className={styles.nameField}
         />
         <p>How many stars for this book?</p>
