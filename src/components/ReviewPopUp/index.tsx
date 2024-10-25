@@ -9,7 +9,7 @@ import { Textarea } from "../ui/textarea";
 import { Button } from "../ui/button";
 import { FaStar } from "react-icons/fa";
 import { useState } from "react";
-import { ADD_REVIEW, GET_REVIEWS, ReviewsProps } from "@/queries"; 
+import { ADD_REVIEW, GET_REVIEWS, ReviewsProps } from "@/queries";
 import { useMutation } from "@apollo/client";
 
 const ReviewPopUp: React.FC<ReviewsProps> = ({ bookId }) => {
@@ -81,7 +81,7 @@ const ReviewPopUp: React.FC<ReviewsProps> = ({ bookId }) => {
 
   return (
     <Popover open={popoverOpen} onOpenChange={setPopoverOpen}>
-      <PopoverTrigger 
+      <PopoverTrigger
         className={styles.trigger}
         onClick={() => setPopoverOpen(true)} // Open popover on trigger click
       >

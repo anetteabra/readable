@@ -23,103 +23,112 @@ interface LibraryState {
   isFavorited: (bookId: string) => boolean;
 }
 
-const useLibraryStore = create(persist<LibraryState>((set, get) => ({
-  books: [],
-  filteredBooks: [], // Filtered and sorted books to be displayed
-  loading: false,
-  error: null,
+const useLibraryStore = create(
+  persist<LibraryState>(
+    (set, get) => ({
+      books: [],
+      filteredBooks: [], // Filtered and sorted books to be displayed
+      loading: false,
+      error: null,
 
-  sortBy: "Title a-z", // default sorting by Title
-  filterBy: { favorited: false, unavailable: false }, // default filter settings
-  favorites: JSON.parse(localStorage.getItem("favorites") || "[]"), // Load favorites from local storage
-  isFavorited: (bookId: string) => get().favorites.includes(bookId),
+      sortBy: "Title a-z", // default sorting by Title
+      filterBy: { favorited: false, unavailable: false }, // default filter settings
+      favorites: JSON.parse(localStorage.getItem("favorites") || "[]"), // Load favorites from local storage
+      isFavorited: (bookId: string) => get().favorites.includes(bookId),
 
-  // Actions for setting books, loading, and error (external fetched in book component and stored in zustand)
-  setBooks: (books) => {
-    set({ books, filteredBooks: books });
-    get().sortBooks(); // Sort books whenever they are set
-  },
-  setLoading: (loading) => set({ loading }),
-  setError: (error) => set({ error }),
-
-  // Sort and filter actions
-  setSortBy: (sortBy) => {
-    set({ sortBy });
-    get().sortBooks(); // Sort books whenever the sorting changes
-  },
-  toggleFilter: (filter) => {
-    set((state) => ({
-      filterBy: {
-        ...state.filterBy,
-        [filter]: !state.filterBy[filter],
+      // Actions for setting books, loading, and error (external fetched in book component and stored in zustand)
+      setBooks: (books) => {
+        set({ books, filteredBooks: books });
+        get().sortBooks(); // Sort books whenever they are set
       },
-    }));
-    get().sortBooks(); // Apply filtering again after toggling the filter
-  },
+      setLoading: (loading) => set({ loading }),
+      setError: (error) => set({ error }),
 
-  // Favorites toggle
-  toggleFavorite: (bookId) => {
-    set((state) => {
-      const updatedFavorites = state.favorites.includes(bookId)
-        ? state.favorites.filter((id) => id !== bookId)
-        : [...state.favorites, bookId];
+      // Sort and filter actions
+      setSortBy: (sortBy) => {
+        set({ sortBy });
+        get().sortBooks(); // Sort books whenever the sorting changes
+      },
+      toggleFilter: (filter) => {
+        set((state) => ({
+          filterBy: {
+            ...state.filterBy,
+            [filter]: !state.filterBy[filter],
+          },
+        }));
+        get().sortBooks(); // Apply filtering again after toggling the filter
+      },
 
-      localStorage.setItem("favorites", JSON.stringify(updatedFavorites));
-      return { favorites: updatedFavorites };
-    });
-    get().sortBooks(); // Reapply filtering after favorites change
-  },
+      // Favorites toggle
+      toggleFavorite: (bookId) => {
+        set((state) => {
+          const updatedFavorites = state.favorites.includes(bookId)
+            ? state.favorites.filter((id) => id !== bookId)
+            : [...state.favorites, bookId];
 
-  // Sorting functionality combines with filtering
-  sortBooks: () => {
-    const { books, sortBy, filterBy, favorites } = get();
+          localStorage.setItem("favorites", JSON.stringify(updatedFavorites));
+          return { favorites: updatedFavorites };
+        });
+        get().sortBooks(); // Reapply filtering after favorites change
+      },
 
-    //Filter the books first based on the current filters
-    let filteredBooks = [...books];
+      // Sorting functionality combines with filtering
+      sortBooks: () => {
+        const { books, sortBy, filterBy, favorites } = get();
 
-    if (filterBy.favorited) {
-      filteredBooks = filteredBooks.filter((book) =>
-        favorites.includes(book.id),
-      );
-    }
-    // (You can add more filtering logic for 'unavailable' if needed)
-    // if (filterBy.unavailable) {
-    //   Implement your logic for unavailable books here
-    //   Example: filteredBooks = filteredBooks.filter(book => !book.available);
-    // }
+        //Filter the books first based on the current filters
+        let filteredBooks = [...books];
 
+        if (filterBy.favorited) {
+          filteredBooks = filteredBooks.filter((book) =>
+            favorites.includes(book.id),
+          );
+        }
+        // (You can add more filtering logic for 'unavailable' if needed)
+        // if (filterBy.unavailable) {
+        //   Implement your logic for unavailable books here
+        //   Example: filteredBooks = filteredBooks.filter(book => !book.available);
+        // }
 
-    // Sort the filtered books based on the current sortBy option
-    switch (sortBy) {
-      case "Title a-z":
-        filteredBooks.sort((a, b) => a.title.toLowerCase() > b.title.toLowerCase() ? 1 : -1);
-        break;
-      case "Title z-a":
-        filteredBooks.sort((a, b) => a.title.toLowerCase() < b.title.toLowerCase() ? 1 : -1);
-        break;
-        
-      case "Author a-z":
-        filteredBooks.sort((a, b) =>
-          a.author.name.toLowerCase() > b.author.name.toLowerCase() ? 1 : -1
-        );
-        break;
-      case "Author z-a":
-        filteredBooks.sort((a, b) =>
-          a.author.name.toLowerCase() < b.author.name.toLowerCase() ? 1 : -1
-        );
-        break;
-      default:
-        break;
-    }
+        // Sort the filtered books based on the current sortBy option
+        switch (sortBy) {
+          case "Title a-z":
+            filteredBooks.sort((a, b) =>
+              a.title.toLowerCase() > b.title.toLowerCase() ? 1 : -1,
+            );
+            break;
+          case "Title z-a":
+            filteredBooks.sort((a, b) =>
+              a.title.toLowerCase() < b.title.toLowerCase() ? 1 : -1,
+            );
+            break;
 
-    //Update the Zustand state with the sorted and filtered books
-    set({ filteredBooks });
-  },
-}),
-{
-  name: 'library-storage' // The key to use for saving state in localStorage
-}
-)
+          case "Author a-z":
+            filteredBooks.sort((a, b) =>
+              a.author.name.toLowerCase() > b.author.name.toLowerCase()
+                ? 1
+                : -1,
+            );
+            break;
+          case "Author z-a":
+            filteredBooks.sort((a, b) =>
+              a.author.name.toLowerCase() < b.author.name.toLowerCase()
+                ? 1
+                : -1,
+            );
+            break;
+          default:
+            break;
+        }
+
+        //Update the Zustand state with the sorted and filtered books
+        set({ filteredBooks });
+      },
+    }),
+    {
+      name: "library-storage", // The key to use for saving state in localStorage
+    },
+  ),
 );
 
 export default useLibraryStore;

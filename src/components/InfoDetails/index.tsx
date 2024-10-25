@@ -16,7 +16,9 @@ const InfoDetails: React.FC<InfoDetailsProps> = ({ book }) => {
         <p>
           <strong>Author:</strong> {book.author.name}
         </p>
-        <p><strong>Description:</strong> {book.description}</p>
+        <p>
+          <strong>Description:</strong> {book.description}
+        </p>
       </div>
     </section>
   );

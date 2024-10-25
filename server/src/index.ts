@@ -13,7 +13,7 @@ const driver = neo4j.driver(
 
 const neoSchema = new Neo4jGraphQL({
   typeDefs,
-  resolvers, 
+  resolvers,
   driver,
 });
 

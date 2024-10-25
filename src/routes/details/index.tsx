@@ -11,26 +11,25 @@ const Details: React.FC = () => {
   const { id } = useParams<{ id: string }>(); // Extract the book id from the route params
   const [book, setBook] = useState<Book | null>(null);
 
-    // Access the books array from Zustand
-    const books = useLibraryStore((state) => state.books);
-    const loading = useLibraryStore((state) => state.loading);
-
+  // Access the books array from Zustand
+  const books = useLibraryStore((state) => state.books);
+  const loading = useLibraryStore((state) => state.loading);
 
   useEffect(() => {
-  if (books.length > 0) {
-    const foundBook = books.find((book) => book.id === id);
-    setBook(foundBook || null); // Set the book if found, otherwise null
+    if (books.length > 0) {
+      const foundBook = books.find((book) => book.id === id);
+      setBook(foundBook || null); // Set the book if found, otherwise null
+    }
+  }, [books, id]); // Trigger effect whenever books or id change
+
+  if (loading) {
+    return <div>Loading book details...</div>;
   }
-}, [books, id]); // Trigger effect whenever books or id change
 
-if (loading) {
-  return <div>Loading book details...</div>;
-}
-
-const error = useLibraryStore((state) => state.error);
-if (error) {
-  return <div>Error loading book details</div>;
-}
+  const error = useLibraryStore((state) => state.error);
+  if (error) {
+    return <div>Error loading book details</div>;
+  }
 
   if (!book) {
     return <div>Book not found</div>;
