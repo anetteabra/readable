@@ -1,11 +1,10 @@
 .bookDetails {
   display: flex;
-  flex-direction: row;
+  flex-direction: column;
   gap: 2rem;
   padding-top: 4rem;
   margin: 0 0 2rem 5vw;
-  align-items: flex-start;
-  flex-wrap: wrap;
+  align-items: flex-start; 
 }
 
 .bookImage {
@@ -21,7 +20,7 @@
   display: flex;
   flex-direction: column;
   justify-content: flex-start;
-  text-align: left;
+  text-align: left; 
 }
 
 h1 {
