@@ -79,6 +79,10 @@ const ReviewPopUp: React.FC<ReviewsProps> = ({ bookId }) => {
     );
   };
 
+  // Disable Submit button if any field is empty or stars are not selected
+  const isFormComplete =
+    name.trim() !== "" && comment.trim() !== "" && stars > 0;
+
   return (
     <Popover open={popoverOpen} onOpenChange={setPopoverOpen}>
       <PopoverTrigger
@@ -106,7 +110,7 @@ const ReviewPopUp: React.FC<ReviewsProps> = ({ bookId }) => {
         <Button
           onClick={handleSubmit}
           className={styles.submit}
-          disabled={loading}
+          disabled={!isFormComplete || loading} // Disable if form is incomplete or loading
         >
           {loading ? "Submitting..." : "Submit"}
         </Button>
