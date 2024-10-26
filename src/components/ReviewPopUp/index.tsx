@@ -13,7 +13,7 @@ import { ADD_REVIEW, ReviewsProps } from "@/queries";
 import { useMutation } from "@apollo/client";
 
 const ReviewPopUp: React.FC<ReviewsProps> = ({ bookId }) => {
-  const [addReview, {loading, error }] = useMutation(ADD_REVIEW);
+  const [addReview, { loading, error }] = useMutation(ADD_REVIEW);
   const [popoverOpen, setPopoverOpen] = useState(false); // Control Popover open state
   const [stars, setStars] = useState(0); // State to hold the selected star rating
   const [name, setName] = useState("");
@@ -58,7 +58,7 @@ const ReviewPopUp: React.FC<ReviewsProps> = ({ bookId }) => {
 
   return (
     <Popover open={popoverOpen} onOpenChange={setPopoverOpen}>
-      <PopoverTrigger 
+      <PopoverTrigger
         className={styles.trigger}
         onClick={() => setPopoverOpen(true)} // Open popover on trigger click
       >
@@ -94,4 +94,3 @@ const ReviewPopUp: React.FC<ReviewsProps> = ({ bookId }) => {
 };
 
 export default ReviewPopUp;
-

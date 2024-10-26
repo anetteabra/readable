@@ -18,7 +18,8 @@ import useLibraryStore from "../../store/libraryStore"; //import zustand store
 import { useState } from "react";
 
 const SideBar = () => {
-  const { sortBy, setSortBy, filterBy, toggleFilter, setGenreFilter } = useLibraryStore();
+  const { sortBy, setSortBy, filterBy, toggleFilter, setGenreFilter } =
+    useLibraryStore();
   const [isOpen, setIsOpen] = useState(false); // Local state for sidebar visibility
 
   const toggleSidebar = () => {
@@ -27,7 +28,7 @@ const SideBar = () => {
   };
 
   // Array of genres
-  const genres = [ 
+  const genres = [
     "Fiction",
     "Fantasy",
     "Young Adult Fiction",
@@ -37,7 +38,8 @@ const SideBar = () => {
     "Business & Economics",
     "Cooking",
     "Science",
-    "Self-Help",];
+    "Self-Help",
+  ];
 
   return (
     <>
@@ -93,19 +95,21 @@ const SideBar = () => {
                 />
                 <Label htmlFor="favorited"> Favorited </Label>
               </div>
-                {/* Genre Selection */}
+              {/* Genre Selection */}
               <Label className={styles.filteringLabel}> Genres: </Label>
-                {genres.map((genre) => (
-                  <div key={genre} className={styles.filterItems}>
-                    <Checkbox
-                      id={genre}
-                      checked={filterBy.genre === genre}
-                      onCheckedChange={() => setGenreFilter(filterBy.genre === genre ? null : genre)} // Only allow one genre to be selected
-                    />
-                    <Label htmlFor={genre}> {genre} </Label>
-                  </div>
-                ))}
-              </div>
+              {genres.map((genre) => (
+                <div key={genre} className={styles.filterItems}>
+                  <Checkbox
+                    id={genre}
+                    checked={filterBy.genre === genre}
+                    onCheckedChange={() =>
+                      setGenreFilter(filterBy.genre === genre ? null : genre)
+                    } // Only allow one genre to be selected
+                  />
+                  <Label htmlFor={genre}> {genre} </Label>
+                </div>
+              ))}
+            </div>
           </section>
         </CardContent>
       </Card>

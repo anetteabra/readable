@@ -4,8 +4,8 @@ import { gql } from "graphql-tag";
 const typeDefs = gql`
   type Query {
     # Query to get an array of books for the homepage grid
-    books: [Book!]! 
-    reviews(bookId: ID!): [Review] 
+    books: [Book!]!
+    reviews(bookId: ID!): [Review]
   }
 
   type Book {
@@ -20,7 +20,6 @@ const typeDefs = gql`
     publication_date: Date # Date the book was published
   }
 
-  
   type Author {
     id: ID! # Unique identifier for the author
     name: String! # Name of the author
@@ -28,7 +27,7 @@ const typeDefs = gql`
     books: [Book!]! @relationship(type: "WROTE", direction: OUT) # Books written by the author
   }
 
- type Review {
+  type Review {
     id: ID!
     name: String!
     stars: Int!
@@ -37,22 +36,17 @@ const typeDefs = gql`
 
   type Mutation {
     addBook(
-      title: String!,
-      cover: String,
-      length: Int,
-      modulesCount: Int,
-      authorName: String!,
-      authorPhoto: String,
-      genres: String,
-      publication_date: Date,
+      title: String!
+      cover: String
+      length: Int
+      modulesCount: Int
+      authorName: String!
+      authorPhoto: String
+      genres: String
+      publication_date: Date
     ): Book
 
-    addReview(
-      bookId: ID!,
-      name: String!,
-      stars: Int!,
-      comment: String!
-    ): Review
+    addReview(bookId: ID!, name: String!, stars: Int!, comment: String!): Review
   }
 `;
 

@@ -11,7 +11,7 @@ const FaveButton = ({ bookId }: { bookId: string }) => {
   const handleClick = (event: React.MouseEvent) => {
     event.stopPropagation();
     toggleFavorite(bookId);
-  }
+  };
 
   return (
     <Button
