@@ -1,6 +1,5 @@
-import { useMutation } from '@apollo/client';
-import {AddReview,ADD_REVIEW } from '../../queries';
-
+import { useMutation } from "@apollo/client";
+import { AddReview, ADD_REVIEW } from "../../queries";
 
 const AddReviewForm: React.FC<AddReview> = ({ bookId }) => {
   const [addReview, { data, loading, error }] = useMutation(ADD_REVIEW);
@@ -9,11 +8,11 @@ const AddReviewForm: React.FC<AddReview> = ({ bookId }) => {
     e.preventDefault();
     addReview({
       variables: {
-        bookId, 
+        bookId,
         name: "Linda",
         stars: 4,
-        comment: "Beautiful story!"
-      }
+        comment: "Beautiful story!",
+      },
     });
   };
 
@@ -28,7 +27,6 @@ const AddReviewForm: React.FC<AddReview> = ({ bookId }) => {
       {data && <p>Review added: {data.addReview.comment}</p>}
     </div>
   );
-}
+};
 
 export default AddReviewForm;
-

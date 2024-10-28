@@ -8,6 +8,8 @@ export const GET_BOOKS = gql`
       title
       cover
       length
+      genre
+      publication_date
       author {
         name
         photo
@@ -36,19 +38,20 @@ export interface Book {
   };
   cover: string;
   length: number;
+  genre: string;
+  publication_date: string;
 }
 
 export interface BookCardProps {
   book: Book;
 }
 
-
 export interface GetBooksData {
   books: Book[]; // Change from tracksForHome to books
 }
 
-export interface AddReview{
-  bookId:string;
+export interface AddReview {
+  bookId: string;
   name: string;
   stars: number;
   comment: string;
@@ -62,12 +65,16 @@ export interface Review {
 }
 
 export interface ReviewsProps {
-  bookId: string; 
+  bookId: string;
 }
 
-
 export const ADD_REVIEW = gql`
-  mutation AddReview($bookId: ID!, $name: String!, $stars: Int!, $comment: String!) {
+  mutation AddReview(
+    $bookId: ID!
+    $name: String!
+    $stars: Int!
+    $comment: String!
+  ) {
     addReview(bookId: $bookId, name: $name, stars: $stars, comment: $comment) {
       id
       name
@@ -76,4 +83,3 @@ export const ADD_REVIEW = gql`
     }
   }
 `;
-

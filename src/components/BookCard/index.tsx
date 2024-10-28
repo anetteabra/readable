@@ -25,7 +25,6 @@ import FaveButton from "../FaveButton";
 
 export default function BookCard({ book }: BookCardProps) {
   return (
-
     <Card className={styles.bookCard}>
       <CardHeader className={styles.bookCardHeader}>
         <div className={styles.faveButton} aria-label="Favorite book">
@@ -37,18 +36,19 @@ export default function BookCard({ book }: BookCardProps) {
         </CardDescription>
       </CardHeader>
       <Link to={`/details/${book.id}`} className={styles.bookCardLink}>
-      <CardContent className={styles.bookCardContent}>
-        <img
-          className={styles.bookImage}
-          src={book.cover}
-          alt={`${book.title} cover`}
-          width="150"
-          height="200"
-        />
-        <p className={styles.bookCardDescription}>{/* {book.description} */}</p>
-      </CardContent>
+        <CardContent className={styles.bookCardContent}>
+          <img
+            className={styles.bookImage}
+            src={book.cover}
+            alt={`${book.title} cover`}
+            width="150"
+            height="200"
+          />
+          <p className={styles.bookCardDescription}>
+            {/* {book.description} */}
+          </p>
+        </CardContent>
       </Link>
     </Card>
-
   );
 }

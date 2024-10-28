@@ -18,13 +18,27 @@ import useLibraryStore from "../../store/libraryStore"; //import zustand store
 import { useState } from "react";
 
 const SideBar = () => {
-  const { sortBy, setSortBy, filterBy, toggleFilter } = useLibraryStore();
+  const { sortBy, setSortBy, filterBy, toggleFilter, setGenreFilter } =
+    useLibraryStore();
   const [isOpen, setIsOpen] = useState(false); // Local state for sidebar visibility
 
   const toggleSidebar = () => {
     setIsOpen((prev) => !prev);
     console.log("sidebar is now", !isOpen ? "open" : "closed");
   };
+
+  // Array of genres
+  const genres = [
+    "Fiction",
+    "Young Adult Fiction",
+    "Biography & Autobiography",
+    "Political Science",
+    "History",
+    "Business & Economics",
+    "Cooking",
+    "Science",
+    "Self-Help",
+  ];
 
   return (
     <>
@@ -62,6 +76,8 @@ const SideBar = () => {
                 <SelectItem value="Title z-a">Title z-a</SelectItem>
                 <SelectItem value="Author a-z">Author a-z</SelectItem>
                 <SelectItem value="Author z-a">Author z-a</SelectItem>
+                <SelectItem value="Newest">Newest</SelectItem>
+                <SelectItem value="Oldest">Oldest</SelectItem>
               </SelectContent>
             </Select>
           </section>
@@ -78,14 +94,20 @@ const SideBar = () => {
                 />
                 <Label htmlFor="favorited"> Favorited </Label>
               </div>
-              <div className={styles.filterItems}>
-                <Checkbox
-                  id="unavailable"
-                  checked={filterBy.unavailable}
-                  onCheckedChange={() => toggleFilter("unavailable")}
-                />
-                <Label htmlFor="unavailable"> ... </Label>
-              </div>
+              {/* Genre Selection */}
+              <Label className={styles.filteringLabel}> Genres: </Label>
+              {genres.map((genre) => (
+                <div key={genre} className={styles.filterItems}>
+                  <Checkbox
+                    id={genre}
+                    checked={filterBy.genre === genre}
+                    onCheckedChange={() =>
+                      setGenreFilter(filterBy.genre === genre ? null : genre)
+                    } // Only allow one genre to be selected
+                  />
+                  <Label htmlFor={genre}> {genre} </Label>
+                </div>
+              ))}
             </div>
           </section>
         </CardContent>

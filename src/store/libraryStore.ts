@@ -1,6 +1,6 @@
 import { Book } from "@/queries";
 import { create } from "zustand";
-import { persist } from "zustand/middleware";
+import { createJSONStorage, persist } from "zustand/middleware";
 
 interface LibraryState {
   books: Book[]; // All books fetched from the server
@@ -13,113 +13,181 @@ interface LibraryState {
   sortBy: string;
   filterBy: {
     favorited: boolean;
-    unavailable: boolean;
+    genre: string | null;
   };
   setSortBy: (sortBy: string) => void;
-  toggleFilter: (filter: "favorited" | "unavailable") => void;
+  toggleFilter: (filter: "favorited") => void;
+  setGenreFilter: (genre: string | null) => void;
   favorites: string[];
   toggleFavorite: (bookId: string) => void;
   sortBooks: () => void;
   isFavorited: (bookId: string) => boolean;
 }
 
-const useLibraryStore = create(persist<LibraryState>((set, get) => ({
-  books: [],
-  filteredBooks: [], // Filtered and sorted books to be displayed
-  loading: false,
-  error: null,
+const useLibraryStore = create(
+  persist<LibraryState>(
+    (set, get) => ({
+      books: [],
+      filteredBooks: [], // Filtered and sorted books to be displayed
+      loading: false,
+      error: null,
 
-  sortBy: "Title a-z", // default sorting by Title
-  filterBy: { favorited: false, unavailable: false }, // default filter settings
-  favorites: JSON.parse(localStorage.getItem("favorites") || "[]"), // Load favorites from local storage
-  isFavorited: (bookId: string) => get().favorites.includes(bookId),
+      sortBy: "Title a-z", // default sorting by Title
+      filterBy: { favorited: false, unavailable: false, genre: null }, // default filter settings
+      favorites: JSON.parse(localStorage.getItem("favorites") || "[]"), // Load favorites from local storage
+      isFavorited: (bookId: string) => get().favorites.includes(bookId),
 
-  // Actions for setting books, loading, and error (external fetched in book component and stored in zustand)
-  setBooks: (books) => {
-    set({ books, filteredBooks: books });
-    get().sortBooks(); // Sort books whenever they are set
-  },
-  setLoading: (loading) => set({ loading }),
-  setError: (error) => set({ error }),
-
-  // Sort and filter actions
-  setSortBy: (sortBy) => {
-    set({ sortBy });
-    get().sortBooks(); // Sort books whenever the sorting changes
-  },
-  toggleFilter: (filter) => {
-    set((state) => ({
-      filterBy: {
-        ...state.filterBy,
-        [filter]: !state.filterBy[filter],
+      // Actions for setting books, loading, and error (external fetched in book component and stored in zustand)
+      setBooks: (books) => {
+        set({ books, filteredBooks: books });
+        get().sortBooks(); // Sort books whenever they are set
       },
-    }));
-    get().sortBooks(); // Apply filtering again after toggling the filter
-  },
+      setLoading: (loading) => set({ loading }),
+      setError: (error) => set({ error }),
 
-  // Favorites toggle
-  toggleFavorite: (bookId) => {
-    set((state) => {
-      const updatedFavorites = state.favorites.includes(bookId)
-        ? state.favorites.filter((id) => id !== bookId)
-        : [...state.favorites, bookId];
+      // Sort and filter actions
+      setSortBy: (sortBy) => {
+        set({ sortBy });
+        get().sortBooks(); // Sort books whenever the sorting changes
+      },
 
-      localStorage.setItem("favorites", JSON.stringify(updatedFavorites));
-      return { favorites: updatedFavorites };
-    });
-    get().sortBooks(); // Reapply filtering after favorites change
-  },
+      toggleFilter: (filter) => {
+        set((state) => ({
+          filterBy: {
+            ...state.filterBy,
+            [filter]: !state.filterBy[filter],
+          },
+        }));
+        get().sortBooks(); // Apply filtering again after toggling the filter
+      },
 
-  // Sorting functionality combines with filtering
-  sortBooks: () => {
-    const { books, sortBy, filterBy, favorites } = get();
+      // Add method to set genre filter
+      setGenreFilter: (genre) => {
+        set((state) => ({
+          filterBy: {
+            ...state.filterBy,
+            genre, // Set the selected genre
+          },
+        }));
+        get().sortBooks();
+      },
 
-    //Filter the books first based on the current filters
-    let filteredBooks = [...books];
+      // Favorites toggle
+      toggleFavorite: (bookId) => {
+        set((state) => {
+          const updatedFavorites = state.favorites.includes(bookId)
+            ? state.favorites.filter((id) => id !== bookId)
+            : [...state.favorites, bookId];
 
-    if (filterBy.favorited) {
-      filteredBooks = filteredBooks.filter((book) =>
-        favorites.includes(book.id),
-      );
-    }
-    // (You can add more filtering logic for 'unavailable' if needed)
-    // if (filterBy.unavailable) {
-    //   Implement your logic for unavailable books here
-    //   Example: filteredBooks = filteredBooks.filter(book => !book.available);
-    // }
+          localStorage.setItem("favorites", JSON.stringify(updatedFavorites));
+          return { favorites: updatedFavorites };
+        });
+        get().sortBooks(); // Reapply filtering after favorites change
+      },
 
+      // Sorting functionality combines with filtering
+      sortBooks: () => {
+        const { books, sortBy, filterBy, favorites } = get();
 
-    // Sort the filtered books based on the current sortBy option
-    switch (sortBy) {
-      case "Title a-z":
-        filteredBooks.sort((a, b) => a.title.toLowerCase() > b.title.toLowerCase() ? 1 : -1);
-        break;
-      case "Title z-a":
-        filteredBooks.sort((a, b) => a.title.toLowerCase() < b.title.toLowerCase() ? 1 : -1);
-        break;
-        
-      case "Author a-z":
-        filteredBooks.sort((a, b) =>
-          a.author.name.toLowerCase() > b.author.name.toLowerCase() ? 1 : -1
-        );
-        break;
-      case "Author z-a":
-        filteredBooks.sort((a, b) =>
-          a.author.name.toLowerCase() < b.author.name.toLowerCase() ? 1 : -1
-        );
-        break;
-      default:
-        break;
-    }
+        //Filter the books first based on the current filters
+        let filteredBooks = [...books];
 
-    //Update the Zustand state with the sorted and filtered books
-    set({ filteredBooks });
-  },
-}),
-{
-  name: 'library-storage' // The key to use for saving state in localStorage
-}
-)
+        if (filterBy.favorited) {
+          filteredBooks = filteredBooks.filter((book) =>
+            favorites.includes(book.id),
+          );
+        }
+
+        // Filter by genre if one is selected
+        if (filterBy.genre) {
+          filteredBooks = filteredBooks.filter(
+            (book) =>
+              filterBy.genre &&
+              book.genre.toLowerCase() === filterBy.genre.toLowerCase(),
+          );
+        }
+
+        // Sort the filtered books based on the current sortBy option
+        switch (sortBy) {
+          case "Title a-z":
+            filteredBooks.sort((a, b) =>
+              a.title.toLowerCase() > b.title.toLowerCase() ? 1 : -1,
+            );
+            break;
+          case "Title z-a":
+            filteredBooks.sort((a, b) =>
+              a.title.toLowerCase() < b.title.toLowerCase() ? 1 : -1,
+            );
+            break;
+
+          case "Author a-z":
+            filteredBooks.sort((a, b) =>
+              a.author.name.toLowerCase() > b.author.name.toLowerCase()
+                ? 1
+                : -1,
+            );
+            break;
+          case "Author z-a":
+            filteredBooks.sort((a, b) =>
+              a.author.name.toLowerCase() < b.author.name.toLowerCase()
+                ? 1
+                : -1,
+            );
+            break;
+          case "Newest":
+            filteredBooks.sort((a, b) => {
+              const dateA = parseDate(a.publication_date); // Parse the date
+              const dateB = parseDate(b.publication_date);
+              return dateB.getTime() - dateA.getTime(); // Sort from newest to oldest
+            });
+            break;
+          case "Oldest":
+            filteredBooks.sort((a, b) => {
+              const dateA = parseDate(a.publication_date);
+              const dateB = parseDate(b.publication_date);
+              return dateA.getTime() - dateB.getTime(); // Sort from oldest to newest
+            });
+            break;
+          default:
+            break;
+        }
+
+        //Update the Zustand state with the sorted and filtered books
+        set({ filteredBooks });
+      },
+    }),
+    {
+      name: "library-storage", // The key to use for saving state in localStorage
+      storage: createJSONStorage(() => sessionStorage),
+    },
+  ),
 );
+
+// Function to parse publication_date as the dates for different books are in different formats, yyyy-mm-dd, yyyy-mm, yyyy
+const parseDate = (publication_date: string) => {
+  // Check if the date is valid
+  if (!publication_date) return new Date(0); // Return a minimal date for sorting if publicationDate is null
+
+  // Attempt to parse the full date first
+  const fullDateMatch = publication_date.match(/^(\d{4})-(\d{2})-(\d{2})$/); // Check for YYYY-MM-DD
+  if (fullDateMatch) {
+    return new Date(publication_date); // Return full date
+  }
+
+  // Attempt to parse year and month
+  const yearMonthMatch = publication_date.match(/^(\d{4})-(\d{2})$/); // Check for YYYY-MM
+  if (yearMonthMatch) {
+    return new Date(`${yearMonthMatch[1]}-${yearMonthMatch[2]}-01`); // Default to the first day of the month
+  }
+
+  // Finally, parse just the year
+  const yearMatch = publication_date.match(/^(\d{4})$/); // Check YYYY
+  if (yearMatch) {
+    return new Date(`${yearMatch[1]}-01-01`); // Default to January 1st of the year
+  }
+
+  // If all parsing fails, return a minimal date
+  return new Date(0); // Return a minimal date for sorting
+};
 
 export default useLibraryStore;
