@@ -14,10 +14,11 @@ const BookBox: React.FC = () => {
   const setLoading = useLibraryStore((state) => state.setLoading);
   const setError = useLibraryStore((state) => state.setError);
   const filteredBooks = useLibraryStore((state) => state.filteredBooks); // Use Zustand state for sorted and filtered books
+  const inputValue = useLibraryStore((state) => state.inputValue); 
 
   useEffect(() => {
     setLoading(loading);
-
+   
     if (error) {
       setError(error.message);
     } else if (data) {
@@ -34,9 +35,20 @@ const BookBox: React.FC = () => {
     return <p className={styles.errorMessage}> No books found </p>;
   }
 
+  const isInSearch = (value: string) => {
+    return value.toLowerCase().includes(inputValue.toLowerCase());
+  };
+
+
   return (
     <section className={styles.bookList}>
-      {filteredBooks.map((book: any) => (
+      {filteredBooks
+        .filter(
+          (set) =>
+            isInSearch(set.title) || 
+            isInSearch(set.author.name)
+        )
+      .map((book: any) => (
         <BookCard key={book.id} book={book} />
       ))}
     </section>
