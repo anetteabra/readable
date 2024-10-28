@@ -103,7 +103,7 @@ const useLibraryStore = create(
           filteredBooks = filteredBooks.filter(
             (book) =>
               filterBy.genre &&
-              book.genres.toLowerCase() === filterBy.genre.toLowerCase(),
+              book.genre.toLowerCase() === filterBy.genre.toLowerCase(),
           );
         }
 

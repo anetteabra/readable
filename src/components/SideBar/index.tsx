@@ -30,7 +30,6 @@ const SideBar = () => {
   // Array of genres
   const genres = [
     "Fiction",
-    "Fantasy",
     "Young Adult Fiction",
     "Biography & Autobiography",
     "Political Science",
