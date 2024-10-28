@@ -9,6 +9,8 @@ export const GET_BOOKS = gql`
       cover
       length
       description
+      genre
+      publication_date
       author {
         name
         photo
@@ -37,6 +39,8 @@ export interface Book {
   };
   cover: string;
   length: number;
+  genre: string;
+  publication_date: string;
   description: string;
 }
 

@@ -14,7 +14,7 @@ const resolvers = {
         const result = await session.run(`
             MATCH (a:Author)-[:WROTE]->(b:Book)
             RETURN b {
-              .id, .title, .cover, .length, .description, .modulesCount, author: a {
+              .id, .title, .cover, .length, .description, .modulesCount, .genre, .publication_date, author: a {
                 .name, .photo
               }
             } AS book
@@ -64,7 +64,9 @@ const resolvers = {
               CREATE (a)-[:WROTE]->(b:Book {
                 title: $title, 
                 cover: $cover, 
-                length: $length, 
+                length: $length,
+                $publication_date,
+                genre: $genre
               })
               RETURN b { .id, .title } AS book
               `,

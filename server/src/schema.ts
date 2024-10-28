@@ -16,6 +16,8 @@ const typeDefs = gql`
     description: String # Description or synopsis of the book
     length: Int # Length of the book in pages or other units
     modulesCount: Int # Count of modules associated with the book
+    genre: String # Genres associated with the book
+    publication_date: Date # Date the book was published
   }
 
   type Author {
@@ -40,6 +42,8 @@ const typeDefs = gql`
       modulesCount: Int
       authorName: String!
       authorPhoto: String
+      genre: String
+      publication_date: Date
       description: String
     ): Book
 
