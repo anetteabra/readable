@@ -16,8 +16,15 @@ const InfoDetails: React.FC<InfoDetailsProps> = ({ book }) => {
         <p>
           <strong>Author:</strong> {book.author.name}
         </p>
-        {/* <img src={book.author.photo} alt={book.author.name} className={styles.authorPhoto} /> */}
-        <p>{/* <strong>Description:</strong> {book.description} */}</p>
+        <p>
+          <strong>Genre:</strong> {book.genre}
+        </p>
+        <p>
+          <strong>Publication date:</strong> {book.publication_date}
+        </p>
+        <p>
+          <strong>Description:</strong> {book.description}
+        </p>
       </div>
     </section>
   );
