@@ -21,7 +21,6 @@ const SideBar = () => {
   const { sortBy, setSortBy, filterBy, toggleFilter, setGenreFilter,} =
     useLibraryStore();
   const [isOpen, setIsOpen] = useState(false); // Local state for sidebar visibility
-  const setInputValue = useLibraryStore((state) => state.setInputValue);
 
   const toggleSidebar = () => {
     setIsOpen((prev) => !prev);
@@ -93,7 +92,6 @@ const SideBar = () => {
                   checked={filterBy.favorited}
                   onCheckedChange={() =>{
                     toggleFilter("favorited");
-                    setInputValue("");
                   }}
                 />
                 <Label htmlFor="favorited"> Favorited </Label>
@@ -107,7 +105,6 @@ const SideBar = () => {
                     checked={filterBy.genre === genre}
                     onCheckedChange={() =>{
                       setGenreFilter(filterBy.genre === genre ? null : genre);
-                      setInputValue("");
                     }}// Only allow one genre to be selected
                   />
                   <Label htmlFor={genre}> {genre} </Label>

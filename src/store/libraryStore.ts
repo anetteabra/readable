@@ -17,6 +17,7 @@ interface LibraryState {
   };
   setSortBy: (sortBy: string) => void;
   toggleFilter: (filter: "favorited") => void;
+  setFavoriteFilter: (isEnabled: boolean) => void;
   setGenreFilter: (genre: string | null) => void;
   favorites: string[];
   toggleFavorite: (bookId: string) => void;
@@ -88,6 +89,16 @@ const useLibraryStore = create(
           return { favorites: updatedFavorites };
         });
         get().sortBooks(); // Reapply filtering after favorites change
+      },
+
+      setFavoriteFilter: (isEnabled) => {
+        set((state) => ({
+          filterBy: {
+            ...state.filterBy,
+            favorited: isEnabled,
+          },
+        }));
+        get().sortBooks(); // Reapply sorting and filtering
       },
 
       // Sorting functionality combines with filtering
