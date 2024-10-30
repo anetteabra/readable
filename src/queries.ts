@@ -2,19 +2,19 @@ import { gql } from "@apollo/client";
 
 // Define the GraphQL query to get books with the new fields
 export const GET_BOOKS = gql`
-  query GetBooks {
-    books {
-      id
-      title
-      cover
-      author {
-        name
-      }
-      description
-      genre
-      publication_date
-      isbn13
+  query GetBooks($options: BookOptions) {
+  books(options: $options) {
+    cover
+    description
+    genre
+    id
+    isbn13
+    publication_date
+    title
+    author {
+      name
     }
+  }
   }
 `;
 

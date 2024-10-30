@@ -6,7 +6,12 @@ import { GET_BOOKS, GetBooksData, Book } from "../../queries"; // Import Book in
 import useLibraryStore from "../../store/libraryStore";
 
 const BookBox: React.FC = () => {
-  const { loading, error, data } = useQuery<GetBooksData>(GET_BOOKS);
+  const { loading, error, data } = useQuery<GetBooksData>(GET_BOOKS, {variables: {
+    options: {
+      limit: 12,
+      offset: 0
+    }
+  }});
 
   const setBooks = useLibraryStore((state) => state.setBooks);
   const setLoading = useLibraryStore((state) => state.setLoading);

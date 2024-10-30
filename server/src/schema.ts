@@ -2,11 +2,6 @@ import { gql } from "graphql-tag";
 
 // Define the GraphQL schema using the gql template literal
 const typeDefs = gql`
-  type Query {
-    # Query to get an array of books for the homepage grid
-    books: [Book!]! 
-    reviews(bookId: ID!): [Review] 
-  }
 
   type Book {
     id: ID! # Unique identifier for the book
