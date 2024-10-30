@@ -13,16 +13,15 @@ const typeDefs = gql`
     title: String! # Title of the book
     author: Author! @relationship(type: "WROTE", direction: IN) # The author of the book
     cover: String # URL of the book's cover image
-    about: String # Description or synopsis of the book
-    length: Int # Length of the book in pages or other units
-    modulesCount: Int # Count of modules associated with the book
+    description: String # Description or synopsis of the book
+    genre: String
+    publication_date: String
+    isbn13: String
   }
 
-  
   type Author {
     id: ID! # Unique identifier for the author
     name: String! # Name of the author
-    photo: String # URL of the author's photo
     books: [Book!]! @relationship(type: "WROTE", direction: OUT) # Books written by the author
   }
 
@@ -37,10 +36,11 @@ const typeDefs = gql`
     addBook(
       title: String!,
       cover: String,
-      length: Int,
-      modulesCount: Int,
       authorName: String!,
-      authorPhoto: String
+      description: String,
+      genre: String,
+      publication_date: String,
+      isbn13: String
     ): Book
 
     addReview(

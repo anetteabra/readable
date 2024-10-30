@@ -2,18 +2,16 @@ import BookCard from "../BookCard";
 import styles from "./BookBox.module.css";
 import { useQuery } from "@apollo/client";
 import { useEffect } from "react";
-import { GET_BOOKS, GetBooksData } from "../../queries";
+import { GET_BOOKS, GetBooksData, Book } from "../../queries"; // Import Book interface
 import useLibraryStore from "../../store/libraryStore";
 
 const BookBox: React.FC = () => {
-  // Apollo query
   const { loading, error, data } = useQuery<GetBooksData>(GET_BOOKS);
 
-  // Zustand store actions
   const setBooks = useLibraryStore((state) => state.setBooks);
   const setLoading = useLibraryStore((state) => state.setLoading);
   const setError = useLibraryStore((state) => state.setError);
-  const filteredBooks = useLibraryStore((state) => state.filteredBooks); // Use Zustand state for sorted and filtered books
+  const filteredBooks = useLibraryStore((state) => state.filteredBooks); 
 
   useEffect(() => {
     setLoading(loading);
@@ -21,7 +19,7 @@ const BookBox: React.FC = () => {
     if (error) {
       setError(error.message);
     } else if (data) {
-      setBooks(data.books); // set books in zustand store
+      setBooks(data.books); 
       setError(null);
     }
   }, [loading, error, data, setBooks, setLoading, setError]);
@@ -31,12 +29,12 @@ const BookBox: React.FC = () => {
     return <p className={styles.errorMessage}>Error: {error.message}</p>;
 
   if (!filteredBooks.length) {
-    return <p className={styles.errorMessage}> No books found </p>;
+    return <p className={styles.errorMessage}>No books found</p>;
   }
 
   return (
     <section className={styles.bookList}>
-      {filteredBooks.map((book: any) => (
+      {filteredBooks.map((book: Book) => ( // Use Book interface here
         <BookCard key={book.id} book={book} />
       ))}
     </section>
