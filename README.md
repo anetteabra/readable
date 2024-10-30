@@ -1,8 +1,8 @@
 # Readable
 
-Readable is a webpage where you can view and search for your favorite books. Right now you can view a lot of the functionality we plan to include, even though they are not functional at the moment. The search bar in the navbar in the top, and on the library page the options to “sort by” and “filter by” (the current options for sorting and filtering will be changed in the future). In the library page the books are presented in a list view, the load more button is also not functional but there to represent that we plan to have dynamic loading of the content.
+Readable is a webpage where you can view and search for your favorite books. The search bar in the navbar in the top, so the user can always search for a book. On the library page can “sort by” and “filter by”. In the library page the books are presented in a list view, with pagination to ensure the books are loaded incrementally for better use of energy.
 
-Further plans include having a details page for each book, where the user can find more details about each book, and give it a review and rating. The plan is to also display all the reviews for that book. The group is also currently working on the backend side of the project. The server is up and running, and currently the group is working on connecting the backend and frontend. Next steps will also include setting up the database and connecting this.
+Each book now has a details page, where the user can find more details about each book, and give it a review and rating. Here all the reviews for that book are also displayed. The backend is now connected to the frontend. The books are stored in our neo4j database, and fetched to be displayed in the library.
 
 ## Link to virtual machine
 
@@ -54,8 +54,41 @@ What we have now, and what is the plan ahead…
 - **Filtering Options**: Filter books.
 - **Book Details Page**: Access a details page for each book.
 - **Review and rate**: Express your opinions of a book by leaving a review and a rating. Also read others reviews of the book.
+- Books are loaded incrementally?
 
 Additionally, we've implemented a responsive design that makes most features adaptable to various screen sizes. The testing of responsive design was done in Google Chrome (by changing the dimensions). It is also tested on mobile phone using the vm.
+
+## Technologies
+
+### Backend
+- Neo4j database
+- Apollo server
+- GraphQL
+
+We have chosen this for our backend because ...
+
+### Frontend
+- Shadcn for components
+- Zustand for state management 
+
+We use shadcn for components because ..
+Zustand was chosen because it is more simple then other choices for state management. Zustand is sufficient for our need of global states.
+
+### Choice for dataset
+Our dataset is from ...
+Since it was missing book cover photo and genre we decided to import this from google...
+
+Background photo for the homepage is downloaded from unsplash: https://unsplash.com/photos/low-angle-photography-of-brown-2-storey-structure-YQhhlCS9Hto
+
+## Sustainable web development
+- xx amount of books are fetched at a time from the database.
+
+## Accessability
+Ting oss ha gjort for å foredre accessability:
+- Color contrast to ensure readability
+- Intuitive buttons??
+- Store klikkoverflater?
+
 
 ## Installation and Usage
 
