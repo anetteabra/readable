@@ -3,7 +3,7 @@ import { Neo4jGraphQL } from "@neo4j/graphql";
 import { startStandaloneServer } from "@apollo/server/standalone";
 import neo4j from "neo4j-driver";
 import typeDefs from "./schema";
-import resolvers from "./resolvers";
+//import resolvers from "./resolvers";
 
 const driver = neo4j.driver(
   "neo4j://it2810-34.idi.ntnu.no:7687",
