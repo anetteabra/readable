@@ -25,6 +25,7 @@ const typeDefs = gql`
     name: String!
     stars: Int!
     comment: String!
+    book: Book! @relationship(type: "REVIEWED", direction: OUT)
   }
 
   type Mutation {

@@ -35,9 +35,11 @@ import { useQuery } from "@apollo/client";
   },
 ]; */
 
-const ReviewList: React.FC <ReviewsProps> = ({ bookId }) => {
+const ReviewList: React.FC<ReviewsProps> = ({ bookId }) => {
   const { loading, error, data } = useQuery<{ reviews: Review[] }>(GET_REVIEWS, {
-    variables: { bookId },
+    variables: { 
+      where: { book: { id: bookId } }
+    },
   });
 
   if (loading) return <p>Loading reviews...</p>;
