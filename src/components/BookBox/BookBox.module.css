@@ -21,6 +21,18 @@
   margin-top: 2rem;
 }
 
+.loadingButton {
+  background-color: #8b622cca !important;
+  color: white !important;
+  margin: 16px auto; /* Center the button horizontally */
+  border: none !important;
+  padding: 8px 16px; /* Adjust padding to make the button narrower */
+}
+
+.loadingButton:hover {
+  background-color: #805b2d !important;
+}
+
 @media (max-width: 599px) {
   .bookList {
     padding-top: 8rem;
