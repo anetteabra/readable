@@ -12,6 +12,9 @@ This solution is in the frontend as we thought this was the correct way. Later w
 
 ## Link to virtual machine
 
+**WARNING!** Unfortunalty at the moment only the frontend is running on the vm, after misunderstand and starting late we have been struggling with getting the backend to run on the vm. So sorry to say but this is still a problem, so to see the full functionality please run locally.
+We will try to fix this ASAP.
+
 http://it2810-34.idi.ntnu.no/project2
 
 ## Build the VM
@@ -102,6 +105,7 @@ Todo
 ## Installation and Usage
 
 First, clone the repo in your preferred way.
+Make sure to run the server first, to do so follow the steps below "to run the server"
 
 1. **Install dependencies**:
 
