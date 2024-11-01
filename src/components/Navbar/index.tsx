@@ -1,11 +1,13 @@
 import { Link, NavLink } from "react-router-dom";
 import styles from "./Navbar.module.css";
-import { Input } from "@/components/ui/input";
 import { useLocation } from "react-router-dom";
+import SearchBar from "../SeachBar";
+
 
 const Navbar = () => {
   const location = useLocation();
-  const isHomePage = location.pathname === "/"; // Check if the current page is the home page
+  const isHomePage = location.pathname === "/"; 
+
 
   return (
     <header
@@ -20,12 +22,7 @@ const Navbar = () => {
           <NavbarLink to="/">HOME</NavbarLink>
           <NavbarLink to="/library">LIBRARY</NavbarLink>
         </div>
-        <Input
-          type="input"
-          placeholder="Search"
-          className={styles.searchBar}
-          aria-label="Search"
-        />
+        <SearchBar></SearchBar>
       </nav>
     </header>
   );
@@ -42,7 +39,7 @@ const NavbarLink = ({
     <NavLink
       to={to}
       className={({ isActive }) => (isActive ? styles.active : "")}
-    >
+      >
       {children}
     </NavLink>
   );

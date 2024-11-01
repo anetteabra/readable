@@ -1,4 +1,4 @@
-import { useQuery } from "@apollo/client";
+/* import { useQuery } from "@apollo/client";
 import { Review, ReviewsProps, GET_REVIEWS } from "../../queries";
 
 const Reviews: React.FC<ReviewsProps> = ({ bookId }) => {
@@ -33,4 +33,4 @@ const Reviews: React.FC<ReviewsProps> = ({ bookId }) => {
   );
 };
 
-export default Reviews;
+export default Reviews; */
