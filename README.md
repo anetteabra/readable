@@ -5,7 +5,8 @@ Readable is a webpage where you can view and search for your favorite books. Boo
 ## Challenges
 
 ### Pagination
-Right now we have solved the pagination with a load more button that shows 12 books, then the next 12 and so on. 
+
+Right now we have solved the pagination with a load more button that shows 12 books, then the next 12 and so on.
 
 This solution is in the frontend as we thought this was the correct way. Later when we tried to fix pagination to be in the server as well, we found we needed to change our backend. The consequence of this was that our solutions for pagination, search, filter and sort needs to be adapted to work for the new backend solution. We are well into the process to develop this, since it has been proved challenging we decided to keep our frontend solution and current backend for this delivery and continue the progress with this work for the next delivery.
 
@@ -59,39 +60,44 @@ http://it2810-34.idi.ntnu.no/project2
 - **Review and rate**: Express your opinions of a book by leaving a review and a rating. Also read others reviews of the book.
 - **Load more button**: Books are loaded incrementally by pressing the load more button.
 - **X button**: The filters and search button are reset when clicking on the X.
-- **Favorite**: Click on the heart on the books to favorire them and see them deiplayed in favorites. 
+- **Favorite**: Click on the heart on the books to favorire them and see them deiplayed in favorites.
 
 Additionally, we've implemented a responsive design that makes most features adaptable to various screen sizes. The testing of responsive design was done in Google Chrome (by changing the dimensions). It is also tested on mobile phone using the vm.
 
 ## Technologies
+
 We have chosen the GRAND stack for our backend because this is a well documented stack that works well together.
 
 ### Backend
+
 - Neo4j database
 - Apollo server
 - GraphQL
 
 ### Frontend
+
 - React
 - Shadcn for components
-- Zustand for state management 
+- Zustand for state management
 
 We use shadcn for components because these are easier than to modify then for example mui components.
 
 Zustand was chosen because it is more simple then other choices for state management. Zustand is sufficient for our need of global states.
 
 ### Choice for dataset
-Our dataset is from Kaggle (https://www.kaggle.com/datasets/dhruvildave/new-york-times-best-sellers). 
+
+Our dataset is from Kaggle (https://www.kaggle.com/datasets/dhruvildave/new-york-times-best-sellers).
 Since it was missing book cover photo and genre we decided to import this from google.
 
 Background photo for the homepage is downloaded from unsplash: https://unsplash.com/photos/low-angle-photography-of-brown-2-storey-structure-YQhhlCS9Hto
 
 ## Sustainable web development
+
 Todo
 
 ## Accessability
-Todo
 
+Todo
 
 ## Installation and Usage
 

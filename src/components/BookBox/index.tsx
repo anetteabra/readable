@@ -39,8 +39,10 @@ const BookBox: React.FC = () => {
   };
 
   if (loading) return <p className={styles.loadingMessage}>Loading...</p>;
-  if (error) return <p className={styles.errorMessage}>Error: {error.message}</p>;
-  if (!filteredBooks.length) return <p className={styles.errorMessage}>No books found</p>;
+  if (error)
+    return <p className={styles.errorMessage}>Error: {error.message}</p>;
+  if (!filteredBooks.length)
+    return <p className={styles.errorMessage}>No books found</p>;
 
   return (
     <section className={styles.bookList}>
@@ -50,14 +52,13 @@ const BookBox: React.FC = () => {
         .map((book: any) => (
           <BookCard key={book.id} book={book} />
         ))}
-      
+
       {/* Show Load More button only if there are more books to load */}
       {visibleBooks < filteredBooks.length && (
-        <LoadingButton onClick={loadMoreBooks}/>
+        <LoadingButton onClick={loadMoreBooks} />
       )}
     </section>
   );
 };
 
 export default BookBox;
-
