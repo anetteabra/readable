@@ -6,6 +6,9 @@
   background-color: var(--light-font-color-trans) !important;
 }
 
+.x{
+  color: var(--light-font-color);
+}
 
 
 @media (max-width: 768px) {
