@@ -17,12 +17,16 @@ interface LibraryState {
   };
   setSortBy: (sortBy: string) => void;
   toggleFilter: (filter: "favorited") => void;
+  setFavoriteFilter: (isEnabled: boolean) => void;
   setGenreFilter: (genre: string | null) => void;
   favorites: string[];
   toggleFavorite: (bookId: string) => void;
   sortBooks: () => void;
   isFavorited: (bookId: string) => boolean;
+  inputValue: string; 
+  setInputValue: (value: string) => void;
 }
+
 
 const useLibraryStore = create(
   persist<LibraryState>(
@@ -31,6 +35,8 @@ const useLibraryStore = create(
       filteredBooks: [], // Filtered and sorted books to be displayed
       loading: false,
       error: null,
+      inputValue: "", // Add this line with default empty string
+      setInputValue: (value) => set({ inputValue: value }), // Add this line
 
       sortBy: "Title a-z", // default sorting by Title
       filterBy: { favorited: false, unavailable: false, genre: null }, // default filter settings
@@ -83,6 +89,16 @@ const useLibraryStore = create(
           return { favorites: updatedFavorites };
         });
         get().sortBooks(); // Reapply filtering after favorites change
+      },
+
+      setFavoriteFilter: (isEnabled) => {
+        set((state) => ({
+          filterBy: {
+            ...state.filterBy,
+            favorited: isEnabled,
+          },
+        }));
+        get().sortBooks(); // Reapply sorting and filtering
       },
 
       // Sorting functionality combines with filtering
