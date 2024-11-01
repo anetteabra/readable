@@ -26,7 +26,7 @@ async function startApolloServer() {
       require("apollo-server-core").ApolloServerPluginLandingPageLocalDefault({
         embed: true,
       }),
-    ], 
+    ],
   });
 
   // Move the context to startStandaloneServer

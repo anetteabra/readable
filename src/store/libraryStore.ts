@@ -23,10 +23,9 @@ interface LibraryState {
   toggleFavorite: (bookId: string) => void;
   sortBooks: () => void;
   isFavorited: (bookId: string) => boolean;
-  inputValue: string; 
+  inputValue: string;
   setInputValue: (value: string) => void;
 }
-
 
 const useLibraryStore = create(
   persist<LibraryState>(
