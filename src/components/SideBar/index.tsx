@@ -18,7 +18,7 @@ import useLibraryStore from "../../store/libraryStore"; //import zustand store
 import { useState } from "react";
 
 const SideBar = () => {
-  const { sortBy, setSortBy, filterBy, toggleFilter, setGenreFilter } =
+  const { sortBy, setSortBy, filterBy, toggleFilter, setGenreFilter,} =
     useLibraryStore();
   const [isOpen, setIsOpen] = useState(false); // Local state for sidebar visibility
 
@@ -90,7 +90,9 @@ const SideBar = () => {
                 <Checkbox
                   id="favorited"
                   checked={filterBy.favorited}
-                  onCheckedChange={() => toggleFilter("favorited")}
+                  onCheckedChange={() =>{
+                    toggleFilter("favorited");
+                  }}
                 />
                 <Label htmlFor="favorited"> Favorited </Label>
               </div>
@@ -101,9 +103,9 @@ const SideBar = () => {
                   <Checkbox
                     id={genre}
                     checked={filterBy.genre === genre}
-                    onCheckedChange={() =>
-                      setGenreFilter(filterBy.genre === genre ? null : genre)
-                    } // Only allow one genre to be selected
+                    onCheckedChange={() =>{
+                      setGenreFilter(filterBy.genre === genre ? null : genre);
+                    }}// Only allow one genre to be selected
                   />
                   <Label htmlFor={genre}> {genre} </Label>
                 </div>

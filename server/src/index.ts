@@ -5,7 +5,6 @@ import neo4j from "neo4j-driver";
 import typeDefs from "./schema";
 import resolvers from "./resolvers";
 
-// Initialize Neo4j driver
 const driver = neo4j.driver(
   "neo4j://it2810-34.idi.ntnu.no:7687",
   neo4j.auth.basic("neo4j", "readable"),
@@ -27,12 +26,13 @@ async function startApolloServer() {
       require("apollo-server-core").ApolloServerPluginLandingPageLocalDefault({
         embed: true,
       }),
-    ], // Apollo Studio
+    ], 
   });
 
   // Move the context to startStandaloneServer
   const { url } = await startStandaloneServer(server, {
     context: async () => ({ driver }), // Pass the Neo4j driver in context
+    listen: { port: 3001 },
   });
 
   console.log(`
