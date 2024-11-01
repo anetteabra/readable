@@ -1,10 +1,12 @@
 .LoadingButton {
-  background-color: #8b622cca !important;
-  color: white !important;
+  background-color: var(--light-font-color)!important;
+  color: var(--background-color) !important;
   margin-bottom: 16px;
   border: none !important;
+  width: 7rem;
+  margin-left: 1rem;
 }
 
 .LoadingButton:hover {
-  background-color: #805b2d !important;
+  background-color: var(--light-font-color-trans) !important;
 }
