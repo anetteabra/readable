@@ -1,4 +1,3 @@
-import React from "react";
 import { ScrollArea } from "@/components/ui/scroll-area";
 import { Separator } from "@/components/ui/separator";
 import Comment from "../ReviewComment";
@@ -45,24 +44,31 @@ const ReviewList: React.FC<ReviewsProps> = ({ bookId }) => {
   if (loading) return <p>Loading reviews...</p>;
   if (error) return <p>Error: {error.message}</p>;
 
+  // If data is defined, check for reviews
+  const reviews = data?.reviews;
+
   return (
-    <> 
     <ScrollArea className={styles.scrollArea}>
       <h1 className={styles.title}>Reviews of this book</h1>
-      {data?.reviews.map((review, index) => (
-        <div key={index}>
-          <Comment
-            name={review.name}
-            stars={review.stars}
-            comment={review.comment}
-          />
-          {index < data.reviews.length - 1 && (
-            <Separator className={styles.separator} />
-          )}
-        </div>
-      ))}
+
+      {/* Check if there are any reviews */}
+      {reviews?.length === 0 ? (
+        <p>No reviews of this book yet</p>
+      ) : (
+        reviews?.map((review, index) => (
+          <div key={index}>
+            <Comment
+              name={review.name}
+              stars={review.stars}
+              comment={review.comment}
+            />
+            {index < reviews.length - 1 && (
+              <Separator className={styles.separator} />
+            )}
+          </div>
+        ))
+      )}
     </ScrollArea>
-    </>
   );
 };
 

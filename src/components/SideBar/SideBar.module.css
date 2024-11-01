@@ -22,7 +22,7 @@
   flex-direction: column;
   text-align: left;
   margin-top: 1rem;
-  margin-bottom: 2rem;
+  margin-bottom: 1rem;
 }
 
 .filteringSection {
@@ -34,10 +34,12 @@
 
 .sortingLabel {
   margin-bottom: 1rem;
+  text-decoration: underline;
 }
 
 .filteringLabel {
-  margin-bottom: 1rem;
+  margin-bottom: 0.3rem;
+  text-decoration: underline;
 }
 
 .trigger {
@@ -61,6 +63,11 @@
 .toggleButton:hover {
   background-color: var(--active-light-font-color);
   color: (var(--background-color));
+}
+
+.filterItems input:disabled {
+  cursor: not-allowed;
+  opacity: 0.5;
 }
 
 @media (max-width: 768px) {

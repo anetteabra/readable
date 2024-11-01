@@ -1,29 +1,94 @@
 .trigger {
-  padding: 10px 15px;
+  padding: 10px 12px;
+  color: white;
   background-color: var(--background-color);
-  color: beige;
   border: none;
-  border-radius: 5px;
+  border-radius: 8px;
   cursor: pointer;
-  transition: background-color 0.3s;
   font-size: 16px;
   text-align: center;
+  display: inline-block;
+  width: auto;
+  max-width: 150px;
+  margin-top: 2%;
 }
 
-.nameField {
-  margin-top: 5%;
-}
-
-.textField {
-  margin-top: 5%;
-}
-
-.submit {
-  margin-top: 5%;
+.content {
+  width: 100%;
+  max-width: 750px !important;
+  padding: 32px !important;
+  border-radius: 12px;
+  box-shadow: 0px 6px 15px rgba(0, 0, 0, 0.2);
+  display: flex !important;
+  flex-direction: column;
+  gap: 20px;
 }
 
 .starsContainer {
   display: flex;
   justify-content: center;
-  align-items: center;
+  gap: 8px;
+}
+
+.star {
+  cursor: pointer;
+  font-size: 28px;
+}
+
+.star:hover {
+  color: #ffb400 !important;
+}
+
+.nameField,
+.textField {
+  width: 100%;
+  padding: 12px;
+  font-size: 15px;
+  border: 1px solid #ddd;
+  border-radius: 8px;
+}
+
+.nameField:focus,
+.textField:focus {
+  border-color: black;
+}
+
+.submit {
+  padding: 12px;
+  font-size: 17px;
+  font-weight: bold;
+  background-color: var(--background-color) !important;
+  color: white !important;
+  border: none;
+  border-radius: 8px;
+  cursor: pointer;
+}
+
+.submit:hover {
+  background-color: black !important;
+}
+
+/* Responsive design */
+@media (max-width: 480px) {
+  .content {
+    width: 90% !important;
+    padding: 20px !important;
+  }
+
+  .trigger {
+    font-size: 13px;
+    max-width: 120px;
+    padding: 6px 10px;
+    margin-left: 35%;
+  }
+
+  .nameField,
+  .textField,
+  .submit {
+    font-size: 14px !important;
+  }
+
+  .star {
+    font-size: 22px !important;
+  }
 }

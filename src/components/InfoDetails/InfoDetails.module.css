@@ -1,23 +1,22 @@
-/* InfoDetails.module.css */
 .bookDetails {
   display: flex;
-  flex-direction: row;
-  gap: 2rem; /* Avstand mellom bildet og teksten */
-  margin: 4rem 0 2rem 5vw; /* 4rem margin på toppen, 5vw på venstre side */
+  flex-direction: column;
+  gap: 2rem;
+  padding-top: 4rem;
+  margin: 0 0 2rem 5vw;
   align-items: flex-start;
-  flex-wrap: wrap; /* Bryter innholdet ved små skjermer */
 }
 
 .bookImage {
-  max-width: 100%; /* Sørger for at bildet ikke overstiger sin container */
-  width: 20vw; /* Bildet tar 20% av skjermens bredde */
-  height: auto; /* Sørger for at bildets høyde justeres i forhold til bredden */
-  object-fit: contain; /* Sørger for at bildet ikke kuttes, det skaleres inne i containeren */
+  max-width: 100%;
+  width: 14vw;
+  height: auto;
+  object-fit: contain;
   flex-shrink: 0;
 }
 
 .bookInfo {
-  flex: 1; /* Teksten tar opp tilgjengelig plass */
+  flex: 1;
   display: flex;
   flex-direction: column;
   justify-content: flex-start;
@@ -38,12 +37,12 @@ p {
   .bookDetails {
     flex-direction: column;
     align-items: center;
-    padding-left: 2rem;
-    margin-top: 2rem; /* Justerer marginen på toppen for mindre skjermer */
+    padding-top: 6rem;
   }
 
   .bookImage {
     width: 50vw;
+    margin-top: 6rem;
     margin-bottom: 1rem;
   }
 
@@ -62,12 +61,12 @@ p {
 
 @media (max-width: 480px) {
   .bookDetails {
-    padding-left: 1rem;
-    margin-top: 1rem; /* Justerer marginen på toppen for svært små skjermer */
+    padding-top: 4rem;
   }
 
   .bookImage {
-    width: 70vw;
+    width: 50vw;
+    margin-top: 6rem;
   }
 
   h1 {

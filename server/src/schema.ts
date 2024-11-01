@@ -20,7 +20,7 @@ const typeDefs = gql`
     books: [Book!]! @relationship(type: "WROTE", direction: OUT) # Books written by the author
   }
 
- type Review {
+  type Review {
     id: ID!
     name: String!
     stars: Int!
@@ -39,12 +39,7 @@ const typeDefs = gql`
       isbn13: String
     ): Book
 
-    addReview(
-      bookId: ID!,
-      name: String!,
-      stars: Int!,
-      comment: String!
-    ): Review
+    addReview(bookId: ID!, name: String!, stars: Int!, comment: String!): Review
   }
 `;
 
