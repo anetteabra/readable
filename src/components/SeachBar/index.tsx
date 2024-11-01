@@ -14,19 +14,17 @@ const SearchBar: React.FC = () => {
   const navigate = useNavigate();
 
   const [tempInputValue, setTempInputValue] = useState(inputValue);
-  
-  const handleEnter = (event: { key: string; }) => {
-    if (event.key === 'Enter') {
-      setGenreFilter(null)
+
+  const handleEnter = (event: { key: string }) => {
+    if (event.key === "Enter") {
+      setGenreFilter(null);
       setInputValue(tempInputValue);
-      navigate('/library');
+      navigate("/library");
     }
   };
 
-  
   return (
-  <>
-
+    <>
       <Input
         type="input"
         placeholder="Search"
@@ -34,12 +32,21 @@ const SearchBar: React.FC = () => {
         aria-label="Search"
         value={tempInputValue}
         onChange={(e) => setTempInputValue(e.target.value)}
-        onKeyDown={handleEnter} />
+        onKeyDown={handleEnter}
+      />
 
-      <button className={styles.x} onClick={() => {setInputValue(""); setTempInputValue(""); setGenreFilter(null); setFavoriteFilter(false);}}>
+      <button
+        className={styles.x}
+        onClick={() => {
+          setInputValue("");
+          setTempInputValue("");
+          setGenreFilter(null);
+          setFavoriteFilter(false);
+        }}
+      >
         <FontAwesomeIcon icon={faX} />
       </button>
-  </>
+    </>
   );
 };
 

@@ -1,4 +1,3 @@
-
 .searchBar {
   width: 100% !important;
   padding-right: 3rem !important;
@@ -6,10 +5,9 @@
   background-color: var(--light-font-color-trans) !important;
 }
 
-.x{
+.x {
   color: var(--light-font-color);
 }
-
 
 @media (max-width: 768px) {
   .searchBar {
@@ -21,7 +19,7 @@
 }
 @media (max-width: 480px) {
   .searchBar {
-     margin-top: 1rem;
-     width: calc(100% - 2rem) !important; /* Adjust width to avoid overflow*/
+    margin-top: 1rem;
+    width: calc(100% - 2rem) !important; /* Adjust width to avoid overflow*/
   }
 }

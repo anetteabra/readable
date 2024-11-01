@@ -1,5 +1,5 @@
 .LoadingButton {
-  background-color: var(--light-font-color)!important;
+  background-color: var(--light-font-color) !important;
   color: var(--background-color) !important;
   margin-bottom: 16px;
   border: none !important;
