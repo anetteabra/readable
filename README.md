@@ -1,8 +1,13 @@
 # Readable
 
-Readable is a webpage where you can view and search for your favorite books. The search bar in the navbar in the top, so the user can always search for a book. On the library page can “sort by” and “filter by”. In the library page the books are presented in a list view, with pagination to ensure the books are loaded incrementally for better use of energy.
+Readable is a webpage where you can view and search for your favorite books. Books can be sorted, filtered and favorited. Each book has a details page, where the user also can give a review and rating. Reviews from other users are also displayed. The books are stored in our neo4j database, and fetched to be displayed in the library.
 
-Each book now has a details page, where the user can find more details about each book, and give it a review and rating. Here all the reviews for that book are also displayed. The backend is now connected to the frontend. The books are stored in our neo4j database, and fetched to be displayed in the library.
+## Challenges
+
+### Pagination
+Right now we have solved the pagination with a load more button that shows 12 books, then the next 12 and so on. 
+
+This solution is in the frontend as we thought this was the correct way. Later when we tried to fix pagination to be in the server as well, we found we needed to change our backend. The consequence of this was that our solutions for pagination, search, filter and sort needs to be adapted to work for the new backend solution. We are well into the process to develop this, since it has been proved challenging we decided to keep our frontend solution and current backend for this delivery and continue the progress with this work for the next delivery.
 
 ## Link to virtual machine
 
@@ -46,48 +51,46 @@ http://it2810-34.idi.ntnu.no/project2
 
 ## Features
 
-What we have now, and what is the plan ahead…
-
 - **List view of books**: List view showcasing books for easy browsing.
 - **Search Functionality**: Search for books using keywords.
 - **Sorting Options**: Sort books.
 - **Filtering Options**: Filter books.
 - **Book Details Page**: Access a details page for each book.
 - **Review and rate**: Express your opinions of a book by leaving a review and a rating. Also read others reviews of the book.
-- Books are loaded incrementally?
+- **Load more button**: Books are loaded incrementally by pressing the load more button.
+- **X button**: The filters and search button are reset when clicking on the X.
+- **Favorite**: Click on the heart on the books to favorire them and see them deiplayed in favorites. 
 
 Additionally, we've implemented a responsive design that makes most features adaptable to various screen sizes. The testing of responsive design was done in Google Chrome (by changing the dimensions). It is also tested on mobile phone using the vm.
 
 ## Technologies
+We have chosen the GRAND stack for our backend because this is a well documented stack that works well together.
 
 ### Backend
 - Neo4j database
 - Apollo server
 - GraphQL
 
-We have chosen this for our backend because ...
-
 ### Frontend
+- React
 - Shadcn for components
 - Zustand for state management 
 
-We use shadcn for components because ..
+We use shadcn for components because these are easier than to modify then for example mui components.
+
 Zustand was chosen because it is more simple then other choices for state management. Zustand is sufficient for our need of global states.
 
 ### Choice for dataset
-Our dataset is from ...
-Since it was missing book cover photo and genre we decided to import this from google...
+Our dataset is from Kaggle (https://www.kaggle.com/datasets/dhruvildave/new-york-times-best-sellers). 
+Since it was missing book cover photo and genre we decided to import this from google.
 
 Background photo for the homepage is downloaded from unsplash: https://unsplash.com/photos/low-angle-photography-of-brown-2-storey-structure-YQhhlCS9Hto
 
 ## Sustainable web development
-- xx amount of books are fetched at a time from the database.
+Todo
 
 ## Accessability
-Ting oss ha gjort for å foredre accessability:
-- Color contrast to ensure readability
-- Intuitive buttons??
-- Store klikkoverflater?
+Todo
 
 
 ## Installation and Usage
