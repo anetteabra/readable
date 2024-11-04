@@ -3,11 +3,9 @@ import styles from "./Navbar.module.css";
 import { useLocation } from "react-router-dom";
 import SearchBar from "../SeachBar";
 
-
 const Navbar = () => {
   const location = useLocation();
-  const isHomePage = location.pathname === "/"; 
-
+  const isHomePage = location.pathname === "/";
 
   return (
     <header
@@ -39,7 +37,7 @@ const NavbarLink = ({
     <NavLink
       to={to}
       className={({ isActive }) => (isActive ? styles.active : "")}
-      >
+    >
       {children}
     </NavLink>
   );

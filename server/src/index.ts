@@ -16,12 +16,19 @@ async function startApolloServer() {
   const schema = await neoSchema.getSchema(); // Generate schema with built-in resolvers
 
   const server = new ApolloServer({
-    schema, 
-    introspection: true,
+    schema,
+    introspection: true, // Enable introspection for development
+    plugins: [
+      require("apollo-server-core").ApolloServerPluginLandingPageLocalDefault({
+        embed: true,
+      }),
+    ],
   });
 
+  // Move the context to startStandaloneServer
   const { url } = await startStandaloneServer(server, {
-    context: async () => ({ driver }), // Pass the Neo4j driver in context if needed
+    context: async () => ({ driver }), // Pass the Neo4j driver in context
+    listen: { port: 3001 },
   });
 
   console.log(`🚀  Server ready at ${url}`);
