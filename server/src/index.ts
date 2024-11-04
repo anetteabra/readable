@@ -3,21 +3,17 @@ import { Neo4jGraphQL } from "@neo4j/graphql";
 import { startStandaloneServer } from "@apollo/server/standalone";
 import neo4j from "neo4j-driver";
 import typeDefs from "./schema";
-import resolvers from "./resolvers";
+//import resolvers from "./resolvers";
 
 const driver = neo4j.driver(
   "neo4j://it2810-34.idi.ntnu.no:7687",
-  neo4j.auth.basic("neo4j", "readable"),
+  neo4j.auth.basic("neo4j", "readable")
 );
 
-const neoSchema = new Neo4jGraphQL({
-  typeDefs,
-  resolvers,
-  driver,
-});
+const neoSchema = new Neo4jGraphQL({ typeDefs, driver });
 
 async function startApolloServer() {
-  const schema = await neoSchema.getSchema();
+  const schema = await neoSchema.getSchema(); // Generate schema with built-in resolvers
 
   const server = new ApolloServer({
     schema,
@@ -35,10 +31,7 @@ async function startApolloServer() {
     listen: { port: 3001 },
   });
 
-  console.log(`
-    🚀  Server is running
-    📭  Query at ${url}
-  `);
+  console.log(`🚀  Server ready at ${url}`);
 }
 
 startApolloServer();

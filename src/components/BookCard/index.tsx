@@ -10,19 +10,6 @@ import styles from "./BookCard.module.css";
 import { BookCardProps } from "../../queries";
 import FaveButton from "../FaveButton";
 
-// Can change the params when database is up
-/* export interface Book {
-  id: number;
-  title: string;
-  author: string;
-  description: string;
-  image: string;
-}*/
-
-/* interface BookCardProps {
-  book: Book;
-}  */
-
 export default function BookCard({ book }: BookCardProps) {
   return (
     <Card className={styles.bookCard}>
@@ -44,9 +31,12 @@ export default function BookCard({ book }: BookCardProps) {
             width="150"
             height="200"
           />
-          <p className={styles.bookCardDescription}>
-            {/* {book.description} */}
-          </p>
+          {/* <p className={styles.bookCardDescription}>{book.description}</p>
+          <p className={styles.bookCardGenre}>Genre: {book.genre}</p>
+          <p className={styles.bookCardPublicationDate}>
+            Published: {book.publication_date}
+          </p> */}
+          {/* <p className={styles.bookCardISBN}>ISBN-13: {book.isbn13}</p> */}
         </CardContent>
       </Link>
     </Card>
