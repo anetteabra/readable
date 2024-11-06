@@ -12,7 +12,7 @@ const BookBox: React.FC = () => {
   const [sortOrder, setSortOrder]= useState("ASC");
   const inputValue = useLibraryStore((state) => state.inputValue);
   const BookSort = {[sortField]: sortOrder };
-  const [existingBooksArray, setExistingBooksArray] = useState<JSX.Element[]>([]); // Array to store BookCard components
+ /*  const [existingBooksArray, setExistingBooksArray] = useState<JSX.Element[]>([]); */ // Array to store BookCard components
 
   const { loading, error, data, fetchMore } = useQuery<GetBooksData>(GET_BOOKS, {
     variables: { options: { limit, offset, sort: BookSort
@@ -26,7 +26,7 @@ const BookBox: React.FC = () => {
  
 
   // Helper function to append unique books
-  const appendUniqueBooksToArray = (newBooks: Book[]) => {
+ /*  const appendUniqueBooksToArray = (newBooks: Book[]) => {
     const existingIds = new Set(existingBooksArray.map((bookCard) => bookCard.key));
     const uniqueBooks = newBooks.filter((book) => !existingIds.has(book.id));
 
@@ -36,7 +36,7 @@ const BookBox: React.FC = () => {
 
     setExistingBooksArray((prevArray) => [...prevArray, ...newBookCards]);
   };
-
+ */
   useEffect(() => {
     console.log("Offset value:", offset);
     console.log("Loading status:", loading);
@@ -69,7 +69,7 @@ const BookBox: React.FC = () => {
         console.log("fetchMoreResult.books:", fetchMoreResult.books);
 
         // Append unique books to the existingBooksArray
-        appendUniqueBooksToArray(fetchMoreResult.books);
+        /* appendUniqueBooksToArray(fetchMoreResult.books); */
 
         // Combine previous and newly fetched books for the store
         return {
@@ -81,12 +81,12 @@ const BookBox: React.FC = () => {
 
   if (loading && offset === 0) return <p className={styles.loadingMessage}>Loading...</p>;
   if (error) return <p className={styles.errorMessage}>Error: {error.message}</p>;
-  if (!existingBooksArray.length) return <p className={styles.errorMessage}>No books found</p>;
+  if (!books.length) return <p className={styles.errorMessage}>No books found</p>;
 
   return (
     <section className={styles.bookList}>
       {books
-        .map((book: any) => (
+        .map((book: Book) => (
           <BookCard key={book.id} book={book} />
         ))}
       <button onClick={loadMoreBooks} disabled={loading} className={styles.loadMoreButton}>
