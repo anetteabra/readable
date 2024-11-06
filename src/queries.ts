@@ -31,7 +31,6 @@ export interface ReviewsProps {
 export const GET_REVIEWS = gql`
   query GetReviews($where: ReviewWhere) {
     reviews(where: $where) {
-      id
       name
       stars
       comment
