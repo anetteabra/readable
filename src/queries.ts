@@ -42,7 +42,6 @@ export const GET_REVIEWS = gql`
 export const ADD_REVIEW = gql`
   mutation AddReview($bookId: ID!, $name: String!, $stars: Int!, $comment: String!) {
     addReview(bookId: $bookId, name: $name, stars: $stars, comment: $comment) {
-      id
       name
       stars
       comment

@@ -47,7 +47,7 @@ const typeDefs = gql`
       statement: """
         MATCH (b:Book {id: $bookId})
         CREATE (r:Review {name: $name, stars: $stars, comment: $comment})
-        CREATE (r)-[:REVIEWS]->(b)
+        CREATE (r)-[:REVIEWED]->(b)
         RETURN r
       """,
       columnName: "r"
