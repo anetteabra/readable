@@ -6,18 +6,24 @@ import BookCard from "../BookCard";
 import styles from "./BookBox.module.css";
 
 const BookBox: React.FC = () => {
-  const [offset, setOffset] = useState(0); // State to manage pagination offset
-  const [limit, setLimit] = useState(12);  // Initial limit is 12
+  const [offset, setOffset] = useState(0); 
+  const [limit, setLimit] = useState(12);
+  const [sortField,setSortField]= useState("title");
+  const [sortOrder, setSortOrder]= useState("ASC");
+  const inputValue = useLibraryStore((state) => state.inputValue);
+  const BookSort = {[sortField]: sortOrder };
   const [existingBooksArray, setExistingBooksArray] = useState<JSX.Element[]>([]); // Array to store BookCard components
 
   const { loading, error, data, fetchMore } = useQuery<GetBooksData>(GET_BOOKS, {
-    variables: { options: { limit, offset } },
+    variables: { options: { limit, offset, sort: BookSort
+      },  searchTerm: inputValue},
   });
 
   const setBooks = useLibraryStore((state) => state.setBooks);
+  const books = useLibraryStore((state) => state.books);
   const setLoading = useLibraryStore((state) => state.setLoading);
   const setError = useLibraryStore((state) => state.setError);
-  const filteredBooks = useLibraryStore((state) => state.filteredBooks);
+ 
 
   // Helper function to append unique books
   const appendUniqueBooksToArray = (newBooks: Book[]) => {
@@ -43,9 +49,6 @@ const BookBox: React.FC = () => {
     } else if (data) {
       console.log("Fetched data.books:", data.books);
       setBooks(data.books); // Update the store with new books
-
-      // Add these books to the existingBooksArray
-      appendUniqueBooksToArray(data.books);
     }
   }, [loading, error, data, setBooks, setLoading, setError]);
 
@@ -82,7 +85,10 @@ const BookBox: React.FC = () => {
 
   return (
     <section className={styles.bookList}>
-      {existingBooksArray}
+      {books
+        .map((book: any) => (
+          <BookCard key={book.id} book={book} />
+        ))}
       <button onClick={loadMoreBooks} disabled={loading} className={styles.loadMoreButton}>
         {loading ? "Loading..." : "Load More Books"}
       </button>

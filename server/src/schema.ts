@@ -13,7 +13,20 @@ const typeDefs = gql`
     publication_date: String
     isbn13: String
   }
+  
 
+  input BookOptions {
+    limit: Int
+    offset: Int
+    sort: [BookSort!] # Array of sorting criteria
+  }
+
+  input BookSort {
+    title: SortDirection
+    name: SortDirection
+  }
+  
+ 
   type Author {
     id: ID! # Unique identifier for the author
     name: String! # Name of the author

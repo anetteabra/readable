@@ -114,7 +114,7 @@ const useLibraryStore = create(
         }
 
         // Filter by genre if one is selected
-        if (filterBy.genre) {
+     /*    if (filterBy.genre) {
           filteredBooks = filteredBooks.filter(
             (book) =>
               filterBy.genre &&
@@ -165,7 +165,7 @@ const useLibraryStore = create(
             break;
           default:
             break;
-        }
+        } */
 
         //Update the Zustand state with the sorted and filtered books
         set({ filteredBooks });
