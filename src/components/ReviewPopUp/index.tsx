@@ -1,44 +1,39 @@
-import {
-  Popover,
-  PopoverContent,
-  PopoverTrigger,
-} from "@/components/ui/popover";
+import { Popover, PopoverContent, PopoverTrigger } from "@/components/ui/popover";
 import styles from "./ReviewPopUp.module.css";
 import { Input } from "../ui/input";
 import { Textarea } from "../ui/textarea";
 import { Button } from "../ui/button";
 import { FaStar } from "react-icons/fa";
 import { useState } from "react";
-import { ADD_REVIEW, GET_REVIEWS, ReviewsProps } from "@/queries";
 import { useMutation } from "@apollo/client";
+import { ADD_REVIEW } from "@/queries";  // Make sure this query is correct
 
-const ReviewPopUp: React.FC<ReviewsProps> = ({ bookId }) => {
-  const [popoverOpen, setPopoverOpen] = useState(false); // Control Popover open state
-  const [stars, setStars] = useState(0); // State to hold the selected star rating
+const ReviewPopUp: React.FC<{ bookId: string }> = ({ bookId }) => {
+  const [popoverOpen, setPopoverOpen] = useState(false);
+  const [stars, setStars] = useState(0);
   const [name, setName] = useState("");
   const [comment, setComment] = useState("");
 
-  // Modify the useMutation hook to include the update function
+  // The mutation with optimistic response and cache update
   const [addReview, { loading, error }] = useMutation(ADD_REVIEW, {
-    update(cache, { data: { addReview } }) {
-      try {
-        // Read the current list of reviews from the cache
-        const existingReviews: any = cache.readQuery({
-          query: GET_REVIEWS,
-          variables: { bookId },
-        });
-
-        // Write the new review into the cache
-        cache.writeQuery({
-          query: GET_REVIEWS,
-          variables: { bookId },
-          data: {
-            reviews: [...existingReviews.reviews, addReview], // Append the new review to the cache
+    update(cache, { data }) {
+      if (data && data.addReview) {
+        cache.modify({
+          fields: {
+            reviews(existingReviews = []) {
+              return [...existingReviews, data.addReview]; // Optimistically update cache with new review
+            },
           },
         });
-      } catch (error) {
-        console.error("Error updating cache: ", error);
       }
+    },
+    optimisticResponse: {
+      addReview: {
+        name,
+        stars,
+        comment,
+        __typename: "Review", // Ensures Apollo knows the type
+      },
     },
   });
 
@@ -53,11 +48,10 @@ const ReviewPopUp: React.FC<ReviewsProps> = ({ bookId }) => {
           comment,
         },
       });
-      // Optionally clear form fields after submission
+
       setName("");
       setComment("");
       setStars(0);
-      // Close the popover
       setPopoverOpen(false);
     } catch (err) {
       console.error(err);
@@ -71,7 +65,7 @@ const ReviewPopUp: React.FC<ReviewsProps> = ({ bookId }) => {
           <FaStar
             key={index}
             color={index < stars ? "#ffc107" : "#e4e5e9"}
-            onClick={() => setStars(index + 1)} // Update stars state on click
+            onClick={() => setStars(index + 1)}
             className={styles.star}
           />
         ))}
@@ -79,9 +73,7 @@ const ReviewPopUp: React.FC<ReviewsProps> = ({ bookId }) => {
     );
   };
 
-  // Disable Submit button if any field is empty or stars are not selected
-  const isFormComplete =
-    name.trim() !== "" && comment.trim() !== "" && stars > 0;
+  const isFormComplete = name.trim() !== "" && comment.trim() !== "" && stars > 0;
 
   return (
     <Popover open={popoverOpen} onOpenChange={setPopoverOpen}>
