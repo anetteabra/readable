@@ -6,31 +6,24 @@ import BookCard from "../BookCard";
 import styles from "./BookBox.module.css";
 
 const BookBox: React.FC = () => {
-  const [offset, setOffset] = useState(0); // State to manage pagination offset
-  const [limit, setLimit] = useState(12);  // Initial limit is 12
-  const [existingBooksArray, setExistingBooksArray] = useState<JSX.Element[]>([]); // Array to store BookCard components
+  const [offset, setOffset] = useState(0); 
+  const [limit, setLimit] = useState(12);
+  const [sortField,setSortField]= useState("title");
+  const [sortOrder, setSortOrder]= useState("ASC");
+  const inputValue = useLibraryStore((state) => state.inputValue);
+  const BookSort = {[sortField]: sortOrder };
+ /*  const [existingBooksArray, setExistingBooksArray] = useState<JSX.Element[]>([]); */ // Array to store BookCard components
 
   const { loading, error, data, fetchMore } = useQuery<GetBooksData>(GET_BOOKS, {
-    variables: { options: { limit, offset } },
+    variables: { options: { limit, offset, sort: BookSort
+      },  searchTerm: inputValue},
   });
 
   const setBooks = useLibraryStore((state) => state.setBooks);
+  const books = useLibraryStore((state) => state.books);
   const setLoading = useLibraryStore((state) => state.setLoading);
   const setError = useLibraryStore((state) => state.setError);
-  const filteredBooks = useLibraryStore((state) => state.filteredBooks);
-
-  // Helper function to append unique books
-  const appendUniqueBooksToArray = (newBooks: Book[]) => {
-    const existingIds = new Set(existingBooksArray.map((bookCard) => bookCard.key));
-    const uniqueBooks = newBooks.filter((book) => !existingIds.has(book.id));
-
-    const newBookCards = uniqueBooks.map((book: Book) => (
-      <BookCard key={book.id} book={book} />
-    ));
-
-    setExistingBooksArray((prevArray) => [...prevArray, ...newBookCards]);
-  };
-
+ 
   useEffect(() => {
     console.log("Offset value:", offset);
     console.log("Loading status:", loading);
@@ -43,9 +36,6 @@ const BookBox: React.FC = () => {
     } else if (data) {
       console.log("Fetched data.books:", data.books);
       setBooks(data.books); // Update the store with new books
-
-      // Add these books to the existingBooksArray
-      appendUniqueBooksToArray(data.books);
     }
   }, [loading, error, data, setBooks, setLoading, setError]);
 
@@ -65,8 +55,6 @@ const BookBox: React.FC = () => {
         console.log("prevResult.books:", prevResult.books);
         console.log("fetchMoreResult.books:", fetchMoreResult.books);
 
-        // Append unique books to the existingBooksArray
-        appendUniqueBooksToArray(fetchMoreResult.books);
 
         // Combine previous and newly fetched books for the store
         return {
@@ -78,11 +66,14 @@ const BookBox: React.FC = () => {
 
   if (loading && offset === 0) return <p className={styles.loadingMessage}>Loading...</p>;
   if (error) return <p className={styles.errorMessage}>Error: {error.message}</p>;
-  if (!existingBooksArray.length) return <p className={styles.errorMessage}>No books found</p>;
+  if (!books.length) return <p className={styles.errorMessage}>No books found</p>;
 
   return (
     <section className={styles.bookList}>
-      {existingBooksArray}
+      {books
+        .map((book: Book) => (
+          <BookCard key={book.id} book={book} />
+        ))}
       <button onClick={loadMoreBooks} disabled={loading} className={styles.loadMoreButton}>
         {loading ? "Loading..." : "Load More Books"}
       </button>
