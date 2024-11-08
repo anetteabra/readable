@@ -7,29 +7,36 @@ import styles from "./BookBox.module.css";
 
 const BookBox: React.FC = () => {
   const [offset, setOffset] = useState(0); // State to manage pagination offset
-  const [limit, setLimit] = useState(12);  // Initial limit is 12
-  const [existingBooksArray, setExistingBooksArray] = useState<JSX.Element[]>([]); // Array to store BookCard components
-
-  const { loading, error, data, fetchMore } = useQuery<GetBooksData>(GET_BOOKS, {
-    variables: { options: { limit, offset } },
-  });
-
+  const limit = 12;  // Initial limit is 12
+  const [existingBooksArray, setExistingBooksArray] = useState<Book[]>([]); // Array to store BookCard components
+  
+  const userId = useLibraryStore((state) => state.userId);
   const setBooks = useLibraryStore((state) => state.setBooks);
   const setLoading = useLibraryStore((state) => state.setLoading);
   const setError = useLibraryStore((state) => state.setError);
   const filteredBooks = useLibraryStore((state) => state.filteredBooks);
 
+  const { loading, error, data, fetchMore } = useQuery<GetBooksData>(GET_BOOKS, {
+    variables: { userId, options: { limit, offset } },
+  });
+
   // Helper function to append unique books
-  const appendUniqueBooksToArray = (newBooks: Book[]) => {
-    const existingIds = new Set(existingBooksArray.map((bookCard) => bookCard.key));
+  // const appendUniqueBooksToArray = (newBooks: Book[]) => {
+  //   const existingIds = new Set(existingBooksArray.map((bookCard) => bookCard.key));
+  //   const uniqueBooks = newBooks.filter((book) => !existingIds.has(book.id));
+
+  //   const newBookCards = uniqueBooks.map((book: Book) => (
+  //     <BookCard key={book.id} book={book} userId={userId} />
+  //   ));
+
+  //   setExistingBooksArray((prevArray) => [...prevArray, ...newBookCards]);
+  // };
+  const appendUniqueBooks = (newBooks: Book[]) => {
+    const existingIds = new Set(existingBooksArray.map((book) => book.id));
     const uniqueBooks = newBooks.filter((book) => !existingIds.has(book.id));
-
-    const newBookCards = uniqueBooks.map((book: Book) => (
-      <BookCard key={book.id} book={book} />
-    ));
-
-    setExistingBooksArray((prevArray) => [...prevArray, ...newBookCards]);
+    setExistingBooksArray((prev) => [...prev, ...uniqueBooks]);
   };
+
 
   useEffect(() => {
     console.log("Offset value:", offset);
@@ -45,32 +52,26 @@ const BookBox: React.FC = () => {
       setBooks(data.books); // Update the store with new books
 
       // Add these books to the existingBooksArray
-      appendUniqueBooksToArray(data.books);
+      appendUniqueBooks(data.books);
     }
   }, [loading, error, data, setBooks, setLoading, setError]);
 
   const loadMoreBooks = () => {
-    const newLimit = limit + 12;  // Increase limit by 12
-    const newOffset = offset + 12; // Increase offset by 12
+    const newOffset = offset + limit; // Increase offset for pagination
 
-    setLimit(newLimit);
     setOffset(newOffset);
 
     fetchMore({
-      variables: { options: { limit: newLimit, offset: newOffset } },
+      variables: {
+        userId,
+        options: { limit, offset: newOffset },
+      },
       updateQuery: (prevResult, { fetchMoreResult }) => {
         if (!fetchMoreResult) return prevResult;
-
-        // Log to see what books are being combined
-        console.log("prevResult.books:", prevResult.books);
-        console.log("fetchMoreResult.books:", fetchMoreResult.books);
-
-        // Append unique books to the existingBooksArray
-        appendUniqueBooksToArray(fetchMoreResult.books);
-
-        // Combine previous and newly fetched books for the store
+  
+        // Combine previous and newly fetched books
         return {
-          books: [...prevResult.books, ...fetchMoreResult.books], // Append new books
+          books: [...prevResult.books, ...fetchMoreResult.books],
         };
       },
     });
@@ -82,7 +83,9 @@ const BookBox: React.FC = () => {
 
   return (
     <section className={styles.bookList}>
-      {existingBooksArray}
+      {existingBooksArray.map((book: Book) => (
+        <BookCard key={book.id} book={book} userId={userId} />
+      ))}
       <button onClick={loadMoreBooks} disabled={loading} className={styles.loadMoreButton}>
         {loading ? "Loading..." : "Load More Books"}
       </button>

@@ -1,8 +1,13 @@
 import { Book } from "@/queries";
 import { create } from "zustand";
 import { createJSONStorage, persist } from "zustand/middleware";
+import  getOrCreateUserId from "@/utils/generateUserID";
+import { favoriteBook, unfavoriteBook } from "@/queries";
 
+// Generate or retrieve the userId once and use it in the store
+const userId = getOrCreateUserId();
 interface LibraryState {
+  userId: string; // Unique user ID
   books: Book[]; // All books fetched from the server
   filteredBooks: Book[]; // Filtered book array
   loading: boolean;
@@ -21,8 +26,8 @@ interface LibraryState {
   setGenreFilter: (genre: string | null) => void;
   favorites: string[];
   toggleFavorite: (bookId: string) => void;
-  sortBooks: () => void;
   isFavorited: (bookId: string) => boolean;
+  sortBooks: () => void;
   inputValue: string;
   setInputValue: (value: string) => void;
 }
@@ -30,6 +35,7 @@ interface LibraryState {
 const useLibraryStore = create(
   persist<LibraryState>(
     (set, get) => ({
+      userId,
       books: [],
       filteredBooks: [], // Filtered and sorted books to be displayed
       loading: false,
@@ -78,16 +84,28 @@ const useLibraryStore = create(
       },
 
       // Favorites toggle
-      toggleFavorite: (bookId) => {
-        set((state) => {
-          const updatedFavorites = state.favorites.includes(bookId)
-            ? state.favorites.filter((id) => id !== bookId)
-            : [...state.favorites, bookId];
+      // Async toggleFavorite function with backend mutations
+      toggleFavorite: async (bookId) => {
+        const { isFavorited, userId } = get();
+        const isCurrentlyFavorited = isFavorited(bookId);
 
-          localStorage.setItem("favorites", JSON.stringify(updatedFavorites));
-          return { favorites: updatedFavorites };
-        });
-        get().sortBooks(); // Reapply filtering after favorites change
+        
+        try {
+          // Trigger backend mutation
+          if (isCurrentlyFavorited) {
+            await unfavoriteBook(bookId, userId);
+          } else {
+            await favoriteBook(bookId, userId);
+          }
+        } catch (error) {
+          console.error("Failed to toggle favorite status:", error);
+          // Revert the optimistic update on failure
+          set({
+            favorites: isCurrentlyFavorited
+              ? [...get().favorites, bookId]
+              : get().favorites.filter((id) => id !== bookId),
+          });
+        }
       },
 
       setFavoriteFilter: (isEnabled) => {
@@ -114,58 +132,58 @@ const useLibraryStore = create(
         }
 
         // Filter by genre if one is selected
-        if (filterBy.genre) {
-          filteredBooks = filteredBooks.filter(
-            (book) =>
-              filterBy.genre &&
-              book.genre.toLowerCase() === filterBy.genre.toLowerCase(),
-          );
-        }
+        // if (filterBy.genre) {
+        //   filteredBooks = filteredBooks.filter(
+        //     (book) =>
+        //       filterBy.genre &&
+        //       book.genre.toLowerCase() === filterBy.genre.toLowerCase(),
+        //   );
+        // }
 
         // Sort the filtered books based on the current sortBy option
-        switch (sortBy) {
-          case "Title a-z":
-            filteredBooks.sort((a, b) =>
-              a.title.toLowerCase() > b.title.toLowerCase() ? 1 : -1,
-            );
-            break;
-          case "Title z-a":
-            filteredBooks.sort((a, b) =>
-              a.title.toLowerCase() < b.title.toLowerCase() ? 1 : -1,
-            );
-            break;
+        // switch (sortBy) {
+        //   case "Title a-z":
+        //     filteredBooks.sort((a, b) =>
+        //       a.title.toLowerCase() > b.title.toLowerCase() ? 1 : -1,
+        //     );
+        //     break;
+        //   case "Title z-a":
+        //     filteredBooks.sort((a, b) =>
+        //       a.title.toLowerCase() < b.title.toLowerCase() ? 1 : -1,
+        //     );
+        //     break;
 
-          case "Author a-z":
-            filteredBooks.sort((a, b) =>
-              a.author.name.toLowerCase() > b.author.name.toLowerCase()
-                ? 1
-                : -1,
-            );
-            break;
-          case "Author z-a":
-            filteredBooks.sort((a, b) =>
-              a.author.name.toLowerCase() < b.author.name.toLowerCase()
-                ? 1
-                : -1,
-            );
-            break;
-          case "Newest":
-            filteredBooks.sort((a, b) => {
-              const dateA = parseDate(a.publication_date); // Parse the date
-              const dateB = parseDate(b.publication_date);
-              return dateB.getTime() - dateA.getTime(); // Sort from newest to oldest
-            });
-            break;
-          case "Oldest":
-            filteredBooks.sort((a, b) => {
-              const dateA = parseDate(a.publication_date);
-              const dateB = parseDate(b.publication_date);
-              return dateA.getTime() - dateB.getTime(); // Sort from oldest to newest
-            });
-            break;
-          default:
-            break;
-        }
+        //   case "Author a-z":
+        //     filteredBooks.sort((a, b) =>
+        //       a.author.name.toLowerCase() > b.author.name.toLowerCase()
+        //         ? 1
+        //         : -1,
+        //     );
+        //     break;
+        //   case "Author z-a":
+        //     filteredBooks.sort((a, b) =>
+        //       a.author.name.toLowerCase() < b.author.name.toLowerCase()
+        //         ? 1
+        //         : -1,
+        //     );
+        //     break;
+        //   case "Newest":
+        //     filteredBooks.sort((a, b) => {
+        //       const dateA = parseDate(a.publication_date); // Parse the date
+        //       const dateB = parseDate(b.publication_date);
+        //       return dateB.getTime() - dateA.getTime(); // Sort from newest to oldest
+        //     });
+        //     break;
+        //   case "Oldest":
+        //     filteredBooks.sort((a, b) => {
+        //       const dateA = parseDate(a.publication_date);
+        //       const dateB = parseDate(b.publication_date);
+        //       return dateA.getTime() - dateB.getTime(); // Sort from oldest to newest
+        //     });
+        //     break;
+        //   default:
+        //     break;
+        // }
 
         //Update the Zustand state with the sorted and filtered books
         set({ filteredBooks });
@@ -206,3 +224,4 @@ const parseDate = (publication_date: string) => {
 };
 
 export default useLibraryStore;
+

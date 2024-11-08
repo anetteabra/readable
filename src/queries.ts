@@ -1,8 +1,9 @@
 import { gql, useMutation } from "@apollo/client";
+import { client } from "./apolloClient";
 
 // Define the GraphQL query to get books with the new fields
 export const GET_BOOKS = gql`
-  query GetBooks($options: BookOptions) {
+  query GetBooks($userId: ID, $options: BookOptions) {
   books(options: $options) {
     cover
     description
@@ -11,6 +12,9 @@ export const GET_BOOKS = gql`
     isbn13
     publication_date
     title
+    favoritedBy(where: { id: $userId }) {
+      id
+    }
     author {
       name
     }
@@ -20,6 +24,7 @@ export const GET_BOOKS = gql`
 
 export interface BookCardProps {
   book: Book;
+  userId: string;
 }
 
 // Interface to define the expected props for the ReviewPopUp component
@@ -85,6 +90,40 @@ export const ADD_BOOK = gql`
   }
 `;
 
+export const FAVORITE_BOOK_MUTATION = gql`
+  mutation favoriteBook($bookId: ID!, $userId: ID!) {
+    updateUsers(
+      where: { id: $userId }
+      connect: { favorites: { where: { node: { id: $bookId } } } }
+    ) {
+      users {
+        id
+        favorites {
+          id
+          title
+        }
+      }
+    }
+  }
+`;
+
+export const UNFAVORITE_BOOK_MUTATION = gql`
+  mutation unfavoriteBook($bookId: ID!, $userId: ID!) {
+    updateUsers(
+      where: { id: $userId }
+      disconnect: { favorites: { where: { node: { id: $bookId } } } }
+    ) {
+      users {
+        id
+        favorites {
+          id
+          title
+        }
+      }
+    }
+  }
+`;
+
 // TypeScript interfaces for data and variables
 export interface Book {
   id: string;
@@ -97,6 +136,7 @@ export interface Book {
   genre?: string;
   publication_date?: string;
   isbn13?: string;
+  favoritedBy: { id: string }[];
 }
 
 export interface Review {
@@ -142,4 +182,20 @@ export interface AddBookVars {
 // Hook to use the AddReview mutation
 export const useAddReview = () => {
   return useMutation<AddReviewData, AddReviewVars>(ADD_REVIEW);
+};
+
+// Function to favorite a book
+export const favoriteBook = async (bookId: string, userId: string) => {
+  return client.mutate({
+    mutation: FAVORITE_BOOK_MUTATION,
+    variables: { bookId, userId },
+  });
+};
+
+// Function to unfavorite a book
+export const unfavoriteBook = async (bookId: string, userId: string) => {
+  return client.mutate({
+    mutation: UNFAVORITE_BOOK_MUTATION,
+    variables: { bookId, userId },
+  });
 };

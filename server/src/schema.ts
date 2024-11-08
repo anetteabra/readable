@@ -12,6 +12,7 @@ const typeDefs = gql`
     genre: String
     publication_date: String
     isbn13: String
+    favoritedBy: [User!]! @relationship(type: "FAVORITED", direction: IN)
   }
 
   type Author {
@@ -26,6 +27,11 @@ const typeDefs = gql`
     stars: Int!
     comment: String!
     book: Book! @relationship(type: "REVIEWED", direction: OUT)
+  }
+
+  type User {
+    id: ID!
+    favorites: [Book!]! @relationship(type: "FAVORITED", direction: OUT)
   }
 
   type Mutation {

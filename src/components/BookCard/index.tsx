@@ -10,12 +10,15 @@ import styles from "./BookCard.module.css";
 import { BookCardProps } from "../../queries";
 import FaveButton from "../FaveButton";
 
-export default function BookCard({ book }: BookCardProps) {
+export default function BookCard({ book, userId }: BookCardProps) {
+  
+  const isFavorited = book.favoritedBy.some((user) => user.id === userId);
+
   return (
     <Card className={styles.bookCard}>
       <CardHeader className={styles.bookCardHeader}>
         <div className={styles.faveButton} aria-label="Favorite book">
-          <FaveButton bookId={book.id} />
+          <FaveButton bookId={book.id} isFavorited={isFavorited} />
         </div>
         <CardTitle className={styles.bookCardTitle}>{book.title}</CardTitle>
         <CardDescription className={styles.bookCardAuthor}>
