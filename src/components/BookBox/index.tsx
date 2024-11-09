@@ -9,6 +9,7 @@ const BookBox: React.FC = () => {
   const limit = 12;
   const [sortField, setSortField] = useState("title");
   const [sortOrder, setSortOrder] = useState("ASC");
+  const [initialLoad, setInitialLoad] = useState(true); 
   const inputValue = useLibraryStore((state) => state.inputValue);
   const BookSort = { [sortField]: sortOrder };
 
@@ -17,11 +18,20 @@ const BookBox: React.FC = () => {
   const setLoading = useLibraryStore((state) => state.setLoading);
   const setError = useLibraryStore((state) => state.setError);
 
-  const { loading, error, data, fetchMore } = useQuery<GetBooksData>(GET_BOOKS, {
+  const { loading, error, data, fetchMore, refetch } = useQuery<GetBooksData>(GET_BOOKS, {
     variables: { options: { limit, offset: 0, sort: BookSort }, searchTerm: inputValue },
+    fetchPolicy: initialLoad ? "cache-first" : "network-only", // use cache-first on initial call, or else network only
     notifyOnNetworkStatusChange: true,
   });
 
+  useEffect(() => {
+    if (!initialLoad) {
+      refetch(); 
+    }
+    setInitialLoad(false); // first call executed?
+  }, [inputValue, refetch]);
+
+  
   useEffect(() => {
     setLoading(loading);
 
@@ -31,24 +41,18 @@ const BookBox: React.FC = () => {
     }
 
     if (data && data.books) {
-      const newBooks = data.books.filter(
-        (newBook) => !books.some((existingBook) => existingBook.id === newBook.id)
-      );
-
-      if (newBooks.length > 0) {
-        setBooks([...books, ...newBooks]);
-      }
+      setBooks(data.books);
     }
     console.log("Current books:", books);
   }, [data, loading, error, setBooks, setLoading, setError]);
 
   const loadMoreBooks = () => {
     fetchMore({
-      variables: { options: { limit, offset: books.length, sort: BookSort } }, // Set offset dynamically
+      variables: { options: { limit, offset: books.length, sort: BookSort } },
       updateQuery: (prevResult, { fetchMoreResult }) => {
         if (!fetchMoreResult) return prevResult;
         return {
-          books: [...prevResult.books, ...fetchMoreResult.books], // Append new books
+          books: [...prevResult.books, ...fetchMoreResult.books],
         };
       },
     });
