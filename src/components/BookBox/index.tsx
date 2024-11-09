@@ -31,7 +31,6 @@ const BookBox: React.FC = () => {
     setInitialLoad(false); // first call executed?
   }, [inputValue, refetch]);
 
-  
   useEffect(() => {
     setLoading(loading);
 
@@ -63,12 +62,15 @@ const BookBox: React.FC = () => {
   if (!books.length) return <p className={styles.errorMessage}>No books found</p>;
 
   return (
-    <section className={styles.bookList}>
-      {books.map((book: Book) => (
-        <BookCard key={book.id} book={book} />
-      ))}
+    <section className={styles.bookListWrapper}> {/* Added Wrapper to enable flexbox */}
+      <div className={styles.bookList}>
+        {books.map((book: Book) => (
+          <BookCard key={book.id} book={book} />
+        ))}
+      </div>
+      {/* Sentrering av "Load More"-knappen */}
       <button onClick={loadMoreBooks} disabled={loading} className={styles.loadingButton}>
-        {loading ? "Loading..." : "Load More Books"}
+        {loading ? "Loading..." : "Load more"}
       </button>
     </section>
   );
