@@ -1,4 +1,8 @@
-import { Popover, PopoverContent, PopoverTrigger } from "@/components/ui/popover";
+import {
+  Popover,
+  PopoverContent,
+  PopoverTrigger,
+} from "@/components/ui/popover";
 import styles from "./ReviewPopUp.module.css";
 import { Input } from "../ui/input";
 import { Textarea } from "../ui/textarea";
@@ -6,7 +10,7 @@ import { Button } from "../ui/button";
 import { FaStar } from "react-icons/fa";
 import { useState } from "react";
 import { useMutation } from "@apollo/client";
-import { ADD_REVIEW } from "@/queries";  // Make sure this query is correct
+import { ADD_REVIEW } from "@/queries"; // Make sure this query is correct
 
 const ReviewPopUp: React.FC<{ bookId: string }> = ({ bookId }) => {
   const [popoverOpen, setPopoverOpen] = useState(false);
@@ -73,7 +77,8 @@ const ReviewPopUp: React.FC<{ bookId: string }> = ({ bookId }) => {
     );
   };
 
-  const isFormComplete = name.trim() !== "" && comment.trim() !== "" && stars > 0;
+  const isFormComplete =
+    name.trim() !== "" && comment.trim() !== "" && stars > 0;
 
   return (
     <Popover open={popoverOpen} onOpenChange={setPopoverOpen}>

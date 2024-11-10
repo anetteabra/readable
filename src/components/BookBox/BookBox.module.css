@@ -1,6 +1,9 @@
 .bookList {
   display: grid;
-  grid-template-columns: repeat(auto-fill, minmax(180px, 1fr)); /* Responsiv grid */
+  grid-template-columns: repeat(
+    auto-fill,
+    minmax(180px, 1fr)
+  ); /* Responsiv grid */
   gap: 30px;
   padding: 16px;
 }
@@ -14,7 +17,6 @@
   white-space: nowrap; /* Hindrer tekstbrytning */
   display: inline-block;
 }
-
 
 .loadingMessage {
   font-size: 1.5rem;

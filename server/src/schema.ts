@@ -2,7 +2,6 @@ import { gql } from "graphql-tag";
 
 // Define the GraphQL schema using the gql template literal
 const typeDefs = gql`
-
   type Book {
     id: ID! @id @unique
     title: String! # Title of the book
@@ -28,29 +27,29 @@ const typeDefs = gql`
     comment: String!
     book: Book! @relationship(type: "REVIEWED", direction: OUT)
   }
-  
+
   type TestSubscriber {
     id: ID! @id @unique
     name: String!
     email: String!
     Book: Book! @relationship(type: "SUBSCRIBED", direction: OUT)
   }
-  
+
   type Mutation {
     addReview(
-      bookId: ID!,
-      name: String!,
-      stars: Int!,
+      bookId: ID!
+      name: String!
+      stars: Int!
       comment: String!
     ): Review!
-    @cypher(
-      statement: """
+      @cypher(
+        statement: """
         MATCH (b:Book {id: $bookId})
         CREATE (r:Review {name: $name, stars: $stars, comment: $comment})
         CREATE (r)-[:REVIEWED]->(b)
         RETURN r
-      """,
-      columnName: "r"
+        """
+        columnName: "r"
       )
   }
 `;

@@ -3,18 +3,18 @@ import { gql, useMutation } from "@apollo/client";
 // Define the GraphQL query to get books with the new fields
 export const GET_BOOKS = gql`
   query GetBooks($options: BookOptions) {
-  books(options: $options) {
-    cover
-    description
-    genre
-    id
-    isbn13
-    publication_date
-    title
-    author {
-      name
+    books(options: $options) {
+      cover
+      description
+      genre
+      id
+      isbn13
+      publication_date
+      title
+      author {
+        name
+      }
     }
-  }
   }
 `;
 
@@ -40,7 +40,12 @@ export const GET_REVIEWS = gql`
 
 // Define the GraphQL mutation to add a new review
 export const ADD_REVIEW = gql`
-  mutation AddReview($bookId: ID!, $name: String!, $stars: Int!, $comment: String!) {
+  mutation AddReview(
+    $bookId: ID!
+    $name: String!
+    $stars: Int!
+    $comment: String!
+  ) {
     addReview(bookId: $bookId, name: $name, stars: $stars, comment: $comment) {
       name
       stars
