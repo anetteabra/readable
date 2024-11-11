@@ -25,6 +25,11 @@ interface LibraryState {
   isFavorited: (bookId: string) => boolean;
   inputValue: string;
   setInputValue: (value: string) => void;
+  sortField: string;
+  setSortField: (value: string) => void;
+  sortOrder: string;
+  setSortOrder: (value: string) => void;
+
 }
 
 const useLibraryStore = create(
@@ -35,10 +40,20 @@ const useLibraryStore = create(
       loading: false,
       error: null,
       inputValue: "", // Add this line with default empty string
-      setInputValue: (value) => set({ inputValue: value }), // Add this line
+      setInputValue: (value) => set({ inputValue: value.toUpperCase()}), // Add this line
+      sortField: "title",
+      sortOrder: "ASC",
 
+      setSortField: (value) => set({ sortField: value }),
+      setSortOrder: (value) => {
+        if (value === "ASC" || value === "DESC") {
+          set({ sortOrder: value });
+        } else {
+          console.warn("Invalid sortOrder value. Use 'ASC' or 'DESC'.");
+        }
+      },
       sortBy: "Title a-z", // default sorting by Title
-      filterBy: { favorited: false, unavailable: false, genre: null }, // default filter settings
+      filterBy: { favorited: false, unavailable: false, genre: ""}, // default filter settings
       favorites: JSON.parse(localStorage.getItem("favorites") || "[]"), // Load favorites from local storage
       isFavorited: (bookId: string) => get().favorites.includes(bookId),
 
@@ -71,7 +86,7 @@ const useLibraryStore = create(
         set((state) => ({
           filterBy: {
             ...state.filterBy,
-            genre, // Set the selected genre
+            genre: genre ?? "", // Set the selected genre
           },
         }));
         get().sortBooks();
@@ -102,73 +117,43 @@ const useLibraryStore = create(
 
       // Sorting functionality combines with filtering
       sortBooks: () => {
-        const { books, sortBy, filterBy, favorites } = get();
+        const {sortBy} = get();
 
         //Filter the books first based on the current filters
-        let filteredBooks = [...books];
+        /* let filteredBooks = [...books]; */
 
-        if (filterBy.favorited) {
+        /* if (filterBy.favorited) {
           filteredBooks = filteredBooks.filter((book) =>
             favorites.includes(book.id),
           );
-        }
+        } */
 
         // Filter by genre if one is selected
-        if (filterBy.genre) {
+        /* if (filterBy.genre) {
           filteredBooks = filteredBooks.filter(
             (book) =>
               filterBy.genre &&
               book.genre.toLowerCase() === filterBy.genre.toLowerCase(),
           );
-        }
+        } */
 
         // Sort the filtered books based on the current sortBy option
-        switch (sortBy) {
+       switch (sortBy) {
           case "Title a-z":
-            filteredBooks.sort((a, b) =>
-              a.title.toLowerCase() > b.title.toLowerCase() ? 1 : -1,
-            );
+            set({ sortField: "title", sortOrder: "ASC" });
             break;
           case "Title z-a":
-            filteredBooks.sort((a, b) =>
-              a.title.toLowerCase() < b.title.toLowerCase() ? 1 : -1,
-            );
-            break;
-
-          case "Author a-z":
-            filteredBooks.sort((a, b) =>
-              a.author.name.toLowerCase() > b.author.name.toLowerCase()
-                ? 1
-                : -1,
-            );
-            break;
-          case "Author z-a":
-            filteredBooks.sort((a, b) =>
-              a.author.name.toLowerCase() < b.author.name.toLowerCase()
-                ? 1
-                : -1,
-            );
+            set({ sortField: "title", sortOrder: "DESC" });
             break;
           case "Newest":
-            filteredBooks.sort((a, b) => {
-              const dateA = parseDate(a.publication_date); // Parse the date
-              const dateB = parseDate(b.publication_date);
-              return dateB.getTime() - dateA.getTime(); // Sort from newest to oldest
-            });
+            set({ sortField: "publication_date", sortOrder: "DESC" });
             break;
           case "Oldest":
-            filteredBooks.sort((a, b) => {
-              const dateA = parseDate(a.publication_date);
-              const dateB = parseDate(b.publication_date);
-              return dateA.getTime() - dateB.getTime(); // Sort from oldest to newest
-            });
+            set({ sortField: "publication_date", sortOrder: "ASC" });
             break;
           default:
-            break;
+            console.warn("Invalid sortBy option");
         }
-
-        //Update the Zustand state with the sorted and filtered books
-        set({ filteredBooks });
       },
     }),
     {
