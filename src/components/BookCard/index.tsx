@@ -13,6 +13,7 @@ import FaveButton from "../FaveButton";
 export default function BookCard({ book, userId }: BookCardProps) {
   
   const isFavorited = book.favoritedBy.some((user) => user.id === userId);
+  
 
   return (
     <Card className={styles.bookCard}>

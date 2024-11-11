@@ -2,10 +2,12 @@ import { Book } from "@/queries";
 import { create } from "zustand";
 import { createJSONStorage, persist } from "zustand/middleware";
 import  getOrCreateUserId from "@/utils/generateUserID";
-import { favoriteBook, unfavoriteBook } from "@/queries";
+import { favoriteBook, unfavoriteBook, ADD_USER } from "@/queries";
+import { useMutation } from "@apollo/client";
 
 // Generate or retrieve the userId once and use it in the store
 const userId = getOrCreateUserId();
+
 interface LibraryState {
   userId: string; // Unique user ID
   books: Book[]; // All books fetched from the server

@@ -20,22 +20,22 @@ const BookBox: React.FC = () => {
   });
 
   // Helper function to append unique books
-  const appendUniqueBooksToArray = (newBooks: Book[]) => {
-    const existingIds = new Set(existingBooksArray.map((bookCard) => bookCard.key));
-    const uniqueBooks = newBooks.filter((book) => !existingIds.has(book.id));
-
-    const newBookCards = uniqueBooks.map((book: Book) => (
-      <BookCard key={book.id} book={book} userId={userId} />
-    ));
-
-    setExistingBooksArray((prevArray) => [...prevArray, ...newBookCards]);
-  };
-  
-  // const appendUniqueBooks = (newBooks: Book[]) => {
-  //   const existingIds = new Set(existingBooksArray.map((book) => book.id));
+  // const appendUniqueBooksToArray = (newBooks: Book[]) => {
+  //   const existingIds = new Set(existingBooksArray.map((bookCard) => bookCard.key));
   //   const uniqueBooks = newBooks.filter((book) => !existingIds.has(book.id));
-  //   setExistingBooksArray((prev) => [...prev, ...uniqueBooks]);
+
+  //   const newBookCards = uniqueBooks.map((book: Book) => (
+  //     <BookCard key={book.id} book={book} userId={userId} />
+  //   ));
+
+  //   setExistingBooksArray((prevArray) => [...prevArray, ...newBookCards]);
   // };
+
+  const appendUniqueBooks = (newBooks: Book[]) => {
+    const existingIds = new Set(existingBooksArray.map((book) => book.id));
+    const uniqueBooks = newBooks.filter((book) => !existingIds.has(book.id));
+    setExistingBooksArray((prev) => [...prev, ...uniqueBooks]);
+  };
 
 
   useEffect(() => {

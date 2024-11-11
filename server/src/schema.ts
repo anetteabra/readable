@@ -49,6 +49,17 @@ const typeDefs = gql`
 
     favoriteBook(bookId: ID!, userId: ID!): User
     unfavoriteBook(bookId: ID!, userId: ID!): User
+
+    addUser(
+        id: ID!
+      ): User
+      @cypher(
+      statement: """
+      CREATE (u:User {id: $id})
+      return u
+      """,
+      columnName: "u"
+  ) 
   }
 `;
 

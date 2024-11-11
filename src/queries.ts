@@ -124,6 +124,14 @@ export const UNFAVORITE_BOOK_MUTATION = gql`
   }
 `;
 
+export const ADD_USER = gql`
+mutation AddUser($addUserId: ID!) {
+  addUser(id: $addUserId) {
+    id
+  }
+}
+`;
+
 // TypeScript interfaces for data and variables
 export interface Book {
   id: string;
@@ -183,6 +191,10 @@ export interface AddBookVars {
 export const useAddReview = () => {
   return useMutation<AddReviewData, AddReviewVars>(ADD_REVIEW);
 };
+
+export const useAddUser = () => {
+  return useMutation(ADD_USER);
+}
 
 // Function to favorite a book
 export const favoriteBook = async (bookId: string, userId: string) => {

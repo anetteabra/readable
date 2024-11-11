@@ -5,11 +5,15 @@ import { faHeart } from "@fortawesome/free-solid-svg-icons";
 import { FontAwesomeIcon } from "@fortawesome/react-fontawesome";
 import React from "react";
 import { useCallback } from "react";
+import { useMutation } from "@apollo/client";
+import { ADD_USER } from "@/queries";
 
  // Debounce the toggleFavorite function to prevent rapid toggling
 //  const debouncedToggleFavorite = debounce(async (toggleFavorite: (id: string) => void, bookId: string) => {
 //   await toggleFavorite(bookId);
 // }, 300);
+
+
 
 const FaveButton = ({ bookId, isFavorited }: { bookId: string; isFavorited: boolean; }) => {
   const { toggleFavorite } = useLibraryStore((state) => ({
