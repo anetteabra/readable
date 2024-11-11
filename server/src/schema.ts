@@ -1,6 +1,5 @@
 import { gql } from "graphql-tag";
 
-// Define the GraphQL schema using the gql template literal
 const typeDefs = gql`
 
   type Book {
@@ -23,7 +22,7 @@ const typeDefs = gql`
 
   input BookSort {
     title: SortDirection
-    name: SortDirection
+   publication_date : SortDirection
   }
   
  

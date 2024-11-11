@@ -8,15 +8,17 @@ import styles from "./BookBox.module.css";
 const BookBox: React.FC = () => {
   const [offset, setOffset] = useState(0); 
   const [limit, setLimit] = useState(12);
-  const [sortField,setSortField]= useState("title");
-  const [sortOrder, setSortOrder]= useState("ASC");
+  const sortField = useLibraryStore((state) => state.sortField);
+  const sortOrder = useLibraryStore((state) => state.sortOrder);
   const inputValue = useLibraryStore((state) => state.inputValue);
+  const genre = useLibraryStore((state) => state.filterBy.genre);
   const BookSort = {[sortField]: sortOrder };
  /*  const [existingBooksArray, setExistingBooksArray] = useState<JSX.Element[]>([]); */ // Array to store BookCard components
 
   const { loading, error, data, fetchMore } = useQuery<GetBooksData>(GET_BOOKS, {
     variables: { options: { limit, offset, sort: BookSort
-      },  searchTerm: inputValue},
+      },  genre: genre, searchTerm: inputValue},
+      
   });
 
   const setBooks = useLibraryStore((state) => state.setBooks);
@@ -40,6 +42,9 @@ const BookBox: React.FC = () => {
   useEffect(() => {
     console.log("Offset value:", offset);
     console.log("Loading status:", loading);
+    console.log("Sort status:", sortOrder);
+    console.log("genre status:", genre);
+
 
     setLoading(loading);
 
