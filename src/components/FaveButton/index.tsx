@@ -15,9 +15,9 @@ const FaveButton = ({ bookId, isFavorited }: { bookId: string; isFavorited: bool
   const handleClick = useCallback(
     (event: React.MouseEvent) => {
       event.stopPropagation();
-      toggleFavorite(bookId); // Use the debounced function here
+      toggleFavorite(bookId);
     },
-    [toggleFavorite, bookId ] // Only re-create the function if these dependencies change
+    [toggleFavorite, bookId ]
   );
 
   return (

@@ -90,18 +90,46 @@ export const ADD_BOOK = gql`
   }
 `;
 
+// export const FAVORITE_BOOK_MUTATION = gql`
+//   mutation favoriteBook($bookId: ID!, $userId: ID!) {
+//     updateUsers(
+//       where: { id: $userId }
+//       connect: { favorites: { where: { node: { id: $bookId } } } }
+//     ) {
+//       users {
+//         id
+//         favorites {
+//           id
+//           title
+//         }
+//       }
+//     }
+//   }
+// `;
+//
+// export const UNFAVORITE_BOOK_MUTATION = gql`
+//   mutation unfavoriteBook($bookId: ID!, $userId: ID!) {
+//     updateUsers(
+//       where: { id: $userId }
+//       disconnect: { favorites: { where: { node: { id: $bookId } } } }
+//     ) {
+//       users {
+//         id
+//         favorites {
+//           id
+//           title
+//         }
+//       }
+//     }
+//   }
+// `;
+
 export const FAVORITE_BOOK_MUTATION = gql`
   mutation favoriteBook($bookId: ID!, $userId: ID!) {
-    updateUsers(
-      where: { id: $userId }
-      connect: { favorites: { where: { node: { id: $bookId } } } }
-    ) {
-      users {
+    favoriteBook(bookId: $bookId, userId: $userId) {
+      id
+      favorites {
         id
-        favorites {
-          id
-          title
-        }
       }
     }
   }
@@ -109,17 +137,27 @@ export const FAVORITE_BOOK_MUTATION = gql`
 
 export const UNFAVORITE_BOOK_MUTATION = gql`
   mutation unfavoriteBook($bookId: ID!, $userId: ID!) {
-    updateUsers(
-      where: { id: $userId }
-      disconnect: { favorites: { where: { node: { id: $bookId } } } }
-    ) {
-      users {
+    unfavoriteBook(bookId: $bookId, userId: $userId) {
+      id
+      favorites {
         id
-        favorites {
-          id
-          title
-        }
       }
+    }
+  }
+`;
+
+
+export const GET_USER_FAVORITES = gql`
+  query GetUserFavorites($userId: ID!) {
+    userFavorites(userId: $userId) {
+      id
+      title
+      cover
+      author {
+        name
+      }
+      genre
+      publication_date
     }
   }
 `;

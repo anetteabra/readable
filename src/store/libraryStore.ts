@@ -44,7 +44,6 @@ const useLibraryStore = create(
       sortBy: "Title a-z", // default sorting by Title
       filterBy: { favorited: false, unavailable: false, genre: null }, // default filter settings
       favorites: JSON.parse(localStorage.getItem("favorites") || "[]"), // Load favorites from local storage
-      isFavorited: (bookId: string) => get().favorites.includes(bookId),
 
       // Actions for setting books, loading, and error (external fetched in book component and stored in zustand)
       setBooks: (books) => {
@@ -82,35 +81,31 @@ const useLibraryStore = create(
       },
 
       toggleFavorite: async (bookId) => {
-        const { isFavorited, userId, favorites } = get();
-        const isCurrentlyFavorited = isFavorited(bookId);
-      
-        // Optimistically update the favorites list in the store
-        set({
-          favorites: isCurrentlyFavorited
-            ? favorites.filter((id) => id !== bookId)
-            : [...favorites, bookId],
-        });
-      
-        try {
-          // Perform backend mutation based on the current favorite status
-          if (isCurrentlyFavorited) {
+        const { favorites, userId } = get();
+        const isFavorited = favorites.includes(bookId);
+
+        // Optimistic UI update: only update state if needed to prevent unnecessary renders
+        if (isFavorited) {
+          set({ favorites: favorites.filter((id) => id !== bookId) });
+          try {
             await unfavoriteBook(bookId, userId);
-          } else {
-            await favoriteBook(bookId, userId);
+          } catch (error) {
+            console.error("Failed to unfavorite:", error);
+            set({ favorites: [...favorites, bookId] }); // Rollback on failure
           }
-        } catch (error) {
-          console.error("Failed to toggle favorite status:", error);
-          // Revert the optimistic update in case of a failure
-          set({
-            favorites: isCurrentlyFavorited
-              ? [...favorites, bookId] // Re-add the book if it was removed
-              : favorites.filter((id) => id !== bookId), // Remove if it was added
-          });
+        } else {
+          set({ favorites: [...favorites, bookId] });
+          try {
+            await favoriteBook(bookId, userId);
+          } catch (error) {
+            console.error("Failed to favorite:", error);
+            set({ favorites: favorites.filter((id) => id !== bookId) }); // Rollback on failure
+          }
         }
       },
       
-
+      isFavorited: (bookId: string) => get().favorites.includes(bookId),
+      
       setFavoriteFilter: (isEnabled) => {
         set((state) => ({
           filterBy: {

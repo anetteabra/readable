@@ -65,6 +65,15 @@ const typeDefs = gql`
   type Query {
     user(id: ID!): User  # Add this query to fetch a single user by id
     users: [User!]!      # Retain this to fetch multiple users if needed
+    
+    userFavorites(userId: ID!): [Book!]!
+    @cypher(
+      statement: """
+      MATCH (u:User {id: $userId})-[:FAVORITED]->(b:Book)
+      RETURN b
+      """,
+      columnName: "b"
+  )
   }
 `;
 
