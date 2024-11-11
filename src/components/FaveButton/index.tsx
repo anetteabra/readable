@@ -8,9 +8,7 @@ import { useCallback } from "react";
 
 
 const FaveButton = ({ bookId, isFavorited }: { bookId: string; isFavorited: boolean; }) => {
-  const { toggleFavorite } = useLibraryStore((state) => ({
-    toggleFavorite: state.toggleFavorite,
-  }));
+  const toggleFavorite = useLibraryStore((state) => state.toggleFavorite);
 
   const handleClick = useCallback(
     (event: React.MouseEvent) => {

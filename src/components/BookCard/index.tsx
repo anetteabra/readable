@@ -10,19 +10,23 @@ import styles from "./BookCard.module.css";
 import { BookCardProps } from "../../queries";
 import FaveButton from "../FaveButton";
 import useLibraryStore from "@/store/libraryStore";
+import { useMemo } from "react";
 
 export default function BookCard({ book }: BookCardProps) {
   
   // const isFavorited = book.favoritedBy.some((user) => user.id === userId);
   const userId = useLibraryStore((state) => state.userId);
-  const isFavorited = useLibraryStore((state) => state.isFavorited(book.id));
+  const isFavorited = useLibraryStore(
+    useMemo(() => (state) => state.isFavorited(book.id), [book.id]) // Memoize to avoid re-renders
+  );
+
 
   return (
     <Card className={styles.bookCard}>
       <CardHeader className={styles.bookCardHeader}>
-        {/* <div className={styles.faveButton} aria-label="Favorite book">
+        <div className={styles.faveButton} aria-label="Favorite book">
           <FaveButton bookId={book.id} isFavorited={isFavorited} />
-        </div>  */}
+        </div> 
         <CardTitle className={styles.bookCardTitle}>{book.title}</CardTitle>
         <CardDescription className={styles.bookCardAuthor}>
           by {book.author.name}

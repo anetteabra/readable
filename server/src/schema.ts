@@ -71,7 +71,24 @@ const typeDefs = gql`
       )
 
     favoriteBook(bookId: ID!, userId: ID!): User
+      @cypher(
+        statement: """
+        MATCH (u:User {id: $userId}), (b:Book {id: $bookId})
+        MERGE (u)-[:FAVORITED]->(b)
+        RETURN u
+        """,
+        columnName: "u"
+      )
+
     unfavoriteBook(bookId: ID!, userId: ID!): User
+      @cypher(
+      statement: """
+      MATCH (u:User {id: $userId})-[r:FAVORITED]->(b:Book {id: $bookId})
+      DELETE r
+      RETURN u
+      """,
+      columnName: "u"
+    )
 
     addUser(
         id: ID!

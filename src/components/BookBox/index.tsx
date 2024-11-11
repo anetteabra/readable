@@ -1,6 +1,6 @@
 import { useQuery } from "@apollo/client";
 import { useEffect, useState } from "react";
-import { GET_BOOKS, GetBooksData, Book } from "../../queries";
+import { GET_BOOKS, GetBooksData, Book, GET_USER_FAVORITES } from "../../queries";
 import useLibraryStore from "../../store/libraryStore";
 import BookCard from "../BookCard";
 import styles from "./BookBox.module.css";
@@ -14,17 +14,21 @@ const BookBox: React.FC = () => {
   const genre = useLibraryStore((state) => state.filterBy.genre);
   const BookSort = {[sortField]: sortOrder };
 
-  const { loading, error, data, fetchMore } = useQuery<GetBooksData>(GET_BOOKS, {
-    variables: { options: { limit, offset, sort: BookSort
-      },  genre: genre, searchTerm: inputValue},
-      
-  });
-
   const userId = useLibraryStore((state) => state.userId);
   const setBooks = useLibraryStore((state) => state.setBooks);
   const books = useLibraryStore((state) => state.books);
   const setLoading = useLibraryStore((state) => state.setLoading);
   const setError = useLibraryStore((state) => state.setError);
+  const { filterBy } = useLibraryStore();
+  
+  const { loading, error, data, fetchMore } = useQuery<GetBooksData>(
+    filterBy.favorited ? GET_USER_FAVORITES : GET_BOOKS, 
+    {
+    variables: { options: { limit, offset, sort: BookSort
+      },  genre: genre, searchTerm: inputValue},
+      skip: !userId,
+
+  });
  
   useEffect(() => {
     console.log("Offset value:", offset);

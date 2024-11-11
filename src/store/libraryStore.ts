@@ -57,7 +57,7 @@ const useLibraryStore = create(
         }
       },
       sortBy: "Title a-z", // default sorting by Title
-      filterBy: { favorited: false, unavailable: false, genre: ""}, // default filter settings
+      filterBy: { favorited: false, genre: ""}, // default filter settings
       favorites: JSON.parse(localStorage.getItem("favorites") || "[]"), // Load favorites from local storage
 
       // Actions for setting books, loading, and error (external fetched in book component and stored in zustand)
@@ -119,7 +119,7 @@ const useLibraryStore = create(
         }
       },
       
-      isFavorited: (bookId: string) => get().favorites.includes(bookId),
+      isFavorited: (bookId) => get().favorites.includes(bookId),
       
       setFavoriteFilter: (isEnabled) => {
         set((state) => ({
@@ -128,7 +128,6 @@ const useLibraryStore = create(
             favorited: isEnabled,
           },
         }));
-        get().sortBooks(); // Reapply sorting and filtering
       },
 
       // Sorting functionality combines with filtering
