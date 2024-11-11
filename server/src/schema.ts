@@ -30,7 +30,7 @@ const typeDefs = gql`
   }
 
   type User {
-    id: ID!
+    id: ID! @unique
     favorites: [Book!]! @relationship(type: "FAVORITED", direction: OUT)
   }
 
@@ -55,11 +55,16 @@ const typeDefs = gql`
       ): User
       @cypher(
       statement: """
-      CREATE (u:User {id: $id})
+      MERGE (u:User {id: $id})
       return u
       """,
       columnName: "u"
   ) 
+  }
+
+  type Query {
+    user(id: ID!): User  # Add this query to fetch a single user by id
+    users: [User!]!      # Retain this to fetch multiple users if needed
   }
 `;
 

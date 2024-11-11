@@ -132,6 +132,15 @@ mutation AddUser($addUserId: ID!) {
 }
 `;
 
+// Define the query to check if a user exists
+export const CHECK_USER = gql`
+  query CheckUser($userId: ID!) {
+    user(id: $userId) {
+      id
+    }
+  }
+`;
+
 // TypeScript interfaces for data and variables
 export interface Book {
   id: string;

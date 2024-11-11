@@ -18,9 +18,9 @@ export default function BookCard({ book, userId }: BookCardProps) {
   return (
     <Card className={styles.bookCard}>
       <CardHeader className={styles.bookCardHeader}>
-        <div className={styles.faveButton} aria-label="Favorite book">
+        {/* <div className={styles.faveButton} aria-label="Favorite book">
           <FaveButton bookId={book.id} isFavorited={isFavorited} />
-        </div>
+        </div> */}
         <CardTitle className={styles.bookCardTitle}>{book.title}</CardTitle>
         <CardDescription className={styles.bookCardAuthor}>
           by {book.author.name}

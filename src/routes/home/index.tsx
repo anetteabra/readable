@@ -3,34 +3,45 @@ import { Button } from "@/components/ui/button";
 import { Link } from "react-router-dom";
 import useLibraryStore from "@/store/libraryStore";
 import { useEffect } from "react";
-import { useMutation } from "@apollo/client";
-import { ADD_USER } from "@/queries";
+import { useMutation, useQuery} from "@apollo/client";
+import { ADD_USER, CHECK_USER } from "@/queries";
 
 const Home = () => {
   const userId = useLibraryStore((state) => state.userId);
 
-    // Initialize the addUser mutation
+  // Init addUser mutation
   const [addUserMutation] = useMutation(ADD_USER);
 
-  useEffect(() => {
-      const addUserOnLoad = async () => {
-        if (!userId) return; // Ensure userId is defined
-        
-          try {
-              const response = await addUserMutation({
-                  variables: {
-                    addUserId: userId,
-                  },
-              });
-              console.log("User added successfully on page load:", response.data);
-          } catch (err) {
-              console.error("Error adding user on page load:", err);
-          }
-      };
+  const { data, loading, error } = useQuery(CHECK_USER, {
+    variables: { userId },
+    skip: !userId, // Skip the query if userId is undefined
+  });
 
-      // Run the mutation when the component loads
-      addUserOnLoad();
-  }, [addUserMutation, userId]);
+  useEffect(() => {
+    // Wait until CHECK_USER query has finished loading
+    if (loading || error || !userId) return;
+
+    // Only proceed if there is no existing user and no error in the query
+    const addUserIfNotExists = async () => {
+      if (data?.user) {
+        console.log("User already exists in the database:", data.user);
+        return;
+      }
+
+      try {
+        const response = await addUserMutation({
+          variables: { addUserId: userId },
+        });
+        console.log("User added successfully on page load:", response.data);
+      } catch (err) {
+        console.error("Error adding user on page load:", err);
+      }
+    };
+
+    // Run the mutation when the component loads and the check query is done
+    addUserIfNotExists();
+  }, [loading, error, data, userId, addUserMutation]);
+
 
   return (
     <>
@@ -41,7 +52,6 @@ const Home = () => {
             Explore new worlds, one book at a time
           </h1>
           <p className={styles.paragraph}>Join the online bookclub</p>
-          <div> {userId} </div>
         </header>
         <Link to="/library">
           <Button className={styles.button}>Go to your library</Button>
