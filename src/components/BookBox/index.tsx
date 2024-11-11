@@ -13,31 +13,19 @@ const BookBox: React.FC = () => {
   const inputValue = useLibraryStore((state) => state.inputValue);
   const genre = useLibraryStore((state) => state.filterBy.genre);
   const BookSort = {[sortField]: sortOrder };
- /*  const [existingBooksArray, setExistingBooksArray] = useState<JSX.Element[]>([]); */ // Array to store BookCard components
 
   const { loading, error, data, fetchMore } = useQuery<GetBooksData>(GET_BOOKS, {
     variables: { options: { limit, offset, sort: BookSort
       },  genre: genre, searchTerm: inputValue},
       
   });
+
   const userId = useLibraryStore((state) => state.userId);
   const setBooks = useLibraryStore((state) => state.setBooks);
   const books = useLibraryStore((state) => state.books);
   const setLoading = useLibraryStore((state) => state.setLoading);
   const setError = useLibraryStore((state) => state.setError);
-
-  const { loading, error, data, fetchMore } = useQuery<GetBooksData>(GET_BOOKS, {
-    variables: { userId, options: { limit, offset } },
-  });
  
-
-  // Helper function to append unique books
- /*  const appendUniqueBooksToArray = (newBooks: Book[]) => {
-    const existingIds = new Set(existingBooksArray.map((bookCard) => bookCard.key));
-    const uniqueBooks = newBooks.filter((book) => !existingIds.has(book.id));
-    setExistingBooksArray((prev) => [...prev, ...uniqueBooks]);
-  };
- */
   useEffect(() => {
     console.log("Offset value:", offset);
     console.log("Loading status:", loading);
@@ -79,10 +67,10 @@ const BookBox: React.FC = () => {
     {/* Added Wrapper to enable flexbox */} 
     <div className={styles.bookList}> 
       {books.map((book: Book) => ( 
-        <BookCard key={book.id} book={book} /> 
+        <BookCard key={book.id} book={book} userId={userId} /> 
       ))} 
     </div> 
-    {/* Sentrering av "Load More"-knappen */} 
+    {/* Centering the "Load More"-button */} 
     <button 
       onClick={loadMoreBooks} 
       disabled={loading} 
