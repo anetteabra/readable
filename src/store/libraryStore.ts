@@ -83,15 +83,19 @@ const useLibraryStore = create(
         get().sortBooks();
       },
 
-      // Favorites toggle
-      // Async toggleFavorite function with backend mutations
       toggleFavorite: async (bookId) => {
-        const { isFavorited, userId } = get();
+        const { isFavorited, userId, favorites } = get();
         const isCurrentlyFavorited = isFavorited(bookId);
-
-        
+      
+        // Optimistically update the favorites list in the store
+        set({
+          favorites: isCurrentlyFavorited
+            ? favorites.filter((id) => id !== bookId)
+            : [...favorites, bookId],
+        });
+      
         try {
-          // Trigger backend mutation
+          // Perform backend mutation based on the current favorite status
           if (isCurrentlyFavorited) {
             await unfavoriteBook(bookId, userId);
           } else {
@@ -99,14 +103,15 @@ const useLibraryStore = create(
           }
         } catch (error) {
           console.error("Failed to toggle favorite status:", error);
-          // Revert the optimistic update on failure
+          // Revert the optimistic update in case of a failure
           set({
             favorites: isCurrentlyFavorited
-              ? [...get().favorites, bookId]
-              : get().favorites.filter((id) => id !== bookId),
+              ? [...favorites, bookId] // Re-add the book if it was removed
+              : favorites.filter((id) => id !== bookId), // Remove if it was added
           });
         }
       },
+      
 
       setFavoriteFilter: (isEnabled) => {
         set((state) => ({

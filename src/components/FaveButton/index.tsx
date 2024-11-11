@@ -3,35 +3,33 @@ import { Button } from "@/components/ui/button";
 import useLibraryStore from "@/store/libraryStore";
 import { faHeart } from "@fortawesome/free-solid-svg-icons";
 import { FontAwesomeIcon } from "@fortawesome/react-fontawesome";
-import { useCallback, useEffect } from "react";
-import debounce from "lodash/debounce";
+import React from "react";
+import { useCallback } from "react";
 
+ // Debounce the toggleFavorite function to prevent rapid toggling
+//  const debouncedToggleFavorite = debounce(async (toggleFavorite: (id: string) => void, bookId: string) => {
+//   await toggleFavorite(bookId);
+// }, 300);
 
 const FaveButton = ({ bookId, isFavorited }: { bookId: string; isFavorited: boolean; }) => {
   const { toggleFavorite } = useLibraryStore((state) => ({
     toggleFavorite: state.toggleFavorite,
   }));
 
-  // Debounce the toggleFavorite function to prevent rapid toggling
-  // Use useMemo to create the debounced function only once
-  const debouncedToggleFavorite = useCallback(
-    debounce(async (bookId: string) => {
-      await toggleFavorite(bookId);
-    }, 300), // 300ms debounce delay
-    []
+  const handleClick = useCallback(
+    (event: React.MouseEvent) => {
+      event.stopPropagation();
+      toggleFavorite(bookId); // Use the debounced function here
+    },
+    [toggleFavorite, bookId ] // Only re-create the function if these dependencies change
   );
 
-  const handleClick = async (event: React.MouseEvent) => {
-    event.stopPropagation();
-    debouncedToggleFavorite(bookId); 
-  };
-
   // Cancel the debounced function on unmount
-  useEffect(() => {
-    return () => {
-      debouncedToggleFavorite.cancel();
-    };
-  }, [debouncedToggleFavorite]);
+  // useEffect(() => {
+  //   return () => {
+  //     debouncedToggleFavorite.cancel();
+  //   };
+  // }, []);
   
 
   return (

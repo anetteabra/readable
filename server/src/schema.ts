@@ -46,6 +46,9 @@ const typeDefs = gql`
     ): Book
 
     addReview(bookId: ID!, name: String!, stars: Int!, comment: String!): Review
+
+    favoriteBook(bookId: ID!, userId: ID!): User
+    unfavoriteBook(bookId: ID!, userId: ID!): User
   }
 `;
 
