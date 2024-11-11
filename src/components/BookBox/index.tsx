@@ -6,70 +6,62 @@ import BookCard from "../BookCard";
 import styles from "./BookBox.module.css";
 
 const BookBox: React.FC = () => {
-  const [offset, setOffset] = useState(0);
-  const limit = 12;
-  const [existingBooksArray, setExistingBooksArray] = useState<Book[]>([]); // Array to store BookCard components
-  
+  const [offset, setOffset] = useState(0); 
+  const [limit, setLimit] = useState(12);
+  const sortField = useLibraryStore((state) => state.sortField);
+  const sortOrder = useLibraryStore((state) => state.sortOrder);
+  const inputValue = useLibraryStore((state) => state.inputValue);
+  const genre = useLibraryStore((state) => state.filterBy.genre);
+  const BookSort = {[sortField]: sortOrder };
+ /*  const [existingBooksArray, setExistingBooksArray] = useState<JSX.Element[]>([]); */ // Array to store BookCard components
+
+  const { loading, error, data, fetchMore } = useQuery<GetBooksData>(GET_BOOKS, {
+    variables: { options: { limit, offset, sort: BookSort
+      },  genre: genre, searchTerm: inputValue},
+      
+  });
   const userId = useLibraryStore((state) => state.userId);
   const setBooks = useLibraryStore((state) => state.setBooks);
+  const books = useLibraryStore((state) => state.books);
   const setLoading = useLibraryStore((state) => state.setLoading);
   const setError = useLibraryStore((state) => state.setError);
 
   const { loading, error, data, fetchMore } = useQuery<GetBooksData>(GET_BOOKS, {
     variables: { userId, options: { limit, offset } },
   });
+ 
 
   // Helper function to append unique books
-  // const appendUniqueBooksToArray = (newBooks: Book[]) => {
-  //   const existingIds = new Set(existingBooksArray.map((bookCard) => bookCard.key));
-  //   const uniqueBooks = newBooks.filter((book) => !existingIds.has(book.id));
-
-  //   const newBookCards = uniqueBooks.map((book: Book) => (
-  //     <BookCard key={book.id} book={book} userId={userId} />
-  //   ));
-
-  //   setExistingBooksArray((prevArray) => [...prevArray, ...newBookCards]);
-  // };
-
-  const appendUniqueBooks = (newBooks: Book[]) => {
-    const existingIds = new Set(existingBooksArray.map((book) => book.id));
+ /*  const appendUniqueBooksToArray = (newBooks: Book[]) => {
+    const existingIds = new Set(existingBooksArray.map((bookCard) => bookCard.key));
     const uniqueBooks = newBooks.filter((book) => !existingIds.has(book.id));
     setExistingBooksArray((prev) => [...prev, ...uniqueBooks]);
   };
-
-
+ */
   useEffect(() => {
     console.log("Offset value:", offset);
     console.log("Loading status:", loading);
+    console.log("Sort status:", sortOrder);
+    console.log("genre status:", genre);
+
 
     setLoading(loading);
 
     if (error) {
-      console.error("Error message:", error.message);
+      console.error("GraphQL Error:", error.message);
       setError(error.message);
     } else if (data) {
       console.log("Fetched data.books:", data.books);
       setBooks(data.books); // Update the store with new books
-
-      // Add these books to the existingBooksArray
-      appendUniqueBooks(data.books);
     }
-  }, [loading, error, data, setBooks, setLoading, setError]);
+    console.log("Current books:", books);
+  }, [data, loading, error, setBooks, setLoading, setError]);
 
   const loadMoreBooks = () => {
-    const newOffset = offset + limit; // Increase offset for pagination
-
-    setOffset(newOffset);
-
     fetchMore({
-      variables: {
-        userId,
-        options: { limit, offset: newOffset },
-      },
+      variables: { options: { limit, offset: books.length, sort: BookSort } },
       updateQuery: (prevResult, { fetchMoreResult }) => {
         if (!fetchMoreResult) return prevResult;
-  
-        // Combine previous and newly fetched books
         return {
           books: [...prevResult.books, ...fetchMoreResult.books],
         };
@@ -79,17 +71,26 @@ const BookBox: React.FC = () => {
 
   if (loading && offset === 0) return <p className={styles.loadingMessage}>Loading...</p>;
   if (error) return <p className={styles.errorMessage}>Error: {error.message}</p>;
-  if (!existingBooksArray.length) return <p className={styles.errorMessage}>No books found</p>;
+  if (!books.length) return <p className={styles.errorMessage}>No books found</p>;
 
   return (
-    <section className={styles.bookList}>
-      {existingBooksArray.map((book: Book) => (
-        <BookCard key={book.id} book={book} userId={userId} />
-      ))}
-      <button onClick={loadMoreBooks} disabled={loading} className={styles.loadMoreButton}>
-        {loading ? "Loading..." : "Load More Books"}
-      </button>
-    </section>
+    <section className={styles.bookListWrapper}> 
+    {" "}
+    {/* Added Wrapper to enable flexbox */} 
+    <div className={styles.bookList}> 
+      {books.map((book: Book) => ( 
+        <BookCard key={book.id} book={book} /> 
+      ))} 
+    </div> 
+    {/* Sentrering av "Load More"-knappen */} 
+    <button 
+      onClick={loadMoreBooks} 
+      disabled={loading} 
+      className={styles.loadingButton} 
+    > 
+      {loading ? "Loading..." : "Load more"} 
+    </button> 
+  </section> 
   );
 };
 

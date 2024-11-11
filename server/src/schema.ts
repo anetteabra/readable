@@ -1,10 +1,8 @@
 import { gql } from "graphql-tag";
 
-// Define the GraphQL schema using the gql template literal
 const typeDefs = gql`
-
   type Book {
-    id: ID! # Unique identifier for the book
+    id: ID! @id @unique
     title: String! # Title of the book
     author: Author! @relationship(type: "WROTE", direction: IN) # The author of the book
     cover: String # URL of the book's cover image
@@ -13,16 +11,30 @@ const typeDefs = gql`
     publication_date: String
     isbn13: String
     favoritedBy: [User!]! @relationship(type: "FAVORITED", direction: IN)
+    reviews: [Review!]! @relationship(type: "REVIEWED", direction: IN)
+  }
+  
+
+  input BookOptions {
+    limit: Int
+    offset: Int
+    sort: [BookSort!] # Array of sorting criteria
   }
 
+  input BookSort {
+    title: SortDirection
+   publication_date : SortDirection
+  }
+  
+ 
   type Author {
-    id: ID! # Unique identifier for the author
+    id: ID! @id @unique
     name: String! # Name of the author
     books: [Book!]! @relationship(type: "WROTE", direction: OUT) # Books written by the author
   }
 
   type Review {
-    id: ID!
+    id: ID! @id @unique
     name: String!
     stars: Int!
     comment: String!
@@ -34,18 +46,29 @@ const typeDefs = gql`
     favorites: [Book!]! @relationship(type: "FAVORITED", direction: OUT)
   }
 
-  type Mutation {
-    addBook(
-      title: String!,
-      cover: String,
-      authorName: String!,
-      description: String,
-      genre: String,
-      publication_date: String,
-      isbn13: String
-    ): Book
+  type TestSubscriber {
+    id: ID! @id @unique
+    name: String!
+    email: String!
+    Book: Book! @relationship(type: "SUBSCRIBED", direction: OUT)
+  }
 
-    addReview(bookId: ID!, name: String!, stars: Int!, comment: String!): Review
+  type Mutation {
+    addReview(
+      bookId: ID!
+      name: String!
+      stars: Int!
+      comment: String!
+    ): Review!
+      @cypher(
+        statement: """
+        MATCH (b:Book {id: $bookId})
+        CREATE (r:Review {name: $name, stars: $stars, comment: $comment})
+        CREATE (r)-[:REVIEWED]->(b)
+        RETURN r
+        """
+        columnName: "r"
+      )
 
     favoriteBook(bookId: ID!, userId: ID!): User
     unfavoriteBook(bookId: ID!, userId: ID!): User

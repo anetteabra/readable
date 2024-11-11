@@ -6,7 +6,7 @@ import typeDefs from "./schema";
 
 const driver: Driver = neo4j.driver(
   "neo4j://it2810-34.idi.ntnu.no:7687",
-  neo4j.auth.basic("neo4j", "readable")
+  neo4j.auth.basic("neo4j", "readable"),
 );
 
 const neoSchema = new Neo4jGraphQL({ typeDefs, driver });
@@ -45,3 +45,4 @@ async function startApolloServer(): Promise<void> {
 startApolloServer().catch((error: unknown) => {
   console.error("Unhandled error starting Apollo server:", error);
 });
+
