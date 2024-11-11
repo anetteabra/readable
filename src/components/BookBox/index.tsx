@@ -49,36 +49,22 @@ const BookBox: React.FC = () => {
     setLoading(loading);
 
     if (error) {
-      console.error("Error message:", error.message);
+      console.error("GraphQL Error:", error.message);
       setError(error.message);
     } else if (data) {
       console.log("Fetched data.books:", data.books);
       setBooks(data.books); // Update the store with new books
     }
-  }, [loading, error, data, setBooks, setLoading, setError]);
+    console.log("Current books:", books);
+  }, [data, loading, error, setBooks, setLoading, setError]);
 
   const loadMoreBooks = () => {
-    const newLimit = limit + 12;  // Increase limit by 12
-    const newOffset = offset + 12; // Increase offset by 12
-
-    setLimit(newLimit);
-    setOffset(newOffset);
-
     fetchMore({
-      variables: { options: { limit: newLimit, offset: newOffset } },
+      variables: { options: { limit, offset: books.length, sort: BookSort } },
       updateQuery: (prevResult, { fetchMoreResult }) => {
         if (!fetchMoreResult) return prevResult;
-
-        // Log to see what books are being combined
-        console.log("prevResult.books:", prevResult.books);
-        console.log("fetchMoreResult.books:", fetchMoreResult.books);
-
-        // Append unique books to the existingBooksArray
-        /* appendUniqueBooksToArray(fetchMoreResult.books); */
-
-        // Combine previous and newly fetched books for the store
         return {
-          books: [...prevResult.books, ...fetchMoreResult.books], // Append new books
+          books: [...prevResult.books, ...fetchMoreResult.books],
         };
       },
     });

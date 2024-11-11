@@ -38,7 +38,6 @@ export interface ReviewsProps {
 export const GET_REVIEWS = gql`
   query GetReviews($where: ReviewWhere) {
     reviews(where: $where) {
-      id
       name
       stars
       comment
@@ -48,9 +47,13 @@ export const GET_REVIEWS = gql`
 
 // Define the GraphQL mutation to add a new review
 export const ADD_REVIEW = gql`
-  mutation AddReview($bookId: ID!, $name: String!, $stars: Int!, $comment: String!) {
+  mutation AddReview(
+    $bookId: ID!
+    $name: String!
+    $stars: Int!
+    $comment: String!
+  ) {
     addReview(bookId: $bookId, name: $name, stars: $stars, comment: $comment) {
-      id
       name
       stars
       comment

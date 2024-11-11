@@ -2,7 +2,7 @@ import React from "react";
 import BookBox from "@/components/BookBox";
 import styles from "./page.module.css";
 import SideBar from "@/components/SideBar";
-//import LoadingButton from "@/components/Loading/LoadingButton";
+import GoToTopButton from "@/components/GoToTop";
 
 const Page: React.FC = () => {
   return (
@@ -13,7 +13,7 @@ const Page: React.FC = () => {
         </aside>
         <section className={styles.bookBox} aria-label="Book List">
           <BookBox />
-          {/* <LoadingButton /> */}
+          <GoToTopButton />
         </section>
       </main>
     </>
