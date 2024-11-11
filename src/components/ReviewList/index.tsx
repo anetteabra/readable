@@ -5,7 +5,6 @@ import styles from "./ReviewList.module.css";
 import { GET_REVIEWS, Review, ReviewsProps } from "@/queries";
 import { useQuery } from "@apollo/client";
 
-
 /* const reviews = [
   {
     name: "John Doe",
@@ -35,11 +34,14 @@ import { useQuery } from "@apollo/client";
 ]; */
 
 const ReviewList: React.FC<ReviewsProps> = ({ bookId }) => {
-  const { loading, error, data } = useQuery<{ reviews: Review[] }>(GET_REVIEWS, {
-    variables: { 
-      where: { book: { id: bookId } }
+  const { loading, error, data } = useQuery<{ reviews: Review[] }>(
+    GET_REVIEWS,
+    {
+      variables: {
+        where: { book: { id: bookId } },
+      },
     },
-  });
+  );
 
   if (loading) return <p>Loading reviews...</p>;
   if (error) return <p>Error: {error.message}</p>;
