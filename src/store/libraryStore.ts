@@ -29,7 +29,6 @@ interface LibraryState {
   setSortField: (value: string) => void;
   sortOrder: string;
   setSortOrder: (value: string) => void;
-
 }
 
 const useLibraryStore = create(
@@ -40,7 +39,7 @@ const useLibraryStore = create(
       loading: false,
       error: null,
       inputValue: "", // Add this line with default empty string
-      setInputValue: (value) => set({ inputValue: value.toUpperCase()}), // Add this line
+      setInputValue: (value) => set({ inputValue: value.toUpperCase() }), // Add this line
       sortField: "title",
       sortOrder: "ASC",
 
@@ -53,7 +52,7 @@ const useLibraryStore = create(
         }
       },
       sortBy: "Title a-z", // default sorting by Title
-      filterBy: { favorited: false, unavailable: false, genre: ""}, // default filter settings
+      filterBy: { favorited: false, unavailable: false, genre: "" }, // default filter settings
       favorites: JSON.parse(localStorage.getItem("favorites") || "[]"), // Load favorites from local storage
       isFavorited: (bookId: string) => get().favorites.includes(bookId),
 
@@ -117,7 +116,7 @@ const useLibraryStore = create(
 
       // Sorting functionality combines with filtering
       sortBooks: () => {
-        const {sortBy} = get();
+        const { sortBy } = get();
 
         //Filter the books first based on the current filters
         /* let filteredBooks = [...books]; */
@@ -138,7 +137,7 @@ const useLibraryStore = create(
         } */
 
         // Sort the filtered books based on the current sortBy option
-       switch (sortBy) {
+        switch (sortBy) {
           case "Title a-z":
             set({ sortField: "title", sortOrder: "ASC" });
             break;

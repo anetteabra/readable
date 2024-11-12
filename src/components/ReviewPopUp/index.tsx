@@ -10,13 +10,17 @@ import { Button } from "../ui/button";
 import { FaStar } from "react-icons/fa";
 import { useState } from "react";
 import { useMutation } from "@apollo/client";
-import { ADD_REVIEW } from "@/queries"; // Make sure this query is correct
+import { ADD_REVIEW } from "@/queries";
 
 const ReviewPopUp: React.FC<{ bookId: string }> = ({ bookId }) => {
   const [popoverOpen, setPopoverOpen] = useState(false);
   const [stars, setStars] = useState(0);
   const [name, setName] = useState("");
   const [comment, setComment] = useState("");
+  const [commentError, setCommentError] = useState("");
+
+  const MAX_WORDS = 70;
+  const MAX_CHARACTERS = 400;
 
   // The mutation with optimistic response and cache update
   const [addReview, { loading, error }] = useMutation(ADD_REVIEW, {
@@ -36,7 +40,7 @@ const ReviewPopUp: React.FC<{ bookId: string }> = ({ bookId }) => {
         name,
         stars,
         comment,
-        __typename: "Review", // Ensures Apollo knows the type
+        __typename: "Review",
       },
     },
   });
@@ -62,6 +66,21 @@ const ReviewPopUp: React.FC<{ bookId: string }> = ({ bookId }) => {
     }
   };
 
+  const handleCommentChange = (e: React.ChangeEvent<HTMLTextAreaElement>) => {
+    const newComment = e.target.value;
+    const wordCount = newComment.split(/\s+/).filter(Boolean).length;
+
+    if (wordCount > MAX_WORDS || newComment.length > MAX_CHARACTERS) {
+      setCommentError(
+        `Comments can have a maximum of ${MAX_WORDS} words and ${MAX_CHARACTERS} characters.`,
+      );
+      return;
+    }
+
+    setComment(newComment);
+    setCommentError("");
+  };
+
   const renderStars = () => {
     return (
       <div className={styles.starsContainer}>
@@ -84,7 +103,7 @@ const ReviewPopUp: React.FC<{ bookId: string }> = ({ bookId }) => {
     <Popover open={popoverOpen} onOpenChange={setPopoverOpen}>
       <PopoverTrigger
         className={styles.trigger}
-        onClick={() => setPopoverOpen(true)} // Open popover on trigger click
+        onClick={() => setPopoverOpen(true)}
       >
         Give review
       </PopoverTrigger>
@@ -102,12 +121,14 @@ const ReviewPopUp: React.FC<{ bookId: string }> = ({ bookId }) => {
           value={comment}
           placeholder="Leave a comment with your thoughts on this book"
           className={styles.textField}
-          onChange={(e) => setComment(e.target.value)}
+          onChange={handleCommentChange}
+          maxLength={MAX_CHARACTERS}
         />
+        {commentError && <p className={styles.errorMessage}>{commentError}</p>}
         <Button
           onClick={handleSubmit}
           className={styles.submit}
-          disabled={!isFormComplete || loading} // Disable if form is incomplete or loading
+          disabled={!isFormComplete || loading || !!commentError}
         >
           {loading ? "Submitting..." : "Submit"}
         </Button>
