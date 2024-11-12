@@ -83,7 +83,6 @@ const BookBox: React.FC = () => {
         <BookCard key={book.id} book={book} /> 
       ))} 
     </div> 
-    {/* Sentrering av "Load More"-knappen */} 
     <button 
       onClick={loadMoreBooks} 
       disabled={loading} 

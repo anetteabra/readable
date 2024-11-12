@@ -3,7 +3,7 @@
   display: flex;
   min-height: calc(
     100vh - 60px - 50px
-  ); /* Fjerner høyden på navbar og footer */
+  );
   width: 100%;
   background-color: var(--background-color);
 }
@@ -19,13 +19,12 @@
 .bookBox {
   flex-grow: 1;
   padding: 2rem;
-  margin-top: 60px; /* Juster for navbar */
-  margin-bottom: 50px; /* Juster for footer */
+  margin-top: 60px;
+  margin-bottom: 50px;
   box-sizing: border-box;
   overflow-y: auto;
 }
 
-/* Navbar and Footer should have their height set */
 .navbar {
   height: 60px;
   background-color: #333;
