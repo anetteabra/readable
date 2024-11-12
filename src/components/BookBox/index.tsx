@@ -70,7 +70,7 @@ const BookBox: React.FC = () => {
   return (
     <section className={styles.bookListWrapper}>
       {" "}
-      <div className={styles.bookList}>
+      <div className={styles.bookList} aria-label="list of books">
         {books.map((book: Book) => (
           <BookCard key={book.id} book={book} />
         ))}
@@ -79,6 +79,7 @@ const BookBox: React.FC = () => {
         onClick={loadMoreBooks}
         disabled={loading}
         className={styles.loadingButton}
+        aria-label={loading ? "Loading" : "Load more"}
       >
         {loading ? "Loading..." : "Load more"}
       </button>

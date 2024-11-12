@@ -8,8 +8,8 @@ const GoToTopButton = () => {
   };
 
   return (
-    <button onClick={goToTop} className={styles.scrollToTopButton}>
-      <FontAwesomeIcon icon={faArrowUp} className={styles.arrowTop} />
+    <button onClick={goToTop} className={styles.scrollToTopButton} aria-label="To top of the page">
+      <FontAwesomeIcon icon={faArrowUp} className={styles.arrowTop} aria-label="Arrow pointing upwards" />
     </button>
   );
 };

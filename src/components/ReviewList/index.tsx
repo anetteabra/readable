@@ -21,14 +21,14 @@ const ReviewList: React.FC<ReviewsProps> = ({ bookId }) => {
   const reviews = data?.reviews;
 
   return (
-    <ScrollArea className={styles.scrollArea}>
+    <ScrollArea className={styles.scrollArea} aria-label="review list">
       <h1 className={styles.title}>Reviews of this book</h1>
       {reviews?.length === 0 ? (
         <p>No reviews of this book yet</p>
       ) : (
         reviews?.map((review, index) => (
           <div key={index}>
-            <Comment
+            <Comment aria-label="review comment"
               name={review.name}
               stars={review.stars}
               comment={review.comment}

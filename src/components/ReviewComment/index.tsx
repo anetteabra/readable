@@ -10,7 +10,7 @@ type CommentProps = {
 
 const renderStars = (stars: number) => {
   return (
-    <div className={styles.stars}>
+    <div className={styles.stars} aria-label="stars">
       {[...Array(5)].map((_, i) => (
         <FaStar key={i} color={i < stars ? "#ffc107" : "#e4e5e9"} />
       ))}
