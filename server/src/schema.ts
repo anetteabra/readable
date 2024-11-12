@@ -12,7 +12,6 @@ const typeDefs = gql`
     isbn13: String
     reviews: [Review!]! @relationship(type: "REVIEWED", direction: IN)
   }
-  
 
   input BookOptions {
     limit: Int
@@ -22,10 +21,9 @@ const typeDefs = gql`
 
   input BookSort {
     title: SortDirection
-   publication_date : SortDirection
+    publication_date: SortDirection
   }
-  
- 
+
   type Author {
     id: ID! @id @unique
     name: String! # Name of the author

@@ -4,7 +4,7 @@
   position: fixed;
   z-index: 1;
   top: 12rem;
-  left: -280px; /* hides sidebar */
+  left: -280px;
   margin-left: 1rem;
   overflow-y: auto;
   padding-top: 15px;
@@ -14,7 +14,7 @@
 }
 
 .sidebar.open {
-  left: 0; /* shows sidebar */
+  left: 0;
 }
 
 .sortingSection {

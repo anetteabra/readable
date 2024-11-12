@@ -14,13 +14,13 @@ import {
 } from "@/components/ui/select";
 import { Checkbox } from "@/components/ui/checkbox";
 import { Label } from "@/components/ui/label";
-import useLibraryStore from "../../store/libraryStore"; //import zustand store
+import useLibraryStore from "../../store/libraryStore";
 import { useState } from "react";
 
 const SideBar = () => {
-  const { sortBy, setSortBy, filterBy, toggleFilter, setGenreFilter} =
+  const { sortBy, setSortBy, filterBy, toggleFilter, setGenreFilter } =
     useLibraryStore();
-  const [isOpen, setIsOpen] = useState(false); // Local state for sidebar visibility
+  const [isOpen, setIsOpen] = useState(false);
 
   const toggleSidebar = () => {
     setIsOpen((prev) => !prev);

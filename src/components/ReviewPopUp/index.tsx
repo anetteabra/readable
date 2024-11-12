@@ -10,7 +10,7 @@ import { Button } from "../ui/button";
 import { FaStar } from "react-icons/fa";
 import { useState } from "react";
 import { useMutation } from "@apollo/client";
-import { ADD_REVIEW } from "@/queries"; // Make sure this query is correct
+import { ADD_REVIEW } from "@/queries";
 
 const ReviewPopUp: React.FC<{ bookId: string }> = ({ bookId }) => {
   const [popoverOpen, setPopoverOpen] = useState(false);
@@ -84,7 +84,7 @@ const ReviewPopUp: React.FC<{ bookId: string }> = ({ bookId }) => {
     <Popover open={popoverOpen} onOpenChange={setPopoverOpen}>
       <PopoverTrigger
         className={styles.trigger}
-        onClick={() => setPopoverOpen(true)} // Open popover on trigger click
+        onClick={() => setPopoverOpen(true)}
       >
         Give review
       </PopoverTrigger>
@@ -107,7 +107,7 @@ const ReviewPopUp: React.FC<{ bookId: string }> = ({ bookId }) => {
         <Button
           onClick={handleSubmit}
           className={styles.submit}
-          disabled={!isFormComplete || loading} // Disable if form is incomplete or loading
+          disabled={!isFormComplete || loading}
         >
           {loading ? "Submitting..." : "Submit"}
         </Button>

@@ -12,7 +12,6 @@ const RouterConfig = () => (
       <Routes>
         <Route index element={<Home />} />
         <Route path="/library" element={<Page />} />
-        {/* <Route path="/details" element={<Details />}/> */}
         <Route path="/details/:id" element={<Details />} />
         <Route
           path="*"

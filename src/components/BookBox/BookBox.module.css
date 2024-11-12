@@ -1,21 +1,22 @@
 .bookList {
   display: grid;
-  grid-template-columns: repeat(
-    auto-fill,
-    minmax(180px, 1fr)
-  ); /* Responsiv grid */
+  grid-template-columns: repeat(auto-fill, minmax(180px, 1fr));
   gap: 30px;
   padding: 16px;
 }
 
 .loadingButton {
   background-color: var(--light-font-color);
-  margin: 16px auto; /* Sentere knappen horisontalt */
+  margin: 16px auto;
   border: none !important;
   border-radius: 10px;
-  padding: 10px 18px; /* Juster padding for å gjøre knappen smalere */
-  white-space: nowrap; /* Hindrer tekstbrytning */
+  padding: 10px 18px;
+  white-space: nowrap;
   display: inline-block;
+}
+
+.loadingButton:hover {
+  background-color: var(--light-font-color-trans) !important;
 }
 
 .loadingMessage {
@@ -45,29 +46,20 @@
   .bookList {
     padding-top: 8rem;
     margin-left: 0px;
-    grid-template-columns: repeat(
-      auto-fill,
-      minmax(200px, 1fr)
-    ); /* Medium screens */
+    grid-template-columns: repeat(auto-fill, minmax(200px, 1fr));
   }
 }
 
 @media (min-width: 900px) {
   .bookList {
     padding-top: 0;
-    grid-template-columns: repeat(
-      auto-fill,
-      minmax(220px, 1fr)
-    ); /* Larger screens */
+    grid-template-columns: repeat(auto-fill, minmax(220px, 1fr));
   }
 }
 
 @media (min-width: 1200px) {
   .bookList {
     padding-top: 0;
-    grid-template-columns: repeat(
-      auto-fill,
-      minmax(250px, 1fr)
-    ); /* Very large screens */
+    grid-template-columns: repeat(auto-fill, minmax(250px, 1fr));
   }
 }

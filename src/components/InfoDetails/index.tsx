@@ -2,7 +2,7 @@ import styles from "./InfoDetails.module.css";
 import { Book as BookType } from "../../queries";
 
 interface InfoDetailsProps {
-  book: BookType; // Use the updated Book type from GraphQL
+  book: BookType;
 }
 
 const InfoDetails: React.FC<InfoDetailsProps> = ({ book }) => {

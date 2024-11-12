@@ -3,25 +3,26 @@ import { gql, useMutation } from "@apollo/client";
 // Define the GraphQL query to get books with the new fields
 export const GET_BOOKS = gql`
   query GetBooks($options: BookOptions, $searchTerm: String, $genre: String) {
-  books(options: $options, where: {
-    OR: [
-      { title_CONTAINS: $searchTerm }
-    ]
-     AND: [
-        {genre_CONTAINS: $genre } # This filters by genre only if $genre is defined
-      ]
-  }) {
-    cover
-    description
-    genre
-    id
-    isbn13
-    publication_date
-    title
-    author {
-      name
+    books(
+      options: $options
+      where: {
+        OR: [{ title_CONTAINS: $searchTerm }]
+        AND: [
+          { genre_CONTAINS: $genre } # This filters by genre only if $genre is defined
+        ]
+      }
+    ) {
+      cover
+      description
+      genre
+      id
+      isbn13
+      publication_date
+      title
+      author {
+        name
+      }
     }
-  }
   }
 `;
 
@@ -31,10 +32,10 @@ export interface BookCardProps {
 
 // Interface to define the expected props for the ReviewPopUp component
 export interface ReviewsProps {
-  bookId: string; // The ID of the book for which we're adding a review
+  bookId: string; // The ID of the book for adding a review
 }
 
-// Update the GET_REVIEWS query to use $where instead of $options
+// GET_REVIEWS query use $where
 export const GET_REVIEWS = gql`
   query GetReviews($where: ReviewWhere) {
     reviews(where: $where) {
@@ -94,7 +95,6 @@ export const ADD_BOOK = gql`
     }
   }
 `;
-
 
 // TypeScript interfaces for data and variables
 export interface Book {

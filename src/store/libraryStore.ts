@@ -29,7 +29,6 @@ interface LibraryState {
   setSortField: (value: string) => void;
   sortOrder: string;
   setSortOrder: (value: string) => void;
-
 }
 
 const useLibraryStore = create(
@@ -39,8 +38,8 @@ const useLibraryStore = create(
       filteredBooks: [], // Filtered and sorted books to be displayed
       loading: false,
       error: null,
-      inputValue: "", // Add this line with default empty string
-      setInputValue: (value) => set({ inputValue: value.toUpperCase()}), // Add this line
+      inputValue: "",
+      setInputValue: (value) => set({ inputValue: value.toUpperCase() }),
       sortField: "title",
       sortOrder: "ASC",
 
@@ -53,8 +52,8 @@ const useLibraryStore = create(
         }
       },
       sortBy: "Title a-z", // default sorting by Title
-      filterBy: { favorited: false, unavailable: false, genre: ""}, // default filter settings
-      favorites: JSON.parse(localStorage.getItem("favorites") || "[]"), // Load favorites from local storage
+      filterBy: { favorited: false, unavailable: false, genre: "" }, // default filter settings
+      favorites: JSON.parse(localStorage.getItem("favorites") || "[]"),
       isFavorited: (bookId: string) => get().favorites.includes(bookId),
 
       // Actions for setting books, loading, and error (external fetched in book component and stored in zustand)
@@ -80,13 +79,11 @@ const useLibraryStore = create(
         }));
         get().sortBooks(); // Apply filtering again after toggling the filter
       },
-
-      // Add method to set genre filter
       setGenreFilter: (genre) => {
         set((state) => ({
           filterBy: {
             ...state.filterBy,
-            genre: genre ?? "", // Set the selected genre
+            genre: genre ?? "",
           },
         }));
         get().sortBooks();
@@ -117,28 +114,10 @@ const useLibraryStore = create(
 
       // Sorting functionality combines with filtering
       sortBooks: () => {
-        const {sortBy} = get();
-
-        //Filter the books first based on the current filters
-        /* let filteredBooks = [...books]; */
-
-        /* if (filterBy.favorited) {
-          filteredBooks = filteredBooks.filter((book) =>
-            favorites.includes(book.id),
-          );
-        } */
-
-        // Filter by genre if one is selected
-        /* if (filterBy.genre) {
-          filteredBooks = filteredBooks.filter(
-            (book) =>
-              filterBy.genre &&
-              book.genre.toLowerCase() === filterBy.genre.toLowerCase(),
-          );
-        } */
+        const { sortBy } = get();
 
         // Sort the filtered books based on the current sortBy option
-       switch (sortBy) {
+        switch (sortBy) {
           case "Title a-z":
             set({ sortField: "title", sortOrder: "ASC" });
             break;

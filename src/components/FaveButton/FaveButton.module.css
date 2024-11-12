@@ -2,9 +2,9 @@
   background: transparent;
   border: none;
   cursor: pointer;
-  display: flex; /* Center the heart icon */
-  align-items: center; /* Center icon vertically */
-  justify-content: center; /* Center icon horizontally */
+  display: flex;
+  align-items: center;
+  justify-content: center;
   transition: transform 0.2s ease;
 }
 
@@ -26,9 +26,9 @@
 }
 
 .favorited {
-  color: var(--color-red-dark); /* Red color for favorited state */
+  color: var(--color-red-dark);
 }
 
 .notFavorited {
-  color: rgb(186, 170, 159); /* Gray color for not favorited state */
+  color: rgb(186, 170, 159);
 }

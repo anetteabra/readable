@@ -3,8 +3,3 @@
   justify-content: center;
   align-items: center;
 }
-
-/* can use this if we want the same background color as the list */
-/* .CardContainer{
-    background-color: var(--light-font-color-trans) !important ;
-} */

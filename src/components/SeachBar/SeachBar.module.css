@@ -11,7 +11,7 @@
 
 @media (max-width: 768px) {
   .searchBar {
-    width: calc(100% - 2rem) !important; /* Adjust width to avoid overflow*/
+    width: calc(100% - 2rem) !important;
     margin-top: 3rem;
     padding: 0.5rem;
     justify-content: center;
@@ -20,6 +20,6 @@
 @media (max-width: 480px) {
   .searchBar {
     margin-top: 1rem;
-    width: calc(100% - 2rem) !important; /* Adjust width to avoid overflow*/
+    width: calc(100% - 2rem) !important;
   }
 }
