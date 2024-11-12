@@ -106,14 +106,21 @@ const typeDefs = gql`
     user(id: ID!): User  # Add this query to fetch a single user by id
     users: [User!]!      # Retain this to fetch multiple users if needed
     
-    userFavorites(userId: ID!): [Book!]!
-    @cypher(
-      statement: """
-      MATCH (u:User {id: $userId})-[:FAVORITED]->(b:Book)
-      RETURN b
-      """,
-      columnName: "b"
-  )
+    userFavorites(
+      userId: ID!
+      options: BookOptions
+    ): [Book!]!
+      @cypher(
+        statement: """
+        MATCH (u:User {id: $userId})-[:FAVORITED]->(b:Book)
+        RETURN b
+        ORDER BY CASE WHEN $options.sort[0].title IS NOT NULL THEN b.title END, 
+                 CASE WHEN $options.sort[0].publication_date IS NOT NULL THEN b.publication_date END
+        SKIP $options.offset
+        LIMIT $options.limit
+        """,
+        columnName: "b"
+      )
   }
 `;
 

@@ -25,10 +25,11 @@ const BookBox: React.FC = () => {
     filterBy.favorited ? GET_USER_FAVORITES : GET_BOOKS, 
     {
     variables: { options: { limit, offset, sort: BookSort
-      },  genre: genre, searchTerm: inputValue},
-      skip: !userId,
-
+      },  genre: genre, searchTerm: inputValue,
+      userId: filterBy.favorited ? userId : undefined },
   });
+
+
  
   useEffect(() => {
     console.log("Offset value:", offset);

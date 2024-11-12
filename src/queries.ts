@@ -100,40 +100,6 @@ export const ADD_BOOK = gql`
   }
 `;
 
-// export const FAVORITE_BOOK_MUTATION = gql`
-//   mutation favoriteBook($bookId: ID!, $userId: ID!) {
-//     updateUsers(
-//       where: { id: $userId }
-//       connect: { favorites: { where: { node: { id: $bookId } } } }
-//     ) {
-//       users {
-//         id
-//         favorites {
-//           id
-//           title
-//         }
-//       }
-//     }
-//   }
-// `;
-//
-// export const UNFAVORITE_BOOK_MUTATION = gql`
-//   mutation unfavoriteBook($bookId: ID!, $userId: ID!) {
-//     updateUsers(
-//       where: { id: $userId }
-//       disconnect: { favorites: { where: { node: { id: $bookId } } } }
-//     ) {
-//       users {
-//         id
-//         favorites {
-//           id
-//           title
-//         }
-//       }
-//     }
-//   }
-// `;
-
 export const FAVORITE_BOOK_MUTATION = gql`
   mutation favoriteBook($bookId: ID!, $userId: ID!) {
     favoriteBook(bookId: $bookId, userId: $userId) {
@@ -158,8 +124,22 @@ export const UNFAVORITE_BOOK_MUTATION = gql`
 
 
 export const GET_USER_FAVORITES = gql`
-  query GetUserFavorites($userId: ID!) {
-    userFavorites(userId: $userId) {
+  query GetUserFavorites(
+    $userId: ID!
+    $title: String
+    $genre: String
+    $sort: BookSort
+    $limit: Int
+    $offset: Int
+  ) {
+    userFavorites(
+      userId: $userId
+      title: $title
+      genre: $genre
+      sort: $sort
+      limit: $limit
+      offset: $offset
+    ) {
       id
       title
       cover
