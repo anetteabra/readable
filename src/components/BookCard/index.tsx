@@ -13,9 +13,6 @@ import useLibraryStore from "@/store/libraryStore";
 import { useMemo } from "react";
 
 export default function BookCard({ book }: BookCardProps) {
-  
-  // const isFavorited = book.favoritedBy.some((user) => user.id === userId);
-  // const userId = useLibraryStore((state) => state.userId);
   const isFavorited = useLibraryStore(
     useMemo(() => (state) => state.isFavorited(book.id), [book.id]) // Memoize to avoid re-renders
   );

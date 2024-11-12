@@ -75,7 +75,6 @@ const BookBox: React.FC = () => {
         <BookCard key={book.id} book={book} userId={userId} /> 
       ))} 
     </div> 
-    {/* Centering the "Load More"-button */} 
     <button 
       onClick={loadMoreBooks} 
       disabled={loading} 
