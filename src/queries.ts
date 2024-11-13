@@ -3,13 +3,14 @@ import { client } from "./apolloClient";
 
 // Define the GraphQL query to get books with the new fields
 export const GET_BOOKS = gql`
-  query GetBooks($userId: ID, $options: BookOptions, $searchTerm: String, $genre: String) {
+  query GetBooks($options: BookOptions, $searchTerm: String, $genre: String $userId: ID) {
   books(options: $options, where: {
     OR: [
       { title_CONTAINS: $searchTerm }
     ]
      AND: [
-        {genre_CONTAINS: $genre } # This filters by genre only if $genre is defined
+        {genre_CONTAINS: $genre } 
+        {favoritedBy: { id: $userId } }
       ]
   }) {
     cover
@@ -19,7 +20,7 @@ export const GET_BOOKS = gql`
     isbn13
     publication_date
     title
-    favoritedBy(where: { id: $userId }) {
+    favoritedBy {
       id
     }
     author {
