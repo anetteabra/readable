@@ -23,9 +23,11 @@ async function startApolloServer(): Promise<void> {
         return error; // Pass error details to the client for troubleshooting
       },
       plugins: [
-        require("apollo-server-core").ApolloServerPluginLandingPageLocalDefault({
-          embed: true,
-        }),
+        require("apollo-server-core").ApolloServerPluginLandingPageLocalDefault(
+          {
+            embed: true,
+          },
+        ),
       ],
     });
 
@@ -45,4 +47,3 @@ async function startApolloServer(): Promise<void> {
 startApolloServer().catch((error: unknown) => {
   console.error("Unhandled error starting Apollo server:", error);
 });
-
