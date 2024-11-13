@@ -45,6 +45,7 @@ const useLibraryStore = create(
       setInputValue: (value) => set({ inputValue: value.toUpperCase()}), // Add this line
       sortField: "title",
       sortOrder: "ASC",
+      favoritesUpdatedAt: Date.now(),
 
       setSortField: (value) => set({ sortField: value }),
       setSortOrder: (value) => {
@@ -81,41 +82,43 @@ const useLibraryStore = create(
         }));
       },
 
-      // Add method to set genre filter
       setGenreFilter: (genre) => {
         set((state) => ({
           filterBy: {
             ...state.filterBy,
-            genre: genre ?? "", // Set the selected genre
+            genre: genre ?? "",
           },
         }));
         get().sortBooks();
       },
 
       toggleFavorite: async (bookId) => {
-        const { favorites, userId } = get();
+        const { favorites, userId, filterBy, books } = get();
         const isFavorited = favorites.includes(bookId);
-        
-
-        // Optimistic UI update: only update state if needed to prevent unnecessary renders
-        if (isFavorited) {
-          set({ favorites: favorites.filter((id) => id !== bookId) });
-          try {
+      
+        // Update favorites and local storage
+        const updatedFavorites = isFavorited
+          ? favorites.filter((id) => id !== bookId)
+          : [...favorites, bookId];
+      
+        set({ favorites: updatedFavorites });
+        localStorage.setItem("favorites", JSON.stringify(updatedFavorites));
+      
+        try {
+          if (isFavorited) {
             await unfavoriteBook(bookId, userId);
-          } catch (error) {
-            console.error("Failed to unfavorite:", error);
-            set({ favorites: [...favorites, bookId] }); // Rollback on failure
-          }
-
-        } else {
-          set({ favorites: [...favorites, bookId] });
-          try {
+          } else {
             await favoriteBook(bookId, userId);
-          } catch (error) {
-            console.error("Failed to favorite:", error);
-            set({ favorites: favorites.filter((id) => id !== bookId) }); // Rollback on failure
           }
-          
+      
+          // If the `favorited` filter is active, update the `books` list immediately
+          if (filterBy.favorited) {
+            set({
+              books: books.filter((book) => updatedFavorites.includes(book.id)),
+            });
+          }
+        } catch (error) {
+          console.error("Failed to toggle favorite:", error);
         }
       },
       
@@ -134,7 +137,6 @@ const useLibraryStore = create(
       sortBooks: () => {
         const {sortBy} = get();
 
-       
        switch (sortBy) {
           case "Title a-z":
             set({ sortField: "title", sortOrder: "ASC" });

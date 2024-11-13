@@ -18,7 +18,7 @@ import useLibraryStore from "../../store/libraryStore"; //import zustand store
 import { useState } from "react";
 
 const SideBar = () => {
-  const { sortBy, setSortBy, filterBy, toggleFilter, setGenreFilter, setFavoriteFilter} =
+  const { sortBy, setSortBy, filterBy, setGenreFilter, setFavoriteFilter} =
     useLibraryStore();
   const [isOpen, setIsOpen] = useState(false); // Local state for sidebar visibility
 
