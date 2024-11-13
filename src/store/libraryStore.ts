@@ -79,7 +79,6 @@ const useLibraryStore = create(
             [filter]: !state.filterBy[filter],
           },
         }));
-         // Apply filtering again after toggling the filter
       },
 
       // Add method to set genre filter
@@ -96,6 +95,7 @@ const useLibraryStore = create(
       toggleFavorite: async (bookId) => {
         const { favorites, userId } = get();
         const isFavorited = favorites.includes(bookId);
+        
 
         // Optimistic UI update: only update state if needed to prevent unnecessary renders
         if (isFavorited) {
@@ -115,11 +115,11 @@ const useLibraryStore = create(
             console.error("Failed to favorite:", error);
             set({ favorites: favorites.filter((id) => id !== bookId) }); // Rollback on failure
           }
+          
         }
-       
       },
       
-      isFavorited: (bookId) => get().favorites.includes(bookId),
+      isFavorited: (bookId) => get().favorites.includes(bookId), 
       
       setFavoriteFilter: (isEnabled) => {
         set((state) => ({
@@ -128,7 +128,6 @@ const useLibraryStore = create(
             favorited: isEnabled,
           },
         }));
-        get().sortBooks();
       },
 
       // Sorting functionality combines with filtering

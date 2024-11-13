@@ -85,6 +85,7 @@ const SideBar = () => {
             <Label className={styles.filteringLabel}> Filter by: </Label>
             <div className={styles.filterOptions}>
               <div className={styles.filterItems}>
+                
                 <Checkbox
                   id="favorited"
                   checked={filterBy.favorited}

@@ -44,7 +44,7 @@ const BookBox: React.FC = () => {
       setError(error.message);
     } else if (data) {
       console.log("Fetched data.books:", data.books);
-      setBooks(data.books); // Update the store with new books
+      setBooks(data.books); 
     }
     console.log("Current books:", books);
   }, [data, loading, error, setBooks, setLoading, setError]);
@@ -60,6 +60,7 @@ const BookBox: React.FC = () => {
       },
     });
   };
+
 
   if (loading && offset === 0) return <p className={styles.loadingMessage}>Loading...</p>;
   if (error) return <p className={styles.errorMessage}>Error: {error.message}</p>;
