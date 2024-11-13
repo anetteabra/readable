@@ -84,7 +84,7 @@ const BookBox: React.FC = () => {
     <section className={styles.bookListWrapper}>
       {" "}
       {/* Added Wrapper to enable flexbox */}
-      <div className={styles.bookList}>
+      <div className={styles.bookList} data-cy="book-list">
         {books.map((book: Book) => (
           <BookCard key={book.id} book={book} />
         ))}
