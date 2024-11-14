@@ -26,6 +26,7 @@ const SearchBar: React.FC = () => {
   return (
     <>
       <Input
+        data-cy="search-input"
         type="input"
         placeholder="Search"
         className={styles.searchBar}

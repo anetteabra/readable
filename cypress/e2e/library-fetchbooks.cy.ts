@@ -2,7 +2,7 @@
 
 describe('Library Page Data Fetching', () => {
     beforeEach(() => {
-      cy.visit('http://localhost:5173/project2/library'); // Ensure this matches your route
+      cy.visit('http://localhost:5173/project2/library'); 
     });
   
     it('should fetch and display a list of books from the GraphQL API', () => {
