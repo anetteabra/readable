@@ -1,6 +1,6 @@
 /// <reference types="cypress" />
 
-// Define the GraphQL query body
+// Defines the GraphQL query body
 const queryBody = {
   operationName: "Query",
   query: `
@@ -17,7 +17,7 @@ const queryBody = {
   },
 };
 
-// Define the expected response results
+// Defines the expected response results
 const expectedResults = {
   data: {
     books: [
@@ -28,33 +28,33 @@ const expectedResults = {
   },
 };
 
-// Use environment variable for the GraphQL URL with a fallback to localhost
+// Uses environment variable for the GraphQL URL with a fallback to localhost
 const GRAPHQL_URL = 'http://localhost:3001/graphql';
 
 describe('GraphQL GET_BOOKS Query with Limit', () => {
   it('should fetch a limited number of books and match the expected titles', () => {
-    // Intercept the GraphQL request using the environment variable URL
+    // Intercepts the GraphQL request using the environment variable URL
     cy.intercept('POST', GRAPHQL_URL).as('getBooks');
 
-    // Trigger the GraphQL request directly
+    // Triggers the GraphQL request directly
     cy.request({
       method: 'POST',
       url: GRAPHQL_URL,
       body: queryBody,
     }).then((response) => {
-      // Check the response status code
+      // Checks the response status code
       expect(response.status).to.equal(200);
 
-      // Check that there are no errors in the response
+      // Checks that there are no errors in the response
       expect(response.body).to.not.have.property('errors');
 
-      // Verify that the response body matches the expected results
+      // Verifies that the response body matches the expected results
       expect(response.body).to.deep.equal(expectedResults);
 
-      // Log the entire response for debugging
+      // Logs the entire response for debugging
       cy.log(JSON.stringify(response.body, null, 2));
 
-      // Log the book titles for easier inspection
+      // Logs the book titles for easier inspection
       const bookTitles = response.body.data.books.map(book => book.title);
       cy.log(`Fetched book titles: ${bookTitles.join(', ')}`);
     });

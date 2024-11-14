@@ -99,6 +99,7 @@ const SideBar = () => {
               {genres.map((genre) => (
                 <div key={genre} className={styles.filterItems}>
                   <Checkbox
+                    data-cy={`genre-filter-${genre.toLowerCase().replace(/\s/g, '-')}`}
                     id={genre}
                     checked={filterBy.genre === genre}
                     onCheckedChange={() => {
