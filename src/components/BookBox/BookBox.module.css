@@ -39,6 +39,18 @@
     padding-top: 8rem;
     margin-left: 0px;
   }
+  .errorMessage {
+    display: block;
+    padding: 1rem;
+    color: var();
+    max-width: 80%;
+    margin: 0 auto;
+    position: fixed; 
+    top: 50%; 
+    left: 50%; 
+    transform: translate(-50%, -50%);
+    z-index: 10; 
+  }
 }
 
 @media (min-width: 600px) and (max-width: 768px) {

@@ -1,9 +1,7 @@
 /* page.module.css */
 .library {
   display: flex;
-  min-height: calc(
-    100vh - 60px - 50px
-  );
+  min-height: 100vh;
   width: 100%;
   background-color: var(--background-color);
 }
