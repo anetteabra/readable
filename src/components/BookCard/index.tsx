@@ -22,7 +22,7 @@ export default function BookCard({ book }: BookCardProps) {
           by {book.author.name}
         </CardDescription>
       </CardHeader>
-      <Link to={`/details/${book.id}`} className={styles.bookCardLink}>
+      <Link data-cy="book-card-link" to={`/details/${book.id}`} className={styles.bookCardLink}>
         <CardContent className={styles.bookCardContent}>
           <img
             className={styles.bookImage}
