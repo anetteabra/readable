@@ -54,7 +54,7 @@ const useLibraryStore = create(
           console.warn("Invalid sortOrder value. Use 'ASC' or 'DESC'.");
         }
       },
-      sortBy: "Title a-z", // default sorting by Title
+      sortBy: "Title a-z", // default sorting by title
       filterBy: { favorited: false, genre: "" }, // default filter settings
       favorites: JSON.parse(localStorage.getItem("favorites") || "[]"), // Load favorites from local storage
 
@@ -132,7 +132,7 @@ const useLibraryStore = create(
         }));
       },
 
-      // Sorting functionality combines with filtering
+      // Sorting functionality combined with filtering
       sortBooks: () => {
         const { sortBy } = get();
 

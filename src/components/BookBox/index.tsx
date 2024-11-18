@@ -104,7 +104,6 @@ const BookBox: React.FC = () => {
   return (
     <section className={styles.bookListWrapper}>
       {" "}
-      {/* Added Wrapper to enable flexbox */}
       <div className={styles.bookList}>
         {filteredBooks.map((book: Book) => (
           <BookCard key={book.id} book={book} userId={userId} />
