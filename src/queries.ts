@@ -1,33 +1,38 @@
 import { gql, useMutation } from "@apollo/client";
+import { client } from "./apolloClient";
 
 // Define the GraphQL query to get books with the new fields
 export const GET_BOOKS = gql`
-  query GetBooks($options: BookOptions, $searchTerm: String, $genre: String) {
-    books(
-      options: $options
-      where: {
-        OR: [{ title_CONTAINS: $searchTerm }]
-        AND: [
-          { genre_CONTAINS: $genre } # This filters by genre only if $genre is defined
-        ]
-      }
-    ) {
-      cover
-      description
-      genre
+  query GetBooks($options: BookOptions, $searchTerm: String, $genre: String $userId: ID) {
+  books(options: $options, where: {
+    OR: [
+      { title_CONTAINS: $searchTerm }
+    ]
+     AND: [
+        {genre_CONTAINS: $genre } 
+        {favoritedBy: { id: $userId } }
+      ]
+  }) {
+    cover
+    description
+    genre
+    id
+    isbn13
+    publication_date
+    title
+    favoritedBy {
       id
-      isbn13
-      publication_date
-      title
-      author {
-        name
-      }
     }
+    author {
+      name
+    }
+  }
   }
 `;
 
 export interface BookCardProps {
   book: Book;
+  userId: string;
 }
 
 // Interface to define the expected props for the ReviewPopUp component
@@ -96,6 +101,76 @@ export const ADD_BOOK = gql`
   }
 `;
 
+export const FAVORITE_BOOK_MUTATION = gql`
+  mutation favoriteBook($bookId: ID!, $userId: ID!) {
+    favoriteBook(bookId: $bookId, userId: $userId) {
+      id
+      favorites {
+        id
+      }
+    }
+  }
+`;
+
+export const UNFAVORITE_BOOK_MUTATION = gql`
+  mutation unfavoriteBook($bookId: ID!, $userId: ID!) {
+    unfavoriteBook(bookId: $bookId, userId: $userId) {
+      id
+      favorites {
+        id
+      }
+    }
+  }
+`;
+
+
+export const GET_USER_FAVORITES = gql`
+  query GetUserFavorites(
+    $userId: ID!
+    $title: String
+    $genre: String
+    $sort: BookSort
+    $limit: Int
+    $offset: Int
+  ) {
+    userFavorites(
+      userId: $userId
+      title: $title
+      genre: $genre
+      sort: $sort
+      limit: $limit
+      offset: $offset
+    ) {
+      id
+      title
+      cover
+      author {
+        name
+      }
+      genre
+      publication_date
+    }
+  }
+`;
+
+export const ADD_USER = gql`
+mutation AddUser($addUserId: ID!) {
+  addUser(id: $addUserId) {
+    id
+  }
+}
+`;
+
+// Define the query to check if a user exists
+export const CHECK_USER = gql`
+  query CheckUser($userId: ID!) {
+    user(id: $userId) {
+      id
+    }
+  }
+`;
+
+
 // TypeScript interfaces for data and variables
 export interface Book {
   id: string;
@@ -108,6 +183,7 @@ export interface Book {
   genre?: string;
   publication_date?: string;
   isbn13?: string;
+  favoritedBy: { id: string }[];
 }
 
 export interface Review {
@@ -153,4 +229,24 @@ export interface AddBookVars {
 // Hook to use the AddReview mutation
 export const useAddReview = () => {
   return useMutation<AddReviewData, AddReviewVars>(ADD_REVIEW);
+};
+
+export const useAddUser = () => {
+  return useMutation(ADD_USER);
+}
+
+// Function to favorite a book
+export const favoriteBook = async (bookId: string, userId: string) => {
+  return client.mutate({
+    mutation: FAVORITE_BOOK_MUTATION,
+    variables: { bookId, userId },
+  });
+};
+
+// Function to unfavorite a book
+export const unfavoriteBook = async (bookId: string, userId: string) => {
+  return client.mutate({
+    mutation: UNFAVORITE_BOOK_MUTATION,
+    variables: { bookId, userId },
+  });
 };

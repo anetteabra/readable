@@ -73,6 +73,7 @@
 @media (max-width: 768px) {
   .sidebar {
     left: -280px;
+    top: 12rem
   }
 
   .sidebar.open {
@@ -87,6 +88,7 @@
 @media (min-width: 769px) {
   .sidebar {
     left: 0;
+    top: 10rem
   }
 
   .toggleButton {
