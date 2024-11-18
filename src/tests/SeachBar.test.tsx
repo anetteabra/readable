@@ -65,10 +65,10 @@ describe('SearchBar', () => {
 
     const input = screen.getByPlaceholderText('Search');
     fireEvent.change(input, { target: { value: 'search term' } });
-    fireEvent.keyDown(input, { key: 'Enter' });
+    fireEvent.keyDown(input, { key: 'Enter'});
 
     // Wait for asynchronous actions to complete
-    await waitFor(() => {
+    await waitFor(() => {  
       expect(mockSetGenreFilter).toHaveBeenCalledWith(null);
       expect(mockSetInputValue).toHaveBeenCalledWith('search term');
       expect(mockNavigate).toHaveBeenCalledWith('/library');

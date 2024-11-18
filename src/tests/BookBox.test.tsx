@@ -1,157 +1,184 @@
-/* import { render, screen, fireEvent, waitFor } from '@testing-library/react';
-import { MockedProvider } from '@apollo/client/testing';
+/* import { render, screen, fireEvent, waitFor } from "@testing-library/react";
+import { afterEach, describe, expect, it, vi } from "vitest";
 import BookBox from "../components/BookBox";
-import { GET_BOOKS } from './../queries';
-import useLibraryStore from '../store/libraryStore.ts';
-import { describe, it, beforeEach, vi, expect } from 'vitest';
-
-// Example mock data for your GraphQL query
-const mocks = [
-  {
-    request: {
-      query: GET_BOOKS,
-      variables: {
-        options: { limit: 12, offset: 0, sort: { title: 'asc' } },
-        genre: 'fiction',
-        searchTerm: '',
-      },
-    },
-    result: {
-      data: {
-        books: [
-          { id: '1', title: 'Book 1', author: 'Author 1' },
-          { id: '2', title: 'Book 2', author: 'Author 2' },
-        ],
-      },
-    },
-  },
-];
+import useLibraryStore from "../store/libraryStore";  // Importer Zustand store
 
 // Mock Zustand store
-vi.mock('../../store/libraryStore', () => ({
-  ...vi.importActual('../../store/libraryStore'), // Import actual store functions to preserve them
-  useLibraryStore: vi.fn(),
+vi.mock("../store/libraryStore", () => ({
+  __esModule: true,
+  default: vi.fn(() => ({
+    books: [
+      {
+        id: "1",
+        title: "Book 1",
+        author: { name: "Author 1" },
+        genre: "Genre 1",
+        publication_date: "2021",
+        description: "Description 1",
+        cover: "/cover1.jpg",
+      },
+      {
+        id: "2",
+        title: "Book 2",
+        author: { name: "Author 2" },
+        genre: "Genre 2",
+        publication_date: "2022",
+        description: "Description 2",
+        cover: "/cover2.jpg",
+      },
+    ],
+    loading: false,
+    error: null,
+    sortField: "title",
+    sortOrder: "ASC",
+    sortBy: "Title a-z",
+    filterBy: { favorited: false, genre: "" },
+    favorites: [],
+    isFavorited: (bookId: string) => false,
+    setBooks: vi.fn(),
+    setLoading: vi.fn(),
+    setError: vi.fn(),
+    setSortBy: vi.fn(),
+    toggleFilter: vi.fn(),
+    setFavoriteFilter: vi.fn(),
+    setGenreFilter: vi.fn(),
+    toggleFavorite: vi.fn(),
+    sortBooks: vi.fn(),
+    inputValue: "",
+    setInputValue: vi.fn(),
+    setSortField: vi.fn(),
+    setSortOrder: vi.fn(),
+  })),
 }));
 
-describe('BookBox', () => {
-  beforeEach(() => {
-    // Mocking Zustand store state
+describe("BookBox Component", () => {
+  afterEach(() => {
+    vi.clearAllMocks();
+  });
+
+  it("renders loading message when data is being fetched", () => {
+    // Mocking Zustand store to simulate loading state
     useLibraryStore.mockReturnValue({
-      books: [
-        { id: '1', title: 'Book 1', author: 'Author 1' },
-        { id: '2', title: 'Book 2', author: 'Author 2' },
-      ],
-      filteredBooks: [],
-      loading: false,
+      books: [],
+      loading: true,
       error: null,
-      favorites: ['1'],
-      inputValue: '',
-      sortBy: 'Title a-z',
-      sortField: 'title',
-      sortOrder: 'ASC',
-      filterBy: { favorited: false, genre: '' },
       setBooks: vi.fn(),
       setLoading: vi.fn(),
       setError: vi.fn(),
-      setSortBy: vi.fn(),
-      toggleFilter: vi.fn(),
-      setFavoriteFilter: vi.fn(),
-      setGenreFilter: vi.fn(),
-      toggleFavorite: vi.fn(),
-      sortBooks: vi.fn(),
-      isFavorited: (bookId: string) => bookId === '1',
-      setInputValue: vi.fn(),
-      setSortField: vi.fn(),
-      setSortOrder: vi.fn(),
     });
+
+    render(<BookBox />);
+
+    // Check if loading message is rendered
+    expect(screen.getByText(/loading.../i)).toBeInTheDocument();
   });
 
-  it('should render loading state initially', () => {
-    useLibraryStore.mockReturnValueOnce({ loading: true });
-    
-    render(
-      <MockedProvider mocks={mocks} addTypename={false}>
-        <BookBox />
-      </MockedProvider>
-    );
+  it("renders error message when there is an error", () => {
+    // Mocking Zustand store to simulate error state
+    useLibraryStore.mockReturnValue({
+      books: [],
+      loading: false,
+      error: { message: "GraphQL error" },
+      setBooks: vi.fn(),
+      setLoading: vi.fn(),
+      setError: vi.fn(),
+    });
 
-    expect(screen.getByText('Loading...')).toBeInTheDocument();
+    render(<BookBox />);
+
+    // Check if error message is rendered
+    expect(screen.getByText(/Error: GraphQL error/i)).toBeInTheDocument();
   });
 
-  it('should display books when fetched', async () => {
-    render(
-      <MockedProvider mocks={mocks} addTypename={false}>
-        <BookBox />
-      </MockedProvider>
-    );
+  it("renders 'No books found' when there are no books", () => {
+    // Mocking Zustand store to simulate empty books state
+    useLibraryStore.mockReturnValue({
+      books: [],
+      loading: false,
+      error: null,
+      setBooks: vi.fn(),
+      setLoading: vi.fn(),
+      setError: vi.fn(),
+    });
 
-    await waitFor(() => expect(screen.getByText('Book 1')).toBeInTheDocument());
-    await waitFor(() => expect(screen.getByText('Book 2')).toBeInTheDocument());
+    render(<BookBox />);
+
+    // Check if 'No books found' message is rendered
+    expect(screen.getByText(/No books found/i)).toBeInTheDocument();
   });
 
-  it('should show error message if error occurs', async () => {
-    const errorMocks = [
-      {
-        request: {
-          query: GET_BOOKS,
-          variables: {
-            options: { limit: 12, offset: 0, sort: { title: 'asc' } },
-            genre: 'fiction',
-            searchTerm: '',
-          },
+  it("renders books correctly when data is available", () => {
+    render(<BookBox />);
+
+    // Check if books are rendered correctly
+    expect(screen.getByText("Book 1")).toBeInTheDocument();
+    expect(screen.getByText("Book 2")).toBeInTheDocument();
+    expect(screen.getByText("Author 1")).toBeInTheDocument();
+    expect(screen.getByText("Author 2")).toBeInTheDocument();
+  });
+
+  it("calls toggleFavorite when 'Add to Favorites' is clicked", () => {
+    // Mock Zustand store to test favorite toggle functionality
+    const toggleFavoriteMock = vi.fn();
+    useLibraryStore.mockReturnValue({
+      books: [
+        {
+          id: "1",
+          title: "Book 1",
+          author: { name: "Author 1" },
+          genre: "Genre 1",
+          publication_date: "2021",
+          description: "Description 1",
+          cover: "/cover1.jpg",
         },
-        error: new Error('An error occurred'),
-      },
-    ];
+      ],
+      loading: false,
+      error: null,
+      toggleFavorite: toggleFavoriteMock,
+      setBooks: vi.fn(),
+      setLoading: vi.fn(),
+      setError: vi.fn(),
+    });
 
-    render(
-      <MockedProvider mocks={errorMocks} addTypename={false}>
-        <BookBox />
-      </MockedProvider>
-    );
+    render(<BookBox />);
 
-    await waitFor(() => expect(screen.getByText('Error: An error occurred')).toBeInTheDocument());
+    // Simulate clicking 'Add to Favorites' button
+    fireEvent.click(screen.getByText(/Add to Favorites/i));
+
+    // Ensure toggleFavorite was called
+    expect(toggleFavoriteMock).toHaveBeenCalled();
   });
 
-  it('should call toggleFavorite when a book is favorited', async () => {
-    render(
-      <MockedProvider mocks={mocks} addTypename={false}>
-        <BookBox />
-      </MockedProvider>
-    );
-
-    await waitFor(() => screen.getByText('Book 1'));
-
-    fireEvent.click(screen.getByText('Book 1'));
-    expect(useLibraryStore().toggleFavorite).toHaveBeenCalledWith('1');
-  });
-
-  it('should display "No books found" if there are no books', async () => {
-    const emptyMocks = [
-      {
-        request: {
-          query: GET_BOOKS,
-          variables: {
-            options: { limit: 12, offset: 0, sort: { title: 'asc' } },
-            genre: 'fiction',
-            searchTerm: '',
-          },
+  it("calls fetchMore when 'Load More' is clicked", async () => {
+    // Create a mock for fetchMore function
+    const fetchMoreMock = vi.fn();
+    useLibraryStore.mockReturnValue({
+      books: [
+        {
+          id: "1",
+          title: "Book 1",
+          author: { name: "Author 1" },
+          genre: "Genre 1",
+          publication_date: "2021",
+          description: "Description 1",
+          cover: "/cover1.jpg",
         },
-        result: {
-          data: { books: [] },
-        },
-      },
-    ];
+      ],
+      loading: false,
+      error: null,
+      fetchMore: fetchMoreMock,
+      setBooks: vi.fn(),
+      setLoading: vi.fn(),
+      setError: vi.fn(),
+    });
 
-    render(
-      <MockedProvider mocks={emptyMocks} addTypename={false}>
-        <BookBox />
-      </MockedProvider>
-    );
+    render(<BookBox />);
 
-    await waitFor(() => expect(screen.getByText('No books found')).toBeInTheDocument());
+    // Simulate clicking 'Load More' button
+    fireEvent.click(screen.getByText(/Load more/i));
+
+    // Ensure fetchMore was called
+    await waitFor(() => expect(fetchMoreMock).toHaveBeenCalled());
   });
 });
-
-
  */

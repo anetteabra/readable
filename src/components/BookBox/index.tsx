@@ -31,18 +31,7 @@ const BookBox: React.FC = () => {
   const setLoading = useLibraryStore((state) => state.setLoading);
   const setError = useLibraryStore((state) => state.setError);
 
-  // Helper function to append unique books
-  /*  const appendUniqueBooksToArray = (newBooks: Book[]) => {
-    const existingIds = new Set(existingBooksArray.map((bookCard) => bookCard.key));
-    const uniqueBooks = newBooks.filter((book) => !existingIds.has(book.id));
 
-    const newBookCards = uniqueBooks.map((book: Book) => (
-      <BookCard key={book.id} book={book} />
-    ));
-
-    setExistingBooksArray((prevArray) => [...prevArray, ...newBookCards]);
-  };
- */
   useEffect(() => {
     console.log("Offset value:", offset);
     console.log("Loading status:", loading);

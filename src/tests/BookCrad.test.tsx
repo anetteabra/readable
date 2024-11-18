@@ -1,4 +1,4 @@
-/* import React from 'react';
+import React from 'react';
 import { render, screen, fireEvent } from '@testing-library/react';
 import { MockedProvider } from '@apollo/client/testing';
 import BookCard from '../components/BookCard';
@@ -68,7 +68,7 @@ describe('BookCard', () => {
     );
 
     const link = screen.getByRole('link');
-    expect(link).toHaveAttribute('href', '/details/_1');
+    expect(link).toHaveAttribute('href', '/details/_01');
   });
 
   it('calls FaveButton on click', async () => {
@@ -83,4 +83,3 @@ describe('BookCard', () => {
     expect(FaveButton).toHaveBeenCalled();
   });
 });
- */

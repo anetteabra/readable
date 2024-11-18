@@ -5,15 +5,15 @@ import {
   CardDescription,
   CardHeader,
   CardTitle,
-} from "@/components/ui/card";
+} from "../../components/ui/card";
 import {
   Select,
   SelectTrigger,
   SelectContent,
   SelectItem,
-} from "@/components/ui/select";
-import { Checkbox } from "@/components/ui/checkbox";
-import { Label } from "@/components/ui/label";
+} from "../../components/ui/select";
+import { Checkbox } from "../../components/ui/checkbox";
+import { Label } from "../../components/ui/label";
 import useLibraryStore from "../../store/libraryStore"; //import zustand store
 import { useState } from "react";
 
