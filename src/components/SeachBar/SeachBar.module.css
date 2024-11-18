@@ -1,3 +1,10 @@
+.searchContainer {
+  display: flex;
+  justify-content: center;
+  align-items: center;
+  margin-top: 0.2rem;
+}
+
 .searchBar {
   width: 100% !important;
   padding-right: 3rem !important;
@@ -6,20 +13,44 @@
 }
 
 .x {
-  color: var(--light-font-color);
+  color: var(--navbar-color);
+  opacity: 0.9;
+  position: absolute;
+  margin-left: 12rem;
+
+}
+
+.searchBar::placeholder {
+  color: var(--navbar-color) !important; /* Override the color from the component for better readability */
+  opacity: 0.9;
 }
 
 @media (max-width: 768px) {
+  .searchContainer {
+    width: calc(100% - 2rem) !important;
+  }
+
   .searchBar {
     width: calc(100% - 2rem) !important; /* Adjust width to avoid overflow*/
     margin-top: 3rem;
     padding: 0.5rem;
     justify-content: center;
   }
+  
+  .x {
+    margin-left: 20rem;
+  }
 }
+
 @media (max-width: 480px) {
+  .searchContainer {
+    width: calc(100% - 2rem) !important;
+  }
   .searchBar {
     margin-top: 1rem;
     width: calc(100% - 2rem) !important; /* Adjust width to avoid overflow*/
+  }
+  .x {
+    margin-left: 10rem;
   }
 }

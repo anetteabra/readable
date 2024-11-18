@@ -10,11 +10,11 @@
 
 .loadingButton {
   background-color: var(--light-font-color);
-  margin: 16px auto; /* Sentere knappen horisontalt */
+  margin: 16px auto;
   border: none !important;
   border-radius: 10px;
-  padding: 10px 18px; /* Juster padding for å gjøre knappen smalere */
-  white-space: nowrap; /* Hindrer tekstbrytning */
+  padding: 10px 18px;
+  white-space: nowrap; 
   display: inline-block;
 }
 
@@ -38,6 +38,18 @@
   .bookList {
     padding-top: 8rem;
     margin-left: 0px;
+  }
+  .errorMessage {
+    display: block;
+    padding: 1rem;
+    color: var();
+    max-width: 80%;
+    margin: 0 auto;
+    position: fixed; 
+    top: 50%; 
+    left: 50%; 
+    transform: translate(-50%, -50%);
+    z-index: 10; 
   }
 }
 
