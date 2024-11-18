@@ -25,7 +25,7 @@ const SearchBar: React.FC = () => {
 
   return (
     // Wrapper to be able to place x button in the search bar
-    <div className={styles.searchContainer}> 
+    <div className={styles.searchContainer}>
       <Input
         type="input"
         placeholder="Search for a book title"

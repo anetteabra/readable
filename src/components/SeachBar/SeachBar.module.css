@@ -17,11 +17,12 @@
   opacity: 0.9;
   position: absolute;
   margin-left: 12rem;
-
 }
 
 .searchBar::placeholder {
-  color: var(--navbar-color) !important; /* Override the color from the component for better readability */
+  color: var(
+    --navbar-color
+  ) !important; /* Override the color from the component for better readability */
   opacity: 0.9;
 }
 
@@ -36,7 +37,7 @@
     padding: 0.5rem;
     justify-content: center;
   }
-  
+
   .x {
     margin-left: 20rem;
   }

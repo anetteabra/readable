@@ -6,8 +6,8 @@ import BookCard from "../BookCard";
 import styles from "./BookBox.module.css";
 
 const BookBox: React.FC = () => {
-  const [ offset ] = useState(0);
-  const [ limit ] = useState(12);
+  const [offset] = useState(0);
+  const [limit] = useState(12);
   const sortField = useLibraryStore((state) => state.sortField);
   const sortOrder = useLibraryStore((state) => state.sortOrder);
   const inputValue = useLibraryStore((state) => state.inputValue);
@@ -49,7 +49,18 @@ const BookBox: React.FC = () => {
       setBooks(data.books);
     }
     console.log("Current books:", books);
-  }, [data, loading, error, offset, sortOrder, genre, books, setBooks, setLoading, setError]);
+  }, [
+    data,
+    loading,
+    error,
+    offset,
+    sortOrder,
+    genre,
+    books,
+    setBooks,
+    setLoading,
+    setError,
+  ]);
 
   // Memoized filtered list based on the latest favorites
   const filteredBooks = useMemo(() => {

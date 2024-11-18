@@ -40,12 +40,11 @@
   color: #555;
   margin: 4px 0;
   display: -webkit-box;
-  -webkit-line-clamp: 2;  /* Limits to 2 lines, and after that adds ellipsis */
-  line-clamp: 2; 
+  -webkit-line-clamp: 2; /* Limits to 2 lines, and after that adds ellipsis */
+  line-clamp: 2;
   -webkit-box-orient: vertical;
   overflow: hidden;
   text-overflow: ellipsis;
-
 }
 
 .bookCardDescription {
