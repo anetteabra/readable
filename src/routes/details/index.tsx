@@ -39,8 +39,8 @@ const Details: React.FC = () => {
         <InfoDetails book={book} />
       </section>
       <section className={styles.reviewsSection} aria-label="review section">
-        <ReviewList bookId={book.id} aria-label="review list"/>
-        <ReviewPopUp bookId={book.id} aria-label="review popup"/>
+        <ReviewList bookId={book.id} aria-label="review list" />
+        <ReviewPopUp bookId={book.id} aria-label="review popup" />
       </section>
     </main>
   );

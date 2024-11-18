@@ -3,7 +3,7 @@ import { Button } from "@/components/ui/button";
 import { Link } from "react-router-dom";
 import useLibraryStore from "@/store/libraryStore";
 import { useEffect } from "react";
-import { useMutation, useQuery} from "@apollo/client";
+import { useMutation, useQuery } from "@apollo/client";
 import { ADD_USER, CHECK_USER } from "@/queries";
 
 const Home = () => {
@@ -41,7 +41,6 @@ const Home = () => {
     // Run the mutation when the component loads and the check query is done
     addUserIfNotExists();
   }, [loading, error, data, userId, addUserMutation]);
-
 
   return (
     <>

@@ -28,7 +28,8 @@ const ReviewList: React.FC<ReviewsProps> = ({ bookId }) => {
       ) : (
         reviews?.map((review, index) => (
           <div key={index}>
-            <Comment aria-label="review comment"
+            <Comment
+              aria-label="review comment"
               name={review.name}
               stars={review.stars}
               comment={review.comment}

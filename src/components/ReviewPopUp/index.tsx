@@ -12,7 +12,6 @@ import { useState } from "react";
 import { useMutation } from "@apollo/client";
 import { ADD_REVIEW } from "@/queries";
 
-
 const ReviewPopUp: React.FC<{ bookId: string }> = ({ bookId }) => {
   const [popoverOpen, setPopoverOpen] = useState(false);
   const [stars, setStars] = useState(0);
@@ -101,8 +100,13 @@ const ReviewPopUp: React.FC<{ bookId: string }> = ({ bookId }) => {
     name.trim() !== "" && comment.trim() !== "" && stars > 0;
 
   return (
-    <Popover open={popoverOpen} onOpenChange={setPopoverOpen} aria-label="review popup">
-      <PopoverTrigger aria-label="Give review"
+    <Popover
+      open={popoverOpen}
+      onOpenChange={setPopoverOpen}
+      aria-label="review popup"
+    >
+      <PopoverTrigger
+        aria-label="Give review"
         className={styles.trigger}
         onClick={() => setPopoverOpen(true)}
       >
@@ -110,7 +114,8 @@ const ReviewPopUp: React.FC<{ bookId: string }> = ({ bookId }) => {
       </PopoverTrigger>
       <PopoverContent className={styles.content} aria-label="review form">
         <h3>Give a review on this book!</h3>
-        <Input aria-label="name"
+        <Input
+          aria-label="name"
           value={name}
           onChange={(e) => setName(e.target.value)}
           placeholder="Your name"
@@ -118,7 +123,7 @@ const ReviewPopUp: React.FC<{ bookId: string }> = ({ bookId }) => {
         />
         <p>How many stars for this book?</p>
         {renderStars()}
-        <Textarea 
+        <Textarea
           value={comment}
           placeholder="Leave a comment with your thoughts on this book"
           className={styles.textField}
@@ -131,10 +136,11 @@ const ReviewPopUp: React.FC<{ bookId: string }> = ({ bookId }) => {
           onClick={handleSubmit}
           className={styles.submit}
           disabled={!isFormComplete || loading || !!commentError}
-          aria-label={loading ? "Submitting your response" : "Submit your response"}
+          aria-label={
+            loading ? "Submitting your response" : "Submit your response"
+          }
         >
           {loading ? "Submitting..." : "Submit"}
-
         </Button>
         {error && <p>Error: {error.message}</p>}
       </PopoverContent>

@@ -8,10 +8,15 @@ interface InfoDetailsProps {
 const InfoDetails: React.FC<InfoDetailsProps> = ({ book }) => {
   return (
     <section className={styles.bookDetails} aria-label="Book details">
-      <img src={book.cover} alt={book.title} className={styles.bookImage}aria-label="Book cover image"/>
+      <img
+        src={book.cover}
+        alt={book.title}
+        className={styles.bookImage}
+        aria-label="Book cover image"
+      />
       <div className={styles.bookInfo} aria-label="Book information">
         <h1>
-          <strong>Title:</strong> {book.title} 
+          <strong>Title:</strong> {book.title}
         </h1>
         <p>
           <strong>Author:</strong> {book.author.name}

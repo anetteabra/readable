@@ -18,7 +18,7 @@ import useLibraryStore from "../../store/libraryStore";
 import { useState } from "react";
 
 const SideBar = () => {
-  const { sortBy, setSortBy, filterBy, setGenreFilter, setFavoriteFilter} =
+  const { sortBy, setSortBy, filterBy, setGenreFilter, setFavoriteFilter } =
     useLibraryStore();
   const [isOpen, setIsOpen] = useState(false);
 
@@ -85,11 +85,10 @@ const SideBar = () => {
             <Label className={styles.filteringLabel}> Filter by: </Label>
             <div className={styles.filterOptions}>
               <div className={styles.filterItems}>
-                
                 <Checkbox
                   id="favorited"
                   checked={filterBy.favorited}
-                  onCheckedChange= {() => setFavoriteFilter(!filterBy.favorited)}
+                  onCheckedChange={() => setFavoriteFilter(!filterBy.favorited)}
                 />
                 <Label htmlFor="favorited"> Favorited </Label>
               </div>

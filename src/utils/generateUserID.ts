@@ -10,4 +10,3 @@ function getOrCreateUserId() {
 }
 
 export default getOrCreateUserId;
- 
