@@ -1,34 +1,49 @@
 import { render, screen, fireEvent } from '@testing-library/react';
 import { describe, it, expect, beforeEach, afterEach, vi } from 'vitest';
 import SideBar from '../components/SideBar'; // Adjust the import path as necessary
-import useLibraryStore from '../store/libraryStore' ; // Adjust the import path as necessary
+
+const mockStore = {
+  userId: "test-user",
+  books: [],
+  loading: false,
+  error: null,
+  sortBy: "Title a-z",
+  filterBy: { favorited: false, genre: null },
+  favorites: [],
+  inputValue: "",
+  sortField: "title",
+  sortOrder: "ASC",
+  setBooks: vi.fn(),
+  setLoading: vi.fn(),
+  setError: vi.fn(),
+  setSortBy: vi.fn(),
+  toggleFilter: vi.fn(),
+  setFavoriteFilter: vi.fn(),
+  setGenreFilter: vi.fn((newGenre) => {
+    mockStore.filterBy.genre = newGenre; // Update the filterBy.genre state
+  }),
+  toggleFavorite: vi.fn(),
+  isFavorited: vi.fn(),
+  sortBooks: vi.fn(),
+  setInputValue: vi.fn(),
+  setSortField: vi.fn(),
+  setSortOrder: vi.fn(),
+};
 
 // Mock the Zustand store
 vi.mock('@/store/libraryStore', () => {
-    return {
-      __esModule: true,
-      default: vi.fn(),
-    };
-  });
+  return {
+    __esModule: true,
+    default: vi.fn(() => mockStore),
+  };
+});
 
-const mockStore = {
-  sortBy: 'Title a-z',
-  setSortBy: vi.fn(),
-  filterBy: { favorited: false, genre: null },
-  setFavoritedFilter: vi.fn(),
-  setGenreFilter: vi.fn(),
-};
 
 describe('SideBar Component', () => {
-    beforeEach(() => {
-      mockStore.setSortBy.mockReset();
-      mockStore.setFavoritedFilter.mockReset();
-      mockStore.setGenreFilter.mockReset();
-
-      (useLibraryStore as unknown as vi.Mock).mockReturnValue(mockStore);
-      });
+  beforeEach(() => {
+    vi.clearAllMocks();
+  });
   
-
   afterEach(() => {
     vi.clearAllMocks();
   });
@@ -60,18 +75,37 @@ describe('SideBar Component', () => {
 
   it('calls setFavoriteFilter when the favorited checkbox is clicked', () => {
     render(<SideBar />);
+    // const favoritedCheckbox = screen.getByLabelText('Favorited');
+    // fireEvent.click(favoritedCheckbox);
+    // expect(mockStore.setFavoritedFilter).toHaveBeenCalledWith('favorited');
     const favoritedCheckbox = screen.getByLabelText('Favorited');
+    expect(favoritedCheckbox).toBeInTheDocument();
+  
     fireEvent.click(favoritedCheckbox);
-    expect(mockStore.setFavoritedFilter).toHaveBeenCalledWith('favorited');
+  
+    // Check if the mock was called
+    expect(mockStore.setFavoriteFilter).toHaveBeenCalledTimes(1);
+    expect(mockStore.setFavoriteFilter).toHaveBeenCalledWith(true);
   });
 
   it('calls setGenreFilter when a genre is selected', () => {
-    render(<SideBar />);
-    const genreCheckbox = screen.getByLabelText('Fiction');
-    fireEvent.click(genreCheckbox);
-    expect(mockStore.setGenreFilter).toHaveBeenCalledWith('Fiction');
-    fireEvent.click(genreCheckbox);
-    expect(mockStore.setGenreFilter).toHaveBeenCalledWith(null);
+  render(<SideBar />);
+
+  const genreCheckbox = screen.getByLabelText('Fiction');
+  expect(genreCheckbox).toBeInTheDocument();
+
+  fireEvent.click(genreCheckbox);
+  console.log('After first click:', mockStore.setGenreFilter.mock.calls);
+
+  expect(mockStore.setGenreFilter).toHaveBeenCalledTimes(1);
+  expect(mockStore.setGenreFilter).toHaveBeenCalledWith('Fiction');
+
+  fireEvent.click(genreCheckbox);
+  console.log('After second click:', mockStore.setGenreFilter.mock.calls);
+
+  expect(mockStore.setGenreFilter).toHaveBeenCalledTimes(2);
+  expect(mockStore.setGenreFilter).toHaveBeenCalledWith(null);
+  
   });
 });
 

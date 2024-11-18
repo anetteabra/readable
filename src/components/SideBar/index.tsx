@@ -48,6 +48,7 @@ const SideBar = () => {
   };
 
   const handleGenreToggle = (genre: string) => {
+    console.log('Toggling genre:', genre);
     setFavoriteFilter(false); 
     setGenreFilter(filterBy.genre === genre ? null : genre); 
   };
