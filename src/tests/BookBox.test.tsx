@@ -1,184 +1,154 @@
-// import { render, screen, fireEvent, waitFor } from "@testing-library/react";
-// import { afterEach, describe, expect, it, vi } from "vitest";
-// import BookBox from "../components/BookBox";
-// import useLibraryStore from "../store/libraryStore";  // Importer Zustand store
+import { render, screen, waitFor } from "@testing-library/react";
+import { beforeEach, afterEach, describe, expect, it, vi, Mock } from "vitest";
+import BookBox from "../components/BookBox";
+import { MockedProvider } from "@apollo/client/testing";
+import useLibraryStore from "@/store/libraryStore";
+import { GET_BOOKS } from "@/queries";
 
-// // Mock Zustand store
-// vi.mock("../store/libraryStore", () => ({
-//   __esModule: true,
-//   default: vi.fn(() => ({
-//     books: [
-//       {
-//         id: "1",
-//         title: "Book 1",
-//         author: { name: "Author 1" },
-//         genre: "Genre 1",
-//         publication_date: "2021",
-//         description: "Description 1",
-//         cover: "/cover1.jpg",
-//       },
-//       {
-//         id: "2",
-//         title: "Book 2",
-//         author: { name: "Author 2" },
-//         genre: "Genre 2",
-//         publication_date: "2022",
-//         description: "Description 2",
-//         cover: "/cover2.jpg",
-//       },
-//     ],
-//     loading: false,
-//     error: null,
-//     sortField: "title",
-//     sortOrder: "ASC",
-//     sortBy: "Title a-z",
-//     filterBy: { favorited: false, genre: "" },
-//     favorites: [],
-//     isFavorited: (bookId: string) => false,
-//     setBooks: vi.fn(),
-//     setLoading: vi.fn(),
-//     setError: vi.fn(),
-//     setSortBy: vi.fn(),
-//     toggleFilter: vi.fn(),
-//     setFavoriteFilter: vi.fn(),
-//     setGenreFilter: vi.fn(),
-//     toggleFavorite: vi.fn(),
-//     sortBooks: vi.fn(),
-//     inputValue: "",
-//     setInputValue: vi.fn(),
-//     setSortField: vi.fn(),
-//     setSortOrder: vi.fn(),
-//   })),
-// }));
+// Mock Zustand store
+vi.mock('../store/libraryStore', () => {
+    return {
+      __esModule: true,
+      default: vi.fn(),
+  };
+});
+const mockStore = {
+    userId: "test-user",
+    books: [],
+    loading: false,
+    error: null as string | null,
+    sortBy: "Title a-z",
+    filterBy: { favorited: false, genre: null },
+    favorites: [],
+    inputValue: "",
+    sortField: "title",
+    sortOrder: "ASC",
+    setBooks: vi.fn((books) => useLibraryStore.setState({ books })),
+    setLoading: vi.fn((loading) => useLibraryStore.setState({ loading })),
+    setError: vi.fn((error) => useLibraryStore.setState({ error })),
+    setSortBy: vi.fn(),
+    toggleFilter: vi.fn(),
+    setFavoriteFilter: vi.fn(),
+    setGenreFilter: vi.fn(),
+    toggleFavorite: vi.fn(),
+    isFavorited: vi.fn(),
+    sortBooks: vi.fn(),
+    setInputValue: vi.fn(),
+    setSortField: vi.fn(),
+    setSortOrder: vi.fn(),
+  };
 
-// describe("BookBox Component", () => {
-//   afterEach(() => {
-//     vi.clearAllMocks();
-//   });
+  describe('BookBox Component', () => {
 
-//   it("renders loading message when data is being fetched", () => {
-//     // Mocking Zustand store to simulate loading state
-//     useLibraryStore.mockReturnValue({
-//       books: [],
-//       loading: true,
-//       error: null,
-//       setBooks: vi.fn(),
-//       setLoading: vi.fn(),
-//       setError: vi.fn(),
-//     });
+    beforeEach(() => {
 
-//     render(<BookBox />);
+        mockStore.setBooks.mockReset();
+        mockStore.setLoading.mockReset();
+        mockStore.setError.mockReset();
 
-//     // Check if loading message is rendered
-//     expect(screen.getByText(/loading.../i)).toBeInTheDocument();
-//   });
+      
+        (useLibraryStore as unknown as ReturnType<typeof vi.fn>).mockReturnValue(mockStore);
+        
+        mockStore.books = [];
+        mockStore.loading = false;
+        mockStore.error = null;
+        mockStore.filterBy = { favorited: false, genre: null };
+        });
 
-//   it("renders error message when there is an error", () => {
-//     // Mocking Zustand store to simulate error state
-//     useLibraryStore.mockReturnValue({
-//       books: [],
-//       loading: false,
-//       error: { message: "GraphQL error" },
-//       setBooks: vi.fn(),
-//       setLoading: vi.fn(),
-//       setError: vi.fn(),
-//     });
+    afterEach(() => {
+      vi.clearAllMocks();
+    });
 
-//     render(<BookBox />);
-
-//     // Check if error message is rendered
-//     expect(screen.getByText(/Error: GraphQL error/i)).toBeInTheDocument();
-//   });
-
-//   it("renders 'No books found' when there are no books", () => {
-//     // Mocking Zustand store to simulate empty books state
-//     useLibraryStore.mockReturnValue({
-//       books: [],
-//       loading: false,
-//       error: null,
-//       setBooks: vi.fn(),
-//       setLoading: vi.fn(),
-//       setError: vi.fn(),
-//     });
-
-//     render(<BookBox />);
-
-//     // Check if 'No books found' message is rendered
-//     expect(screen.getByText(/No books found/i)).toBeInTheDocument();
-//   });
-
-//   it("renders books correctly when data is available", () => {
-//     render(<BookBox />);
-
-//     // Check if books are rendered correctly
-//     expect(screen.getByText("Book 1")).toBeInTheDocument();
-//     expect(screen.getByText("Book 2")).toBeInTheDocument();
-//     expect(screen.getByText("Author 1")).toBeInTheDocument();
-//     expect(screen.getByText("Author 2")).toBeInTheDocument();
-//   });
-
-//   it("calls toggleFavorite when 'Add to Favorites' is clicked", () => {
-//     // Mock Zustand store to test favorite toggle functionality
-//     const toggleFavoriteMock = vi.fn();
-//     useLibraryStore.mockReturnValue({
-//       books: [
-//         {
-//           id: "1",
-//           title: "Book 1",
-//           author: { name: "Author 1" },
-//           genre: "Genre 1",
-//           publication_date: "2021",
-//           description: "Description 1",
-//           cover: "/cover1.jpg",
-//         },
-//       ],
-//       loading: false,
-//       error: null,
-//       toggleFavorite: toggleFavoriteMock,
-//       setBooks: vi.fn(),
-//       setLoading: vi.fn(),
-//       setError: vi.fn(),
-//     });
-
-//     render(<BookBox />);
-
-//     // Simulate clicking 'Add to Favorites' button
-//     fireEvent.click(screen.getByText(/Add to Favorites/i));
-
-//     // Ensure toggleFavorite was called
-//     expect(toggleFavoriteMock).toHaveBeenCalled();
-//   });
-
-//   it("calls fetchMore when 'Load More' is clicked", async () => {
-//     // Create a mock for fetchMore function
-//     const fetchMoreMock = vi.fn();
-//     useLibraryStore.mockReturnValue({
-//       books: [
-//         {
-//           id: "1",
-//           title: "Book 1",
-//           author: { name: "Author 1" },
-//           genre: "Genre 1",
-//           publication_date: "2021",
-//           description: "Description 1",
-//           cover: "/cover1.jpg",
-//         },
-//       ],
-//       loading: false,
-//       error: null,
-//       fetchMore: fetchMoreMock,
-//       setBooks: vi.fn(),
-//       setLoading: vi.fn(),
-//       setError: vi.fn(),
-//     });
-
-//     render(<BookBox />);
-
-//     // Simulate clicking 'Load More' button
-//     fireEvent.click(screen.getByText(/Load more/i));
-
-//     // Ensure fetchMore was called
-//     await waitFor(() => expect(fetchMoreMock).toHaveBeenCalled());
-//   });
-// });
- 
+    it('renders the BookBox component with books', async () => {
+      const mocks = [
+        {
+          request: {
+            query: GET_BOOKS,
+            variables: {
+              options: { limit: 12, offset: 0, sort: { title: 'ASC' } },
+              genre: null,
+              searchTerm: '',
+              userId: undefined,
+            },
+          },
+          result: {
+            data: {
+                books: [
+                    {
+                      id: "1",
+                      title: "Book 1",
+                      author: { name: "Author 1" },
+                      genre: "Genre 1",
+                      publication_date: "2021",
+                      description: "Description 1",
+                      cover: "/cover1.jpg",
+                    },
+                    {
+                      id: "2",
+                      title: "Book 2",
+                      author: { name: "Author 2" },
+                      genre: "Genre 2",
+                      publication_date: "2022",
+                      description: "Description 2",
+                      cover: "/cover2.jpg",
+                    },
+                  ],
+            },
+          },
+        },
+      ];
+  
+      render(
+        <MockedProvider mocks={mocks} addTypename={false}>
+          <BookBox />
+        </MockedProvider>
+      );
+  
+      await waitFor(() => {
+        expect(screen.getByText('Book 1')).toBeInTheDocument();
+        expect(screen.getByText('Book 2')).toBeInTheDocument();
+      });
+    });
+  
+    it('displays loading message when loading', async () => {
+        mockStore.loading = true;
+  
+        render(
+            <MockedProvider mocks={[]} addTypename={false}>
+            <BookBox />
+            </MockedProvider>
+        );
+      
+      await waitFor(() => {
+      expect(screen.getByText('Loading...')).toBeInTheDocument();
+      });
+    });
+  
+    it('displays error message when there is an error', async () => {
+        mockStore.error = "GraphQL Error";
+  
+        render(
+            <MockedProvider mocks={[]} addTypename={false}>
+            <BookBox />
+            </MockedProvider>
+        );
+      
+      await waitFor(() => {
+      expect(screen.getByText('Error: GraphQL Error')).toBeInTheDocument();
+        });
+    });
+  
+    it('displays no books found message when there are no books', async () => {
+        mockStore.books = [];
+  
+      render(
+        <MockedProvider mocks={[]} addTypename={false}>
+          <BookBox />
+        </MockedProvider>
+      );
+      
+      await waitFor(() => {
+      expect(screen.getByText('No books found')).toBeInTheDocument();
+        });
+    });
+  });
