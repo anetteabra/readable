@@ -1,7 +1,7 @@
 import { ApolloClient, InMemoryCache, ApolloProvider } from "@apollo/client";
 
 const client = new ApolloClient({
-  uri: "http://localhost:3001",
+  uri: "http://it2810-34.idi.ntnu.no:3001",
   headers: {
     "Content-Type": "application/json",
   },
