@@ -20,7 +20,7 @@ const mockStore = {
   toggleFilter: vi.fn(),
   setFavoriteFilter: vi.fn(),
   setGenreFilter: vi.fn((newGenre) => {
-    mockStore.filterBy.genre = newGenre; // Update the filterBy.genre state
+    mockStore.filterBy.genre = newGenre; // update the filterBy.genre state
   }),
   toggleFavorite: vi.fn(),
   isFavorited: vi.fn(),
@@ -75,15 +75,12 @@ describe('SideBar Component', () => {
 
   it('calls setFavoriteFilter when the favorited checkbox is clicked', () => {
     render(<SideBar />);
-    // const favoritedCheckbox = screen.getByLabelText('Favorited');
-    // fireEvent.click(favoritedCheckbox);
-    // expect(mockStore.setFavoritedFilter).toHaveBeenCalledWith('favorited');
+
     const favoritedCheckbox = screen.getByLabelText('Favorited');
     expect(favoritedCheckbox).toBeInTheDocument();
   
     fireEvent.click(favoritedCheckbox);
   
-    // Check if the mock was called
     expect(mockStore.setFavoriteFilter).toHaveBeenCalledTimes(1);
     expect(mockStore.setFavoriteFilter).toHaveBeenCalledWith(true);
   });
