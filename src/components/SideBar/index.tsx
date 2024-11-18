@@ -40,6 +40,20 @@ const SideBar = () => {
     "Self-Help",
   ];
 
+  const handleFavoriteToggle = () => {
+    if (!filterBy.favorited) {
+      setGenreFilter(null);
+    }
+    setFavoriteFilter(!filterBy.favorited);
+  };
+
+  const handleGenreToggle = (genre: string) => {
+    if (!filterBy.genre || filterBy.genre !== genre) {
+      setFavoriteFilter(false); 
+      setGenreFilter(filterBy.genre === genre ? null : genre); 
+    }
+  };
+
   return (
     <>
       {/* Show the toggle button when the sidebar is closed */}
@@ -63,13 +77,11 @@ const SideBar = () => {
           {/* Sorting Section */}
           <section className={styles.sortingSection}>
             <Label className={styles.sortingLabel} htmlFor="sort">
-              {" "}
-              Sort by:{" "}
+              Sort by:
             </Label>
             <Select value={sortBy} onValueChange={setSortBy}>
               <SelectTrigger className={styles.trigger} id="sort">
-                {" "}
-                {sortBy}{" "}
+                {sortBy}
               </SelectTrigger>
               <SelectContent>
                 <SelectItem value="Title a-z">Title a-z</SelectItem>
@@ -85,13 +97,15 @@ const SideBar = () => {
             <Label className={styles.filteringLabel}> Filter by: </Label>
             <div className={styles.filterOptions}>
               <div className={styles.filterItems}>
+                {/* Favorited Checkbox */}
                 <Checkbox
                   id="favorited"
                   checked={filterBy.favorited}
-                  onCheckedChange={() => setFavoriteFilter(!filterBy.favorited)}
+                  onCheckedChange={handleFavoriteToggle}
                 />
                 <Label htmlFor="favorited"> Favorited </Label>
               </div>
+
               {/* Genre Selection */}
               <Label className={styles.filteringLabel}> Genres: </Label>
               {genres.map((genre) => (
@@ -99,9 +113,7 @@ const SideBar = () => {
                   <Checkbox
                     id={genre}
                     checked={filterBy.genre === genre}
-                    onCheckedChange={() => {
-                      setGenreFilter(filterBy.genre === genre ? null : genre);
-                    }} // Only allow one genre to be selected
+                    onCheckedChange={() => handleGenreToggle(genre)}
                   />
                   <Label htmlFor={genre}> {genre} </Label>
                 </div>
@@ -111,7 +123,7 @@ const SideBar = () => {
         </CardContent>
       </Card>
 
-      {/* Show the toggle button when the sidebar is closed*/}
+      {/* Show the toggle button when the sidebar is open */}
       {isOpen && (
         <button
           className={styles.toggleButton}
