@@ -1,3 +1,4 @@
+import React from 'react';
 import { render, screen, fireEvent } from '@testing-library/react';
 import { MockedProvider } from '@apollo/client/testing';
 import BookCard from '../components/BookCard';
@@ -7,13 +8,13 @@ import FaveButton from '../components/FaveButton';
 
 // Mock BookCard props
 const mockBook = {
-  id: '1',
-  title: 'Book Title 1',
+  id: '_01',
+  title: 'LITTLE WOMEN',
   author: { name: 'Author 1' },
-  cover: 'cover-url',
-  description: 'This is a test description',
-  genre: 'fiction',
-  publication_date: '2024-01-01',
+  cover: 'https://proconian.com/wp-content/uploads/2020/01/littlewomen.png',
+  description: 'A novel about the lives of four sisters during the American Civil War.',
+  genre: 'Fiction',
+  publication_date: '1868-09-30',
   isbn13: '1234567890123',
 };
 
@@ -30,7 +31,7 @@ describe('BookCard', () => {
       </MemoryRouter>
     );
 
-    expect(screen.getByText('Book Title 1')).toBeInTheDocument();
+    expect(screen.getByText('LITTLE WOMEN')).toBeInTheDocument();
     expect(screen.getByText('by Author 1')).toBeInTheDocument();
   });
 
@@ -41,9 +42,9 @@ describe('BookCard', () => {
       </MemoryRouter>
     );
 
-    const img = screen.getByAltText('Book Title 1 cover');
+    const img = screen.getByAltText('LITTLE WOMEN cover');
     expect(img).toBeInTheDocument();
-    expect(img).toHaveAttribute('src', 'cover-url');
+    expect(img).toHaveAttribute('src', 'https://proconian.com/wp-content/uploads/2020/01/littlewomen.png');
     expect(img).toHaveAttribute('width', '150');
     expect(img).toHaveAttribute('height', '200');
   });
@@ -67,7 +68,7 @@ describe('BookCard', () => {
     );
 
     const link = screen.getByRole('link');
-    expect(link).toHaveAttribute('href', '/details/1');
+    expect(link).toHaveAttribute('href', '/details/_1');
   });
 
   it('calls FaveButton on click', async () => {
