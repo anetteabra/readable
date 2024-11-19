@@ -25,7 +25,7 @@ export const Comment = ({ name, stars, comment }: CommentProps) => {
         <CardTitle>{name}</CardTitle>
       </CardHeader>
       <CardContent>
-        <p>{renderStars(stars)}</p>
+        <div>{renderStars(stars)}</div>
         <p>{comment}</p>
       </CardContent>
     </Card>

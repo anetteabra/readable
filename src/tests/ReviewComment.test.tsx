@@ -1,10 +1,12 @@
-import { render, screen } from "@testing-library/react";
+import { act, render, screen } from "@testing-library/react";
 import { describe, it, expect } from "vitest";
 import Comment from "../components/ReviewComment"; // Adjust the import path as needed
 
 describe("ReviewComment Component", () => {
   it("renders the comment with name, stars, and comment text", () => {
-    render(<Comment name="John" stars={5} comment="Great book!" />);
+    act(() => {
+      render(<Comment name="John" stars={5} comment="Great book!" />);
+    });
 
     expect(screen.getByText("John")).toBeInTheDocument();
     expect(screen.getByText("Great book!")).toBeInTheDocument();
@@ -12,7 +14,9 @@ describe("ReviewComment Component", () => {
   });
 
   it("renders the correct number of filled and empty stars", () => {
-    render(<Comment name="Jane" stars={3} comment="Good read!" />);
+    act(() => {
+      render(<Comment name="Jane" stars={3} comment="Good read!" />);
+    });
 
     const stars = screen.getAllByTestId("star");
     expect(stars.length).toBe(5);
