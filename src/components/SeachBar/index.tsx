@@ -24,17 +24,17 @@ const SearchBar: React.FC = () => {
   };
 
   return (
-    <>
+    // Wrapper to be able to place x button in the search bar
+    <div className={styles.searchContainer}> 
       <Input
         type="input"
-        placeholder="Search"
+        placeholder="Search for a book title"
         className={styles.searchBar}
         aria-label="Search"
         value={tempInputValue}
         onChange={(e) => setTempInputValue(e.target.value)}
         onKeyDown={handleEnter}
       />
-
       <button
         className={styles.x}
         onClick={() => {
@@ -46,7 +46,7 @@ const SearchBar: React.FC = () => {
       >
         <FontAwesomeIcon icon={faX} />
       </button>
-    </>
+    </div>
   );
 };
 

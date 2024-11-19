@@ -15,6 +15,9 @@ async function startApolloServer(): Promise<void> {
   try {
     const schema = await neoSchema.getSchema(); // Generate schema with built-in resolvers
 
+    // eslint-disable-next-line @typescript-eslint/no-require-imports
+    const ApolloServerPluginLandingPageLocalDefault = require("apollo-server-core").ApolloServerPluginLandingPageLocalDefault;
+
     const server = new ApolloServer({
       schema,
       introspection: true, // Enable introspection for development
@@ -23,8 +26,7 @@ async function startApolloServer(): Promise<void> {
         return error; // Pass error details to the client for troubleshooting
       },
       plugins: [
-        require("apollo-server-core").ApolloServerPluginLandingPageLocalDefault(
-          {
+        ApolloServerPluginLandingPageLocalDefault({
             embed: true,
           },
         ),

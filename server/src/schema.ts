@@ -10,6 +10,7 @@ const typeDefs = gql`
     genre: String
     publication_date: String
     isbn13: String
+    favoritedBy: [User!]! @relationship(type: "FAVORITED", direction: IN)
     reviews: [Review!]! @relationship(type: "REVIEWED", direction: IN)
   }
 
@@ -38,6 +39,11 @@ const typeDefs = gql`
     book: Book! @relationship(type: "REVIEWED", direction: OUT)
   }
 
+  type User {
+    id: ID! @unique
+    favorites: [Book!]! @relationship(type: "FAVORITED", direction: OUT)
+  }
+
   type TestSubscriber {
     id: ID! @id @unique
     name: String!
@@ -60,6 +66,58 @@ const typeDefs = gql`
         RETURN r
         """
         columnName: "r"
+      )
+
+    favoriteBook(bookId: ID!, userId: ID!): User
+      @cypher(
+        statement: """
+        MATCH (u:User {id: $userId}), (b:Book {id: $bookId})
+        MERGE (u)-[:FAVORITED]->(b)
+        RETURN u
+        """,
+        columnName: "u"
+      )
+
+    unfavoriteBook(bookId: ID!, userId: ID!): User
+      @cypher(
+      statement: """
+      MATCH (u:User {id: $userId})-[r:FAVORITED]->(b:Book {id: $bookId})
+      DELETE r
+      RETURN u
+      """,
+      columnName: "u"
+    )
+
+    addUser(
+        id: ID!
+      ): User
+      @cypher(
+      statement: """
+      MERGE (u:User {id: $id})
+      return u
+      """,
+      columnName: "u"
+  ) 
+  }
+
+  type Query {
+    user(id: ID!): User  # Add this query to fetch a single user by id
+    users: [User!]!      # Retain this to fetch multiple users if needed
+    
+    userFavorites(
+      userId: ID!
+      options: BookOptions
+    ): [Book!]!
+      @cypher(
+        statement: """
+        MATCH (u:User {id: $userId})-[:FAVORITED]->(b:Book)
+        RETURN b
+        ORDER BY CASE WHEN $options.sort[0].title IS NOT NULL THEN b.title END, 
+                 CASE WHEN $options.sort[0].publication_date IS NOT NULL THEN b.publication_date END
+        SKIP $options.offset
+        LIMIT $options.limit
+        """,
+        columnName: "b"
       )
   }
 `;
