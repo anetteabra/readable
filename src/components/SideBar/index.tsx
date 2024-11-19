@@ -5,7 +5,7 @@ import {
   CardDescription,
   CardHeader,
   CardTitle,
-} from "@/components/ui/card";
+} from "../../components/ui/card";
 import {
   Select,
   SelectTrigger,
@@ -48,6 +48,7 @@ const SideBar = () => {
   };
 
   const handleGenreToggle = (genre: string) => {
+    console.log('Toggling genre:', genre);
     setFavoriteFilter(false); 
     setGenreFilter(filterBy.genre === genre ? null : genre); 
   };

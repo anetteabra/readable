@@ -1,4 +1,3 @@
-// ChatGPT produced, for testing the vitest setup
 import { describe, it, expect } from "vitest";
 
 describe("Simple Test", () => {

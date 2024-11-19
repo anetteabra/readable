@@ -87,6 +87,7 @@ const ReviewPopUp: React.FC<{ bookId: string }> = ({ bookId }) => {
         {[...Array(5)].map((_, index) => (
           <FaStar
             key={index}
+            data-testid="star"
             color={index < stars ? "#ffc107" : "#e4e5e9"}
             onClick={() => setStars(index + 1)}
             className={styles.star}

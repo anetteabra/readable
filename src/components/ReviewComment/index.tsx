@@ -12,7 +12,7 @@ const renderStars = (stars: number) => {
   return (
     <div className={styles.stars} aria-label="stars">
       {[...Array(5)].map((_, i) => (
-        <FaStar key={i} color={i < stars ? "#ffc107" : "#e4e5e9"} />
+        <FaStar key={i} color={i < stars ? "#ffc107" : "#e4e5e9"} data-testid="star" />
       ))}
     </div>
   );
@@ -25,7 +25,7 @@ export const Comment = ({ name, stars, comment }: CommentProps) => {
         <CardTitle>{name}</CardTitle>
       </CardHeader>
       <CardContent>
-        <p>{renderStars(stars)}</p>
+        <div>{renderStars(stars)}</div>
         <p>{comment}</p>
       </CardContent>
     </Card>

@@ -1,5 +1,5 @@
 import styles from "./SeachBar.module.css";
-import { Input } from "@/components/ui/input";
+import { Input } from "../../components/ui/input";
 import { useNavigate } from "react-router-dom";
 import useLibraryStore from "../../store/libraryStore";
 import { useState } from "react";
