@@ -1,6 +1,6 @@
 import { act, render, screen } from "@testing-library/react";
 import { describe, it, expect } from "vitest";
-import Comment from "../components/ReviewComment"; // Adjust the import path as needed
+import Comment from "../components/ReviewComment"; 
 
 describe("ReviewComment Component", () => {
   it("renders the comment with name, stars, and comment text", () => {

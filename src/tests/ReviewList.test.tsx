@@ -1,8 +1,8 @@
 import { render, screen, waitFor } from "@testing-library/react";
 import { MockedProvider } from "@apollo/client/testing";
 import { describe, it, expect } from "vitest";
-import ReviewList from "../components/ReviewList"; // Adjust the import path as needed
-import { GET_REVIEWS } from "@/queries"; // Adjust the import path as needed
+import ReviewList from "../components/ReviewList"; 
+import { GET_REVIEWS } from "@/queries"; 
 
 const mocks = [
   {

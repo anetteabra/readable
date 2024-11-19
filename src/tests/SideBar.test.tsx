@@ -1,6 +1,6 @@
 import { render, screen, fireEvent } from '@testing-library/react';
 import { describe, it, expect, beforeEach, afterEach, vi } from 'vitest';
-import SideBar from '../components/SideBar'; // Adjust the import path as necessary
+import SideBar from '../components/SideBar'; 
 
 const mockStore = {
   userId: "test-user",
