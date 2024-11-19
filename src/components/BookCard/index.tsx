@@ -9,7 +9,7 @@ import {
 import styles from "./BookCard.module.css";
 import { BookCardProps } from "../../queries";
 import FaveButton from "../FaveButton";
-import useLibraryStore from "@/store/libraryStore";
+import useLibraryStore from "../../store/libraryStore";
 import { useMemo } from "react";
 
 export default function BookCard({ book }: BookCardProps) {

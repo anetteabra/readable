@@ -36,7 +36,7 @@ describe('SearchBar', () => {
       </MemoryRouter>
     );
 
-    const input = screen.getByPlaceholderText('Search');
+    const input = screen.getByPlaceholderText("Search for a book title");
     expect(input).toBeInTheDocument();
 
     const clearButton = screen.getByRole('button');
@@ -50,7 +50,7 @@ describe('SearchBar', () => {
       </MemoryRouter>
     );
 
-    const input = screen.getByPlaceholderText('Search') as HTMLInputElement;
+    const input = screen.getByPlaceholderText("Search for a book title") as HTMLInputElement;
     fireEvent.change(input, { target: { value: 'new value' } });
 
     expect(input.value).toBe('new value');

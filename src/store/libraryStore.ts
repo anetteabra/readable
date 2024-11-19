@@ -1,8 +1,8 @@
 import { Book } from "../queries";
 import { create } from "zustand";
 import { createJSONStorage, persist } from "zustand/middleware";
-import  getOrCreateUserId from "@/utils/generateUserID";
-import { favoriteBook, unfavoriteBook } from "@/queries";
+import  getOrCreateUserId from "../utils/generateUserID";
+import { favoriteBook, unfavoriteBook } from "../queries";
 
 interface LibraryState {
   userId: string; // Unique user ID

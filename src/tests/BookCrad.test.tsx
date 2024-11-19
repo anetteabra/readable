@@ -3,7 +3,7 @@ import { render, screen, fireEvent } from '@testing-library/react';
 import { MockedProvider } from '@apollo/client/testing';
 import BookCard from '../components/BookCard';
 import { describe, expect, it, vi } from 'vitest';
-import { MemoryRouter } from 'react-router-dom'; // To mock routing
+import { MemoryRouter } from 'react-router-dom'; 
 import FaveButton from '../components/FaveButton';
 
 // Mock BookCard props
@@ -11,6 +11,7 @@ const mockBook = {
   id: '_01',
   title: 'LITTLE WOMEN',
   author: { name: 'Author 1' },
+  favoritedBy: [{id:'test1d'}],
   cover: 'https://proconian.com/wp-content/uploads/2020/01/littlewomen.png',
   description: 'A novel about the lives of four sisters during the American Civil War.',
   genre: 'Fiction',
@@ -27,7 +28,7 @@ describe('BookCard', () => {
   it('renders book title and author', () => {
     render(
       <MemoryRouter>
-        <BookCard book={mockBook} />
+        <BookCard book={mockBook} userId='test1d'/>
       </MemoryRouter>
     );
 
@@ -38,7 +39,7 @@ describe('BookCard', () => {
   it('displays book cover image', () => {
     render(
       <MemoryRouter>
-        <BookCard book={mockBook} />
+        <BookCard book={mockBook} userId='test1d' />
       </MemoryRouter>
     );
 
@@ -52,7 +53,7 @@ describe('BookCard', () => {
   it('renders favorite button', () => {
     render(
       <MemoryRouter>
-        <BookCard book={mockBook} />
+        <BookCard book={mockBook} userId='test1d' />
       </MemoryRouter>
     );
 
@@ -63,7 +64,7 @@ describe('BookCard', () => {
   it('navigates to the book details page when clicked', () => {
     render(
       <MemoryRouter initialEntries={['/']}>
-        <BookCard book={mockBook} />
+        <BookCard book={mockBook} userId='test1d'/>
       </MemoryRouter>
     );
 
@@ -74,7 +75,7 @@ describe('BookCard', () => {
   it('calls FaveButton on click', async () => {
     render(
       <MemoryRouter>
-        <BookCard book={mockBook} />
+        <BookCard book={mockBook} userId='test1d'/>
       </MemoryRouter>
     );
 

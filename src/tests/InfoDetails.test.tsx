@@ -7,11 +7,12 @@ import { describe, expect, it, vi } from 'vitest';
 const mockBook = {
   title: 'Test Book',
   author: { name: 'Test Author' },
+  favoritedBy: [{id:'test1d'}],
   genre: 'Fiction',
   publication_date: '2024-01-01',
   description: 'A description of the test book.',
   cover: 'https://example.com/book-cover.jpg',
-  id:"_1"
+  id:"_01"
 };
 
 describe('InfoDetails Component', () => {
