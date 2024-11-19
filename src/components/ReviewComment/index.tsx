@@ -12,7 +12,7 @@ const renderStars = (stars: number) => {
   return (
     <div className={styles.stars}>
       {[...Array(5)].map((_, i) => (
-        <FaStar key={i} color={i < stars ? "#ffc107" : "#e4e5e9"} />
+        <FaStar key={i} color={i < stars ? "#ffc107" : "#e4e5e9"} data-testid="star" />
       ))}
     </div>
   );
