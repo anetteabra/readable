@@ -8,7 +8,7 @@ const mockSetInputValue = vi.fn();
 const mockSetGenreFilter = vi.fn();
 const mockSetFavoriteFilter = vi.fn();
 
-vi.mock('../../store/libraryStore', () => ({
+vi.mock('@/store/libraryStore', () => ({
   default: vi.fn(() => ({
     inputValue: '',
     setInputValue: mockSetInputValue,
@@ -63,7 +63,7 @@ describe('SearchBar', () => {
       </MemoryRouter>
     );
 
-    /* const input = screen.getByPlaceholderText('Search');
+    const input = screen.getByPlaceholderText("Search for a book title");
     fireEvent.change(input, { target: { value: 'search term' } });
     fireEvent.keyDown(input, { key: 'Enter'});
 
@@ -72,6 +72,6 @@ describe('SearchBar', () => {
       expect(mockSetGenreFilter).toHaveBeenCalledWith(null);
       expect(mockSetInputValue).toHaveBeenCalledWith('search term');
       expect(mockNavigate).toHaveBeenCalledWith('/library');
-    }); */
+    });
   });
 });
