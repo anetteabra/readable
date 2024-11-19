@@ -48,10 +48,8 @@ const SideBar = () => {
   };
 
   const handleGenreToggle = (genre: string) => {
-    if (!filterBy.genre || filterBy.genre !== genre) {
-      setFavoriteFilter(false);
-      setGenreFilter(filterBy.genre === genre ? null : genre);
-    }
+    setFavoriteFilter(false); 
+    setGenreFilter(filterBy.genre === genre ? null : genre); 
   };
 
   return (
