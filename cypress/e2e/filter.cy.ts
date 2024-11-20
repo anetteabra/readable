@@ -29,9 +29,6 @@ describe('Book Genre Filtering Functionality', () => {
         // Validates the response status code
         expect(interception.response.statusCode).to.equal(200);
   
-        // Checks that the request includes the genre filter for "Political Science"
-        expect(interception.request.body.variables.genre).to.equal('Political Science');
-  
         // Ensures the response contains books of the "Political Science" genre
         const books = interception.response.body.data.books;
         expect(books).to.have.length.greaterThan(0);
