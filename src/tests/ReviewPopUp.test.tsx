@@ -1,4 +1,4 @@
-import { render, screen, waitFor } from '@testing-library/react';
+import { act, render, screen, waitFor } from '@testing-library/react';
 import userEvent from '@testing-library/user-event';
 import { MockedProvider } from '@apollo/client/testing';
 import { describe, it, expect, vi, afterEach } from 'vitest';
@@ -34,25 +34,31 @@ describe('ReviewPopUp Component', () => {
         vi.clearAllMocks();
     });
 
-  it('renders the ReviewPopUp component', () => {
-    render(
-      <MockedProvider mocks={mocks} addTypename={false}>
-        <ReviewPopUp bookId="1" />
-      </MockedProvider>
-    );
+  it('renders the ReviewPopUp component', async() => {
+    await act(async () => {
+      render(
+        <MockedProvider mocks={mocks} addTypename={false}>
+          <ReviewPopUp bookId="1" />
+        </MockedProvider>
+      );
+    });
 
     expect(screen.getByText('Give review')).toBeInTheDocument();
   });
 
   it('opens the popover when the trigger is clicked', async () => {
-    render(
-      <MockedProvider mocks={mocks} addTypename={false}>
-        <ReviewPopUp bookId="1" />
-      </MockedProvider>
-    );
+    await act(async () => {
+      render(
+        <MockedProvider mocks={mocks} addTypename={false}>
+          <ReviewPopUp bookId="1" />
+        </MockedProvider>
+      );
+    });
 
     const trigger = screen.getByText('Give review');
+    await act(async () => {
     userEvent.click(trigger);
+  });
 
     await waitFor(() => {
       expect(screen.getByText('Give a review on this book!')).toBeInTheDocument();
@@ -60,14 +66,19 @@ describe('ReviewPopUp Component', () => {
   });
 
   it('submits the review form', async () => {
-    render(
-      <MockedProvider mocks={mocks} addTypename={false}>
-        <ReviewPopUp bookId="1" />
-      </MockedProvider>
-    );
+    await act(async () => {
+      render(
+        <MockedProvider mocks={mocks} addTypename={false}>
+          <ReviewPopUp bookId="1" />
+        </MockedProvider>
+      );
+    });
 
     const trigger = screen.getByText('Give review');
-    userEvent.click(trigger);
+    
+    await act(async () => {
+      userEvent.click(trigger);
+    });
 
     await waitFor(() => {
       expect(screen.getByText('Give a review on this book!')).toBeInTheDocument();
@@ -78,9 +89,11 @@ describe('ReviewPopUp Component', () => {
     const stars = screen.getAllByTestId('star');
     const submitButton = screen.getByText('Submit');
 
-    await userEvent.type(nameInput, 'Ola Nordmann');
-    await userEvent.type(commentTextarea, 'Great book!');
-    await userEvent.click(stars[4]);
+    await act(async () => {
+      await userEvent.type(nameInput, 'Ola Nordmann');
+      await userEvent.type(commentTextarea, 'Great book!');
+      await userEvent.click(stars[4]);
+    });
 
     await waitFor(() => {
       expect(nameInput).toHaveValue('Ola Nordmann');
@@ -88,7 +101,9 @@ describe('ReviewPopUp Component', () => {
       expect(submitButton).not.toBeDisabled();
     });
 
-    userEvent.click(submitButton);
+    await act(async () => {
+      userEvent.click(submitButton);
+    });
 
     await waitFor(() => {
       expect(screen.getByText('Submitting...')).toBeInTheDocument();
