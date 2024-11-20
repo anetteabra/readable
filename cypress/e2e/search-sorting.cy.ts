@@ -51,18 +51,16 @@ describe("Book Search Functionality with Enter Key", () => {
     // Select the sorting option for A-Z
     cy.get('[data-cy="sort-z-a"]').click();
 
-      cy.get('[data-cy="book-title"]').then((titles) => {
-        const displayedTitles = [...titles]
-          .map((title) => title.textContent?.trim())
-          .filter((text): text is string => text !== undefined);
-      
-        // Log the actual displayed titles for debugging
-        cy.log('Displayed Titles:', JSON.stringify(displayedTitles));
-      
-        // Assert that the displayed titles are in Z-A order
-        expect(isSortedDescending(displayedTitles)).to.equal(true);
+    cy.get('[data-cy="book-title"]').then((titles) => {
+      const displayedTitles = [...titles]
+        .map((title) => title.textContent?.trim())
+        .filter((text): text is string => text !== undefined);
 
-      });
+      // Log the actual displayed titles for debugging
+      cy.log("Displayed Titles:", JSON.stringify(displayedTitles));
 
-});  
+      // Assert that the displayed titles are in Z-A order
+      expect(isSortedDescending(displayedTitles)).to.equal(true);
+    });
+  });
 });
