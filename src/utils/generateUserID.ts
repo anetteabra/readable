@@ -1,9 +1,9 @@
-// generate a user ID and store it in local storage to use for saving favorites
+import { v4 } from "uuid";
 
 function getOrCreateUserId() {
   let userId = localStorage.getItem("userId");
   if (!userId) {
-    userId = crypto.randomUUID(); // Generates a unique, secure UUID
+    userId = v4(); // Generate a UUID using the `uuid` package
     localStorage.setItem("userId", userId);
   }
   return userId;
