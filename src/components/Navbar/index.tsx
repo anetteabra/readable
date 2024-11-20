@@ -1,7 +1,7 @@
 import { Link, NavLink } from "react-router-dom";
 import styles from "./Navbar.module.css";
 import { useLocation } from "react-router-dom";
-import SearchBar from "../SearchBar";
+import SearchBar from "../SeachBar";
 
 const Navbar = () => {
   const location = useLocation();

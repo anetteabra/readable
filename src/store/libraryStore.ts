@@ -1,8 +1,8 @@
 import { Book } from "../queries";
 import { create } from "zustand";
 import { createJSONStorage, persist } from "zustand/middleware";
-import  getOrCreateUserId from "../utils/generateUserID";
-import { favoriteBook, unfavoriteBook } from "../queries";
+import  getOrCreateUserId from "@/utils/generateUserID";
+import { favoriteBook, unfavoriteBook } from "@/queries";
 
 interface LibraryState {
   userId: string; // Unique user ID
@@ -40,8 +40,8 @@ const useLibraryStore = create(
       books: [],
       loading: false,
       error: null,
-      inputValue: "", 
-      setInputValue: (value) => set({ inputValue: value.toUpperCase() }), 
+      inputValue: "", // Add this line with default empty string
+      setInputValue: (value) => set({ inputValue: value.toUpperCase() }), // Add this line
       sortField: "title",
       sortOrder: "ASC",
       favoritesUpdatedAt: Date.now(),
