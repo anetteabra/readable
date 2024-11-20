@@ -1,7 +1,7 @@
 // src/components/InfoDetails/InfoDetails.test.tsx
 import { render, screen } from '@testing-library/react';
 import InfoDetails from '../components/InfoDetails';
-import { describe, expect, it, vi } from 'vitest';
+import { describe, expect, it } from 'vitest';
 
 // Mock the `Book` type data
 const mockBook = {

@@ -1,6 +1,4 @@
-import React from 'react';
 import { render, screen, fireEvent } from '@testing-library/react';
-import { MockedProvider } from '@apollo/client/testing';
 import BookCard from '../components/BookCard';
 import { describe, expect, it, vi } from 'vitest';
 import { MemoryRouter } from 'react-router-dom'; 

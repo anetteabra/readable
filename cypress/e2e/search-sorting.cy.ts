@@ -60,7 +60,8 @@ describe('Book Search Functionality with Enter Key', () => {
         cy.log('Displayed Titles:', JSON.stringify(displayedTitles));
       
         // Assert that the displayed titles are in Z-A order
-        expect(isSortedDescending(displayedTitles)).to.be.true;
+        expect(isSortedDescending(displayedTitles)).to.equal(true);
+
       });
 
 });  

@@ -1,7 +1,7 @@
 import { render, screen } from "@testing-library/react";
-import { MemoryRouter, Route, Routes } from "react-router-dom";
+import { MemoryRouter} from "react-router-dom";
 import Navbar from "../components/Navbar"; // Juster importbanen etter din prosjektstruktur
-import { describe, expect, it, vi } from "vitest";
+import { describe, expect, it } from "vitest";
 
 describe("Navbar Component", () => {
   it("renders Navbar with correct links and SearchBar", () => {
