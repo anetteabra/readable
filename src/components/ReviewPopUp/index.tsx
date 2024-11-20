@@ -91,6 +91,7 @@ const ReviewPopUp: React.FC<{ bookId: string }> = ({ bookId }) => {
             color={index < stars ? "#ffc107" : "#e4e5e9"}
             onClick={() => setStars(index + 1)}
             className={styles.star}
+            data-cy={`star-${index + 1}`}
           />
         ))}
       </div>
@@ -111,14 +112,18 @@ const ReviewPopUp: React.FC<{ bookId: string }> = ({ bookId }) => {
       <PopoverContent className={styles.content}>
         <h3>Give a review on this book!</h3>
         <Input
+          data-cy="name-input"
           value={name}
           onChange={(e) => setName(e.target.value)}
           placeholder="Your name"
           className={styles.nameField}
         />
-        <p>How many stars for this book?</p>
-        {renderStars()}
+        <p >How many stars for this book?</p>
+        <div data-cy="star-rating">
+          {renderStars()}
+        </div>
         <Textarea
+          data-cy="review-input"
           value={comment}
           placeholder="Leave a comment with your thoughts on this book"
           className={styles.textField}
@@ -127,6 +132,7 @@ const ReviewPopUp: React.FC<{ bookId: string }> = ({ bookId }) => {
         />
         {commentError && <p className={styles.errorMessage}>{commentError}</p>}
         <Button
+          data-cy="submit-review-button"
           onClick={handleSubmit}
           className={styles.submit}
           disabled={!isFormComplete || loading || !!commentError}
