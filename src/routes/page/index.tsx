@@ -15,7 +15,6 @@ const Page: React.FC = () => {
           <BookBox />
           <GoToTopButton />
         </section>
-        
       </main>
     </>
   );

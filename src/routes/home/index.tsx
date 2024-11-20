@@ -3,7 +3,7 @@ import { Button } from "@/components/ui/button";
 import { Link } from "react-router-dom";
 import useLibraryStore from "@/store/libraryStore";
 import { useEffect } from "react";
-import { useMutation, useQuery} from "@apollo/client";
+import { useMutation, useQuery } from "@apollo/client";
 import { ADD_USER, CHECK_USER } from "@/queries";
 
 const Home = () => {
@@ -42,7 +42,6 @@ const Home = () => {
     addUserIfNotExists();
   }, [loading, error, data, userId, addUserMutation]);
 
-
   return (
     <>
       <main className={styles.home}>
@@ -54,7 +53,9 @@ const Home = () => {
           <p className={styles.paragraph}>Join the online bookclub</p>
         </header>
         <Link to="/library">
-          <Button data-cy="library-button" className={styles.button}>Go to your library</Button>
+          <Button data-cy="library-button" className={styles.button}>
+            Go to your library
+          </Button>
         </Link>
       </main>
     </>

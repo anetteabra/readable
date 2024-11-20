@@ -19,7 +19,7 @@ const Details: React.FC = () => {
   useEffect(() => {
     if (books.length > 0) {
       const foundBook = books.find((book) => book.id === id);
-      setBook(foundBook || null); // Sets the book if found, otherwise null
+      setBook(foundBook || null);
     }
   }, [books, id]);
 
@@ -37,13 +37,13 @@ const Details: React.FC = () => {
   }
 
   return (
-    <main className={styles.detailsPage}>
-      <section className={styles.infoSection}>
+    <main className={styles.detailsPage} aria-label="details page">
+      <section className={styles.infoSection} aria-label="info section">
         <InfoDetails book={book} />
       </section>
-      <section className={styles.reviewsSection}>
-        <ReviewList bookId={book.id} />
-        <ReviewPopUp bookId={book.id} />
+      <section className={styles.reviewsSection} aria-label="review section">
+        <ReviewList bookId={book.id} aria-label="review list" />
+        <ReviewPopUp bookId={book.id} aria-label="review popup" />
       </section>
     </main>
   );

@@ -83,7 +83,7 @@ const ReviewPopUp: React.FC<{ bookId: string }> = ({ bookId }) => {
 
   const renderStars = () => {
     return (
-      <div className={styles.starsContainer}>
+      <div className={styles.starsContainer} aria-label="stars">
         {[...Array(5)].map((_, index) => (
           <FaStar
             key={index}
@@ -102,26 +102,30 @@ const ReviewPopUp: React.FC<{ bookId: string }> = ({ bookId }) => {
     name.trim() !== "" && comment.trim() !== "" && stars > 0;
 
   return (
-    <Popover open={popoverOpen} onOpenChange={setPopoverOpen}>
+    <Popover
+      open={popoverOpen}
+      onOpenChange={setPopoverOpen}
+      aria-label="review popup"
+    >
       <PopoverTrigger
+        aria-label="Give review"
         className={styles.trigger}
         onClick={() => setPopoverOpen(true)}
       >
         Give review
       </PopoverTrigger>
-      <PopoverContent className={styles.content}>
+      <PopoverContent className={styles.content} aria-label="review form">
         <h3>Give a review on this book!</h3>
         <Input
+          aria-label="name"
           data-cy="name-input"
           value={name}
           onChange={(e) => setName(e.target.value)}
           placeholder="Your name"
           className={styles.nameField}
         />
-        <p >How many stars for this book?</p>
-        <div data-cy="star-rating">
-          {renderStars()}
-        </div>
+        <p>How many stars for this book?</p>
+        <div data-cy="star-rating">{renderStars()}</div>
         <Textarea
           data-cy="review-input"
           value={comment}
@@ -129,6 +133,7 @@ const ReviewPopUp: React.FC<{ bookId: string }> = ({ bookId }) => {
           className={styles.textField}
           onChange={handleCommentChange}
           maxLength={MAX_CHARACTERS}
+          aria-label="review comment"
         />
         {commentError && <p className={styles.errorMessage}>{commentError}</p>}
         <Button
@@ -136,6 +141,9 @@ const ReviewPopUp: React.FC<{ bookId: string }> = ({ bookId }) => {
           onClick={handleSubmit}
           className={styles.submit}
           disabled={!isFormComplete || loading || !!commentError}
+          aria-label={
+            loading ? "Submitting your response" : "Submit your response"
+          }
         >
           {loading ? "Submitting..." : "Submit"}
         </Button>

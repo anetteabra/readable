@@ -6,13 +6,13 @@ import BookCard from "../BookCard";
 import styles from "./BookBox.module.css";
 
 const BookBox: React.FC = () => {
-  const [ offset ] = useState(0);
-  const [ limit ] = useState(12);
+  const [offset] = useState(0);
+  const [limit] = useState(12);
   const sortField = useLibraryStore((state) => state.sortField);
   const sortOrder = useLibraryStore((state) => state.sortOrder);
   const inputValue = useLibraryStore((state) => state.inputValue);
   const genre = useLibraryStore((state) => state.filterBy.genre);
-  const BookSort = {[sortField]: sortOrder };
+  const BookSort = { [sortField]: sortOrder };
 
   const userId = useLibraryStore((state) => state.userId);
   const setBooks = useLibraryStore((state) => state.setBooks);
@@ -20,13 +20,18 @@ const BookBox: React.FC = () => {
   const setLoading = useLibraryStore((state) => state.setLoading);
   const setError = useLibraryStore((state) => state.setError);
   const { filterBy, favorites } = useLibraryStore();
-  
-  const { loading, error, data, fetchMore, refetch } = useQuery<GetBooksData>( GET_BOOKS, 
+
+  const { loading, error, data, fetchMore, refetch } = useQuery<GetBooksData>(
+    GET_BOOKS,
     {
-    variables: { options: { limit, offset, sort: BookSort
-      },  genre: genre, searchTerm: inputValue,
-      userId: filterBy.favorited ? userId : undefined },
-  });
+      variables: {
+        options: { limit, offset, sort: BookSort },
+        genre: genre,
+        searchTerm: inputValue,
+        userId: filterBy.favorited ? userId : undefined,
+      },
+    },
+  );
 
   useEffect(() => {
     console.log("Offset value:", offset);
@@ -41,10 +46,21 @@ const BookBox: React.FC = () => {
       setError(error.message);
     } else if (data) {
       console.log("Fetched data.books:", data.books);
-      setBooks(data.books); 
+      setBooks(data.books);
     }
     console.log("Current books:", books);
-  }, [data, loading, error, offset, sortOrder, genre, books, setBooks, setLoading, setError]);
+  }, [
+    data,
+    loading,
+    error,
+    offset,
+    sortOrder,
+    genre,
+    books,
+    setBooks,
+    setLoading,
+    setError,
+  ]);
 
   // Memoized filtered list based on the latest favorites
   const filteredBooks = useMemo(() => {
@@ -66,7 +82,11 @@ const BookBox: React.FC = () => {
         const newBooks = filterBy.favorited
           ? fetchMoreResult.books.filter((book) => favorites.includes(book.id))
           : fetchMoreResult.books;
-        const uniqueBooks = [...new Map([...prevResult.books, ...newBooks].map(book => [book.id, book])).values()];
+        const uniqueBooks = [
+          ...new Map(
+            [...prevResult.books, ...newBooks].map((book) => [book.id, book]),
+          ).values(),
+        ];
         return {
           books: uniqueBooks,
         };
@@ -82,22 +102,21 @@ const BookBox: React.FC = () => {
     return <p className={styles.errorMessage}>No books found</p>;
 
   return (
-    <section className={styles.bookListWrapper}> 
-    {" "}
-    {/* Added Wrapper to enable flexbox */} 
-    <div className={styles.bookList} data-cy="book-list"> 
-      {filteredBooks.map((book: Book) => ( 
-        <BookCard key={book.id} book={book} userId={userId} /> 
-      ))} 
-    </div> 
-    <button 
-      onClick={loadMoreBooks} 
-      disabled={loading} 
-      className={styles.loadingButton} 
-    > 
-      {loading ? "Loading..." : "Load more"} 
-    </button> 
-  </section> 
+    <section className={styles.bookListWrapper}>
+      {" "}
+      <div className={styles.bookList} data-cy="book-list">
+        {filteredBooks.map((book: Book) => (
+          <BookCard key={book.id} book={book} userId={userId} />
+        ))}
+      </div>
+      <button
+        onClick={loadMoreBooks}
+        disabled={loading}
+        className={styles.loadingButton}
+      >
+        {loading ? "Loading..." : "Load more"}
+      </button>
+    </section>
   );
 };
 

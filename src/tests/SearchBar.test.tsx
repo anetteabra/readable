@@ -36,7 +36,10 @@ const mockStore = {
 const mockNavigate = vi.fn();
 
 vi.mock("react-router-dom", async () => {
-  const actual = await vi.importActual<typeof import("react-router-dom")>("react-router-dom");
+  const actual =
+    await vi.importActual<typeof import("react-router-dom")>(
+      "react-router-dom",
+    );
   return {
     ...actual,
     useNavigate: () => mockNavigate,
@@ -55,7 +58,7 @@ describe("SearchBar Component", () => {
       render(
         <MemoryRouter>
           <SearchBar />
-        </MemoryRouter>
+        </MemoryRouter>,
       );
     });
 
@@ -71,7 +74,7 @@ describe("SearchBar Component", () => {
       render(
         <MemoryRouter>
           <SearchBar />
-        </MemoryRouter>
+        </MemoryRouter>,
       );
     });
 
@@ -81,7 +84,8 @@ describe("SearchBar Component", () => {
     expect(input).toHaveValue("New Book");
   });
 
-  
+  // Commented out test that does not run, to have it for later
+
   // it("calls the correct functions when Enter is pressed", async () => {
   //   await act(async () => {
   //     render(
@@ -90,21 +94,21 @@ describe("SearchBar Component", () => {
   //       </MemoryRouter>
   //     );
   //   });
-  
+
   //   const input = screen.getByPlaceholderText("Search for a book title");
-  
+
   //   await act(async () => {
   //     fireEvent.change(input, { target: { value: "Test Book" } });
   //     fireEvent.keyDown(input, { key: "Enter", code: "Enter" });
   //   });
-  
+
   //   await waitFor (() => {
   //   expect(mockStore.setGenreFilter).toHaveBeenCalledWith(null);
   //   expect(mockStore.setInputValue).toHaveBeenCalledWith("Test Book");
   //   expect(mockNavigate).toHaveBeenCalledWith("/library");
   //   });
   // });
-  
+
   // it("clears the input and resets filters when the clear button is clicked", async () => {
   //   await act(async () => {
   //     render(
@@ -113,9 +117,9 @@ describe("SearchBar Component", () => {
   //       </MemoryRouter>
   //     );
   //   });
-  
+
   //   const button = screen.getByRole("button", { name: /clear/i });
-  
+
   //   await act(async () => {
   //     fireEvent.click(button);
   //   });
@@ -126,6 +130,4 @@ describe("SearchBar Component", () => {
   //     expect(mockNavigate).toHaveBeenCalledWith('/library');
   //   });
   // });
-  
-  
 });
