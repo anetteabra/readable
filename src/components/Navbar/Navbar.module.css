@@ -16,14 +16,13 @@
 }
 
 .transparentNavbar {
-  /* background-color: transparent; */
   background: linear-gradient(
     to bottom,
     rgba(255, 255, 255, 0.3) 0%,
     rgba(0, 0, 0, 0) 80%
   );
   backdrop-filter: blur(1.5px);
-  position: absolute; /* So it overlaps the background image */
+  position: absolute;
   top: 0;
   left: 0;
   width: 100%;
@@ -89,7 +88,7 @@
     flex-direction: column;
     align-items: flex-start;
     padding: 1rem 1rem 4rem 1rem;
-    position: absolute; /* So it overlaps the background image */
+    position: absolute;
   }
 
   .header {
@@ -118,7 +117,7 @@
     font-weight: 700;
   }
 
-  /* Position HOME and LIBRARY side by side above the search bar */
+  /* Position HOME and LIBRARY side by side above the searchbar */
   .links {
     position: absolute;
     top: 2rem;
@@ -136,16 +135,15 @@
     gap: 0.5rem;
   }
 
-  /* Full-width search bar below HOME and LIBRARY */
+  /* Full-width searchbar below HOME and LIBRARY */
   .searchBar {
-    width: calc(100% - 2rem) !important; /* Adjust width to avoid overflow*/
+    width: calc(100% - 2rem) !important;
     margin-top: 3rem;
     padding: 0.5rem;
     justify-content: center;
   }
 }
 
-/* Very small screens (max-width: 480px) */
 @media (max-width: 480px) {
   .header h1 {
     .header::after {
@@ -159,7 +157,7 @@
 
     .searchBar {
       margin-top: 1rem;
-      width: calc(100% - 2rem) !important; /* Adjust width to avoid overflow*/
+      width: calc(100% - 2rem) !important;
     }
   }
 }

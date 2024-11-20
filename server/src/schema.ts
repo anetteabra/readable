@@ -74,49 +74,43 @@ const typeDefs = gql`
         MATCH (u:User {id: $userId}), (b:Book {id: $bookId})
         MERGE (u)-[:FAVORITED]->(b)
         RETURN u
-        """,
+        """
         columnName: "u"
       )
 
     unfavoriteBook(bookId: ID!, userId: ID!): User
       @cypher(
-      statement: """
-      MATCH (u:User {id: $userId})-[r:FAVORITED]->(b:Book {id: $bookId})
-      DELETE r
-      RETURN u
-      """,
-      columnName: "u"
-    )
+        statement: """
+        MATCH (u:User {id: $userId})-[r:FAVORITED]->(b:Book {id: $bookId})
+        DELETE r
+        RETURN u
+        """
+        columnName: "u"
+      )
 
-    addUser(
-        id: ID!
-      ): User
+    addUser(id: ID!): User
       @cypher(
-      statement: """
-      MERGE (u:User {id: $id})
-      return u
-      """,
-      columnName: "u"
-  ) 
+        statement: """
+        MERGE (u:User {id: $id})
+        return u
+        """
+        columnName: "u"
+      )
   }
 
   type Query {
-    user(id: ID!): User  # Add this query to fetch a single user by id
-    users: [User!]!      # Retain this to fetch multiple users if needed
-    
-    userFavorites(
-      userId: ID!
-      options: BookOptions
-    ): [Book!]!
+    user(id: ID!): User # Add this query to fetch a single user by id
+    users: [User!]! # Retain this to fetch multiple users if needed
+    userFavorites(userId: ID!, options: BookOptions): [Book!]!
       @cypher(
         statement: """
         MATCH (u:User {id: $userId})-[:FAVORITED]->(b:Book)
         RETURN b
-        ORDER BY CASE WHEN $options.sort[0].title IS NOT NULL THEN b.title END, 
+        ORDER BY CASE WHEN $options.sort[0].title IS NOT NULL THEN b.title END,
                  CASE WHEN $options.sort[0].publication_date IS NOT NULL THEN b.publication_date END
         SKIP $options.offset
         LIMIT $options.limit
-        """,
+        """
         columnName: "b"
       )
   }

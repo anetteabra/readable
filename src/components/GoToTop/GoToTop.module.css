@@ -2,3 +2,7 @@
   color: var(--light-font-color);
   font-size: x-large;
 }
+
+.arrowTop:hover {
+  color: var(--light-font-color-trans);
+}

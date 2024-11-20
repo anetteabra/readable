@@ -1,9 +1,6 @@
 .bookList {
   display: grid;
-  grid-template-columns: repeat(
-    auto-fill,
-    minmax(180px, 1fr)
-  ); /* Responsiv grid */
+  grid-template-columns: repeat(auto-fill, minmax(180px, 1fr));
   gap: 30px;
   padding: 16px;
 }
@@ -14,8 +11,12 @@
   border: none !important;
   border-radius: 10px;
   padding: 10px 18px;
-  white-space: nowrap; 
+  white-space: nowrap;
   display: inline-block;
+}
+
+.loadingButton:hover {
+  background-color: var(--light-font-color-trans) !important;
 }
 
 .loadingMessage {
@@ -45,11 +46,11 @@
     color: var();
     max-width: 80%;
     margin: 0 auto;
-    position: fixed; 
-    top: 50%; 
-    left: 50%; 
+    position: fixed;
+    top: 50%;
+    left: 50%;
     transform: translate(-50%, -50%);
-    z-index: 10; 
+    z-index: 10;
   }
 }
 
@@ -57,29 +58,20 @@
   .bookList {
     padding-top: 8rem;
     margin-left: 0px;
-    grid-template-columns: repeat(
-      auto-fill,
-      minmax(200px, 1fr)
-    ); /* Medium screens */
+    grid-template-columns: repeat(auto-fill, minmax(200px, 1fr));
   }
 }
 
 @media (min-width: 900px) {
   .bookList {
     padding-top: 0;
-    grid-template-columns: repeat(
-      auto-fill,
-      minmax(220px, 1fr)
-    ); /* Larger screens */
+    grid-template-columns: repeat(auto-fill, minmax(220px, 1fr));
   }
 }
 
 @media (min-width: 1200px) {
   .bookList {
     padding-top: 0;
-    grid-template-columns: repeat(
-      auto-fill,
-      minmax(250px, 1fr)
-    ); /* Very large screens */
+    grid-template-columns: repeat(auto-fill, minmax(250px, 1fr));
   }
 }

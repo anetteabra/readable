@@ -2,14 +2,19 @@ import styles from "./InfoDetails.module.css";
 import { Book as BookType } from "../../queries";
 
 interface InfoDetailsProps {
-  book: BookType; // Use the updated Book type from GraphQL
+  book: BookType;
 }
 
 const InfoDetails: React.FC<InfoDetailsProps> = ({ book }) => {
   return (
-    <section className={styles.bookDetails}>
-      <img src={book.cover} alt={book.title} className={styles.bookImage} />
-      <div className={styles.bookInfo}>
+    <section className={styles.bookDetails} aria-label="Book details">
+      <img
+        src={book.cover}
+        alt={book.title}
+        className={styles.bookImage}
+        aria-label="Book cover image"
+      />
+      <div className={styles.bookInfo} aria-label="Book information">
         <h1 data-cy="book-title">
           <strong>Title:</strong> {book.title}
         </h1>

@@ -1,6 +1,6 @@
 import { act, render, screen } from "@testing-library/react";
 import { describe, it, expect } from "vitest";
-import Comment from "../components/ReviewComment"; // Adjust the import path as needed
+import Comment from "../components/ReviewComment";
 
 describe("ReviewComment Component", () => {
   it("renders the comment with name, stars, and comment text", () => {
@@ -20,7 +20,11 @@ describe("ReviewComment Component", () => {
 
     const stars = screen.getAllByTestId("star");
     expect(stars.length).toBe(5);
-    expect(stars.filter(star => star.getAttribute("color") === "#ffc107").length).toBe(3);
-    expect(stars.filter(star => star.getAttribute("color") === "#e4e5e9").length).toBe(2);
+    expect(
+      stars.filter((star) => star.getAttribute("color") === "#ffc107").length,
+    ).toBe(3);
+    expect(
+      stars.filter((star) => star.getAttribute("color") === "#e4e5e9").length,
+    ).toBe(2);
   });
 });

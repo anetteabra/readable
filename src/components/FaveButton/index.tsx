@@ -6,8 +6,13 @@ import { FontAwesomeIcon } from "@fortawesome/react-fontawesome";
 import React from "react";
 import { useCallback } from "react";
 
-
-const FaveButton = ({ bookId, isFavorited }: { bookId: string; isFavorited: boolean; }) => {
+const FaveButton = ({
+  bookId,
+  isFavorited,
+}: {
+  bookId: string;
+  isFavorited: boolean;
+}) => {
   const toggleFavorite = useLibraryStore((state) => state.toggleFavorite);
 
   const handleClick = useCallback(
@@ -15,7 +20,7 @@ const FaveButton = ({ bookId, isFavorited }: { bookId: string; isFavorited: bool
       event.stopPropagation();
       toggleFavorite(bookId);
     },
-    [toggleFavorite, bookId ]
+    [toggleFavorite, bookId],
   );
 
   return (

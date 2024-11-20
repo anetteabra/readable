@@ -1,4 +1,3 @@
-/* page.module.css */
 .library {
   display: flex;
   min-height: 100vh;
@@ -22,7 +21,6 @@
   box-sizing: border-box;
   overflow-y: auto;
 }
-
 .navbar {
   height: 60px;
   background-color: #333;

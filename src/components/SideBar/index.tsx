@@ -14,13 +14,13 @@ import {
 } from "@/components/ui/select";
 import { Checkbox } from "@/components/ui/checkbox";
 import { Label } from "@/components/ui/label";
-import useLibraryStore from "../../store/libraryStore"; // import zustand store
+import useLibraryStore from "../../store/libraryStore";
 import { useState } from "react";
 
 const SideBar = () => {
   const { sortBy, setSortBy, filterBy, setGenreFilter, setFavoriteFilter } =
     useLibraryStore();
-  const [isOpen, setIsOpen] = useState(false); // Local state for sidebar visibility
+  const [isOpen, setIsOpen] = useState(false);
 
   const toggleSidebar = () => {
     setIsOpen((prev) => !prev);
@@ -48,9 +48,9 @@ const SideBar = () => {
   };
 
   const handleGenreToggle = (genre: string) => {
-    console.log('Toggling genre:', genre);
-    setFavoriteFilter(false); 
-    setGenreFilter(filterBy.genre === genre ? null : genre); 
+    console.log("Toggling genre:", genre);
+    setFavoriteFilter(false);
+    setGenreFilter(filterBy.genre === genre ? null : genre);
   };
 
   return (
@@ -79,12 +79,18 @@ const SideBar = () => {
               Sort by:
             </Label>
             <Select value={sortBy} onValueChange={setSortBy}>
-              <SelectTrigger data-cy="sort-trigger" className={styles.trigger} id="sort">
+              <SelectTrigger
+                data-cy="sort-trigger"
+                className={styles.trigger}
+                id="sort"
+              >
                 {sortBy}
               </SelectTrigger>
               <SelectContent>
                 <SelectItem value="Title a-z">Title a-z</SelectItem>
-                <SelectItem data-cy="sort-z-a" value="Title z-a">Title z-a</SelectItem>
+                <SelectItem data-cy="sort-z-a" value="Title z-a">
+                  Title z-a
+                </SelectItem>
                 <SelectItem value="Newest">Newest</SelectItem>
                 <SelectItem value="Oldest">Oldest</SelectItem>
               </SelectContent>
@@ -110,7 +116,7 @@ const SideBar = () => {
               {genres.map((genre) => (
                 <div key={genre} className={styles.filterItems}>
                   <Checkbox
-                    data-cy={`genre-filter-${genre.toLowerCase().replace(/\s/g, '-')}`}
+                    data-cy={`genre-filter-${genre.toLowerCase().replace(/\s/g, "-")}`}
                     id={genre}
                     checked={filterBy.genre === genre}
                     onCheckedChange={() => handleGenreToggle(genre)}
