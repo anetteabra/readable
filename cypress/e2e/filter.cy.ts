@@ -14,7 +14,7 @@ describe('Book Genre Filtering Functionality', () => {
     });
   
     it('should filter books by the "Political Science" genre', () => {
-      // Clicks on the "Fiction" genre filter checkbox
+      // Clicks on the "Political Science" genre filter checkbox
       cy.get('[data-cy="genre-filter-political-science"]').click({ force: true });
   
       // Waits for the filtered GraphQL request and check the response
@@ -29,10 +29,10 @@ describe('Book Genre Filtering Functionality', () => {
         // Validates the response status code
         expect(interception.response.statusCode).to.equal(200);
   
-        // Checks that the request includes the genre filter for "Fiction"
+        // Checks that the request includes the genre filter for "Political Science"
         expect(interception.request.body.variables.genre).to.equal('Political Science');
   
-        // Ensures the response contains books of the "Fiction" genre
+        // Ensures the response contains books of the "Political Science" genre
         const books = interception.response.body.data.books;
         expect(books).to.have.length.greaterThan(0);
         books.forEach((book) => {

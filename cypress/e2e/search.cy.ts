@@ -13,21 +13,21 @@ describe('Book Search Functionality with Enter Key', () => {
     });
   });
 
-  it('should search for books using the search term "harry" and press Enter', () => {
+  it('should search for books using the search term "trump" and press Enter', () => {
     // Types the search term into the input field and press Enter
     cy.get('[data-cy="search-input"]')
       .should('exist')
-      .type('harry{enter}', { force: true });
+      .type('trump{enter}', { force: true });
 
     // Waits for the GraphQL request to complete
     cy.wait('@booksSearch').its('response.statusCode').should('eq', 200);
 
-    // Verifies that the displayed books include the search term "harry"
+    // Verifies that the displayed books include the search term "trump"
     cy.get('[data-cy="book-list"]')
       .children()
       .each(($el) => {
         const title = $el.find('[data-cy="book-title"]').text().toLowerCase();
-        expect(title).to.include('harry');
+        expect(title).to.include('trump');
       });
 
     // Verifies that the book list is not empty
