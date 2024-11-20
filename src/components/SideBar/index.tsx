@@ -11,9 +11,9 @@ import {
   SelectTrigger,
   SelectContent,
   SelectItem,
-} from "../../components/ui/select";
-import { Checkbox } from "../../components/ui/checkbox";
-import { Label } from "../../components/ui/label";
+} from "@/components/ui/select";
+import { Checkbox } from "@/components/ui/checkbox";
+import { Label } from "@/components/ui/label";
 import useLibraryStore from "../../store/libraryStore"; // import zustand store
 import { useState } from "react";
 
@@ -48,6 +48,7 @@ const SideBar = () => {
   };
 
   const handleGenreToggle = (genre: string) => {
+    console.log('Toggling genre:', genre);
     setFavoriteFilter(false); 
     setGenreFilter(filterBy.genre === genre ? null : genre); 
   };
