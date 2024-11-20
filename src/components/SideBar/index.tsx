@@ -79,12 +79,18 @@ const SideBar = () => {
               Sort by:
             </Label>
             <Select value={sortBy} onValueChange={setSortBy}>
-              <SelectTrigger data-cy="sort-trigger" className={styles.trigger} id="sort">
+              <SelectTrigger
+                data-cy="sort-trigger"
+                className={styles.trigger}
+                id="sort"
+              >
                 {sortBy}
               </SelectTrigger>
               <SelectContent>
                 <SelectItem value="Title a-z">Title a-z</SelectItem>
-                <SelectItem data-cy="sort-z-a" value="Title z-a">Title z-a</SelectItem>
+                <SelectItem data-cy="sort-z-a" value="Title z-a">
+                  Title z-a
+                </SelectItem>
                 <SelectItem value="Newest">Newest</SelectItem>
                 <SelectItem value="Oldest">Oldest</SelectItem>
               </SelectContent>
@@ -110,7 +116,7 @@ const SideBar = () => {
               {genres.map((genre) => (
                 <div key={genre} className={styles.filterItems}>
                   <Checkbox
-                    data-cy={`genre-filter-${genre.toLowerCase().replace(/\s/g, '-')}`}
+                    data-cy={`genre-filter-${genre.toLowerCase().replace(/\s/g, "-")}`}
                     id={genre}
                     checked={filterBy.genre === genre}
                     onCheckedChange={() => handleGenreToggle(genre)}

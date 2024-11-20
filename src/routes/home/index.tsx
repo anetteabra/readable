@@ -53,7 +53,9 @@ const Home = () => {
           <p className={styles.paragraph}>Join the online bookclub</p>
         </header>
         <Link to="/library">
-          <Button data-cy="library-button" className={styles.button}>Go to your library</Button>
+          <Button data-cy="library-button" className={styles.button}>
+            Go to your library
+          </Button>
         </Link>
       </main>
     </>

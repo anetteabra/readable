@@ -48,31 +48,31 @@ const mocks = [
 ];
 
 const errorMocks = [
-    {
-      request: {
-        query: GET_BOOKS,
-        variables: {
-          options: { limit: 12, offset: 0, sort: { title: "ASC" } },
-          genre: "",
-          searchTerm: "",
-          userId: undefined,
-        },
+  {
+    request: {
+      query: GET_BOOKS,
+      variables: {
+        options: { limit: 12, offset: 0, sort: { title: "ASC" } },
+        genre: "",
+        searchTerm: "",
+        userId: undefined,
       },
-      error: new Error("An error occurred"),
     },
-  ];
+    error: new Error("An error occurred"),
+  },
+];
 
 describe("BookBox Component", () => {
   it("renders the BookBox component", async () => {
     await act(async () => {
-        render(
+      render(
         <MemoryRouter>
-            <MockedProvider mocks={mocks} addTypename={false}>
+          <MockedProvider mocks={mocks} addTypename={false}>
             <BookBox />
-            </MockedProvider>
-        </MemoryRouter>
-        );
-});
+          </MockedProvider>
+        </MemoryRouter>,
+      );
+    });
 
     await waitFor(() => {
       expect(screen.getByText("Book 1")).toBeInTheDocument();
@@ -88,7 +88,7 @@ describe("BookBox Component", () => {
           <MockedProvider mocks={errorMocks} addTypename={false}>
             <BookBox />
           </MockedProvider>
-        </MemoryRouter>
+        </MemoryRouter>,
       );
     });
 
@@ -96,5 +96,4 @@ describe("BookBox Component", () => {
       expect(screen.getByText("Error: An error occurred")).toBeInTheDocument();
     });
   });
-
 });

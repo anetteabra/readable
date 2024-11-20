@@ -124,10 +124,8 @@ const ReviewPopUp: React.FC<{ bookId: string }> = ({ bookId }) => {
           placeholder="Your name"
           className={styles.nameField}
         />
-        <p >How many stars for this book?</p>
-        <div data-cy="star-rating">
-          {renderStars()}
-        </div>
+        <p>How many stars for this book?</p>
+        <div data-cy="star-rating">{renderStars()}</div>
         <Textarea
           data-cy="review-input"
           value={comment}

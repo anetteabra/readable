@@ -20,7 +20,7 @@ const mockStore = {
   toggleFilter: vi.fn(),
   setFavoriteFilter: vi.fn(),
   setGenreFilter: vi.fn((newGenre) => {
-    mockStore.filterBy.genre = newGenre; // update the filterBy.genre state
+    mockStore.filterBy.genre = newGenre;
   }),
   toggleFavorite: vi.fn(),
   isFavorited: vi.fn(),
