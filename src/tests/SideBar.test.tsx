@@ -39,6 +39,7 @@ vi.mock('@/store/libraryStore', () => {
 });
 
 
+
 describe('SideBar Component', () => {
   beforeEach(() => {
     vi.clearAllMocks();
