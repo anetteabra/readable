@@ -23,7 +23,7 @@ export default function BookCard({ book }: BookCardProps) {
         <div className={styles.faveButton} aria-label="Favorite book">
           <FaveButton bookId={book.id} isFavorited={isFavorited} />
         </div>
-        <CardTitle className={styles.bookCardTitle} aria-label="Book title">
+        <CardTitle data-cy="book-title" className={styles.bookCardTitle} aria-label="Book title">
           {book.title}
         </CardTitle>
         <CardDescription
@@ -34,7 +34,7 @@ export default function BookCard({ book }: BookCardProps) {
         </CardDescription>
       </CardHeader>
       <Link
-        to={`/details/${book.id}`}
+        data-cy="book-card-link" to={`/details/${book.id}`}
         className={styles.bookCardLink}
         aria-label="Link to details page"
       >

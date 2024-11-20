@@ -15,19 +15,19 @@ const InfoDetails: React.FC<InfoDetailsProps> = ({ book }) => {
         aria-label="Book cover image"
       />
       <div className={styles.bookInfo} aria-label="Book information">
-        <h1>
+        <h1 data-cy="book-title">
           <strong>Title:</strong> {book.title}
         </h1>
-        <p>
+        <p data-cy="book-author">
           <strong>Author:</strong> {book.author.name}
         </p>
-        <p>
+        <p data-cy="book-genre">
           <strong>Genre:</strong> {book.genre}
         </p>
-        <p>
+        <p data-cy="book-publication-date">
           <strong>Publication date:</strong> {book.publication_date}
         </p>
-        <p>
+        <p data-cy="book-description">
           <strong>Description:</strong> {book.description}
         </p>
       </div>

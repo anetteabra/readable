@@ -12,8 +12,7 @@ This solution is in the frontend as we thought this was the correct way. Later w
 
 ## Link to virtual machine
 
-**WARNING!** Unfortunalty at the moment only the frontend is running on the vm, after misunderstand and starting late we have been struggling with getting the backend to run on the vm. So sorry to say but this is still a problem, so to see the full functionality please run locally.
-We will try to fix this ASAP.
+**Note:** Unfortunalty we struggled all friday to make backend run on VM. We thought of this as a formality, but we soon realised we should have tried it when we had a student assistent to help us. After recieving help the following tuesday and wednesday we made it work.
 
 http://it2810-34.idi.ntnu.no/project2
 

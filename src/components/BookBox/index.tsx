@@ -102,21 +102,22 @@ const BookBox: React.FC = () => {
     return <p className={styles.errorMessage}>No books found</p>;
 
   return (
-    <section className={styles.bookListWrapper}>
-      {" "}
-      <div className={styles.bookList}>
-        {filteredBooks.map((book: Book) => (
-          <BookCard key={book.id} book={book} userId={userId} />
-        ))}
-      </div>
-      <button
-        onClick={loadMoreBooks}
-        disabled={loading}
-        className={styles.loadingButton}
-      >
-        {loading ? "Loading..." : "Load more"}
-      </button>
-    </section>
+    <section className={styles.bookListWrapper}> 
+    {" "}
+    {/* Added Wrapper to enable flexbox */} 
+    <div className={styles.bookList} data-cy="book-list"> 
+      {filteredBooks.map((book: Book) => ( 
+        <BookCard key={book.id} book={book} userId={userId} /> 
+      ))} 
+    </div> 
+    <button 
+      onClick={loadMoreBooks} 
+      disabled={loading} 
+      className={styles.loadingButton} 
+    > 
+      {loading ? "Loading..." : "Load more"} 
+    </button> 
+  </section> 
   );
 };
 

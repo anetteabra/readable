@@ -1,5 +1,5 @@
 import styles from "./SeachBar.module.css";
-import { Input } from "../../components/ui/input";
+import { Input } from "../ui/input";
 import { useNavigate } from "react-router-dom";
 import useLibraryStore from "../../store/libraryStore";
 import { useState } from "react";
@@ -16,6 +16,7 @@ const SearchBar: React.FC = () => {
   const [tempInputValue, setTempInputValue] = useState(inputValue);
 
   const handleEnter = (event: { key: string }) => {
+    console.log("onKeyDown triggered with key:", event.key);
     if (event.key === "Enter") {
       setGenreFilter(null);
       setInputValue(tempInputValue);
@@ -24,10 +25,9 @@ const SearchBar: React.FC = () => {
   };
 
   return (
-    // Wrapper to be able to place x button in the searchbar
-    <div className={styles.searchContainer} aria-label="Search container">
+    // Wrapper to be able to place x button in the search bar
+    <div className={styles.searchContainer}> 
       <Input
-        data-cy="search-input"
         type="input"
         placeholder="Search for a book title"
         className={styles.searchBar}
@@ -38,7 +38,7 @@ const SearchBar: React.FC = () => {
       />
       <button
         className={styles.x}
-        aria-label="x-button"
+        aria-label="Clear search"
         onClick={() => {
           setInputValue("");
           setTempInputValue("");
