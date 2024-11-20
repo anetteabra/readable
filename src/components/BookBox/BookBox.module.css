@@ -1,12 +1,21 @@
 .bookList {
-  margin-left: 250px;
   display: grid;
   grid-template-columns: repeat(
     auto-fill,
     minmax(180px, 1fr)
-  ); /* Responsive columns */
+  ); /* Responsiv grid */
   gap: 30px;
   padding: 16px;
+}
+
+.loadingButton {
+  background-color: var(--light-font-color);
+  margin: 16px auto;
+  border: none !important;
+  border-radius: 10px;
+  padding: 10px 18px;
+  white-space: nowrap; 
+  display: inline-block;
 }
 
 .loadingMessage {
@@ -21,10 +30,26 @@
   margin-top: 2rem;
 }
 
+.loadingButton:hover {
+  background-color: var(--light-font-color);
+}
+
 @media (max-width: 599px) {
   .bookList {
     padding-top: 8rem;
     margin-left: 0px;
+  }
+  .errorMessage {
+    display: block;
+    padding: 1rem;
+    color: var();
+    max-width: 80%;
+    margin: 0 auto;
+    position: fixed; 
+    top: 50%; 
+    left: 50%; 
+    transform: translate(-50%, -50%);
+    z-index: 10; 
   }
 }
 

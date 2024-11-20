@@ -1,17 +1,22 @@
 import styles from "./FaveButton.module.css";
-import { Button } from "@/components/ui/button";
-import useLibraryStore from "@/store/libraryStore";
+import { Button } from "../../components/ui/button";
+import useLibraryStore from "../../store/libraryStore";
 import { faHeart } from "@fortawesome/free-solid-svg-icons";
 import { FontAwesomeIcon } from "@fortawesome/react-fontawesome";
+import React from "react";
+import { useCallback } from "react";
 
-const FaveButton = ({ bookId }: { bookId: string }) => {
+
+const FaveButton = ({ bookId, isFavorited }: { bookId: string; isFavorited: boolean; }) => {
   const toggleFavorite = useLibraryStore((state) => state.toggleFavorite);
-  const isFavorited = useLibraryStore((state) => state.isFavorited(bookId));
 
-  const handleClick = (event: React.MouseEvent) => {
-    event.stopPropagation();
-    toggleFavorite(bookId);
-  };
+  const handleClick = useCallback(
+    (event: React.MouseEvent) => {
+      event.stopPropagation();
+      toggleFavorite(bookId);
+    },
+    [toggleFavorite, bookId ]
+  );
 
   return (
     <Button

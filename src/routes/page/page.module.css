@@ -1,10 +1,47 @@
+/* page.module.css */
 .library {
-  background-color: var(--background-color);
-  padding-top: 2rem;
-  margin: 0 auto;
-  padding: 2rem;
-  text-align: center;
-  height: 100%;
+  display: flex;
   min-height: 100vh;
+  width: 100%;
+  background-color: var(--background-color);
+}
+
+.sidebar {
+  width: 250px;
+  background-color: var(--sidebar-background-color);
+  padding: 1rem;
   box-sizing: border-box;
+  height: 100%;
+}
+
+.bookBox {
+  flex-grow: 1;
+  padding: 2rem;
+  margin-top: 60px;
+  margin-bottom: 50px;
+  box-sizing: border-box;
+  overflow-y: auto;
+}
+
+.navbar {
+  height: 60px;
+  background-color: #333;
+}
+
+.footer {
+  height: 50px;
+  background-color: #333;
+}
+
+@media (max-width: 768px) {
+  .library {
+    flex-direction: column;
+  }
+
+  .bookBox {
+    width: 100%;
+    padding: 1rem;
+    margin-top: 0;
+    margin-bottom: 0;
+  }
 }

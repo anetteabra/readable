@@ -9,36 +9,39 @@ import { Textarea } from "../ui/textarea";
 import { Button } from "../ui/button";
 import { FaStar } from "react-icons/fa";
 import { useState } from "react";
-import { ADD_REVIEW, GET_REVIEWS, ReviewsProps } from "@/queries";
 import { useMutation } from "@apollo/client";
+import { ADD_REVIEW } from "@/queries";
 
-const ReviewPopUp: React.FC<ReviewsProps> = ({ bookId }) => {
-  const [popoverOpen, setPopoverOpen] = useState(false); // Control Popover open state
-  const [stars, setStars] = useState(0); // State to hold the selected star rating
+const ReviewPopUp: React.FC<{ bookId: string }> = ({ bookId }) => {
+  const [popoverOpen, setPopoverOpen] = useState(false);
+  const [stars, setStars] = useState(0);
   const [name, setName] = useState("");
   const [comment, setComment] = useState("");
+  const [commentError, setCommentError] = useState("");
 
-  // Modify the useMutation hook to include the update function
+  const MAX_WORDS = 70;
+  const MAX_CHARACTERS = 400;
+
+  // The mutation with optimistic response and cache update
   const [addReview, { loading, error }] = useMutation(ADD_REVIEW, {
-    update(cache, { data: { addReview } }) {
-      try {
-        // Read the current list of reviews from the cache
-        const existingReviews: any = cache.readQuery({
-          query: GET_REVIEWS,
-          variables: { bookId },
-        });
-
-        // Write the new review into the cache
-        cache.writeQuery({
-          query: GET_REVIEWS,
-          variables: { bookId },
-          data: {
-            reviews: [...existingReviews.reviews, addReview], // Append the new review to the cache
+    update(cache, { data }) {
+      if (data && data.addReview) {
+        cache.modify({
+          fields: {
+            reviews(existingReviews = []) {
+              return [...existingReviews, data.addReview]; // Optimistically update cache with new review
+            },
           },
         });
-      } catch (error) {
-        console.error("Error updating cache: ", error);
       }
+    },
+    optimisticResponse: {
+      addReview: {
+        name,
+        stars,
+        comment,
+        __typename: "Review",
+      },
     },
   });
 
@@ -53,15 +56,29 @@ const ReviewPopUp: React.FC<ReviewsProps> = ({ bookId }) => {
           comment,
         },
       });
-      // Optionally clear form fields after submission
+
       setName("");
       setComment("");
       setStars(0);
-      // Close the popover
       setPopoverOpen(false);
     } catch (err) {
       console.error(err);
     }
+  };
+
+  const handleCommentChange = (e: React.ChangeEvent<HTMLTextAreaElement>) => {
+    const newComment = e.target.value;
+    const wordCount = newComment.split(/\s+/).filter(Boolean).length;
+
+    if (wordCount > MAX_WORDS || newComment.length > MAX_CHARACTERS) {
+      setCommentError(
+        `Comments can have a maximum of ${MAX_WORDS} words and ${MAX_CHARACTERS} characters.`,
+      );
+      return;
+    }
+
+    setComment(newComment);
+    setCommentError("");
   };
 
   const renderStars = () => {
@@ -70,16 +87,17 @@ const ReviewPopUp: React.FC<ReviewsProps> = ({ bookId }) => {
         {[...Array(5)].map((_, index) => (
           <FaStar
             key={index}
+            data-testid="star"
             color={index < stars ? "#ffc107" : "#e4e5e9"}
-            onClick={() => setStars(index + 1)} // Update stars state on click
+            onClick={() => setStars(index + 1)}
             className={styles.star}
+            data-cy={`star-${index + 1}`}
           />
         ))}
       </div>
     );
   };
 
-  // Disable Submit button if any field is empty or stars are not selected
   const isFormComplete =
     name.trim() !== "" && comment.trim() !== "" && stars > 0;
 
@@ -87,30 +105,37 @@ const ReviewPopUp: React.FC<ReviewsProps> = ({ bookId }) => {
     <Popover open={popoverOpen} onOpenChange={setPopoverOpen}>
       <PopoverTrigger
         className={styles.trigger}
-        onClick={() => setPopoverOpen(true)} // Open popover on trigger click
+        onClick={() => setPopoverOpen(true)}
       >
         Give review
       </PopoverTrigger>
       <PopoverContent className={styles.content}>
         <h3>Give a review on this book!</h3>
         <Input
+          data-cy="name-input"
           value={name}
           onChange={(e) => setName(e.target.value)}
           placeholder="Your name"
           className={styles.nameField}
         />
-        <p>How many stars for this book?</p>
-        {renderStars()}
+        <p >How many stars for this book?</p>
+        <div data-cy="star-rating">
+          {renderStars()}
+        </div>
         <Textarea
+          data-cy="review-input"
           value={comment}
           placeholder="Leave a comment with your thoughts on this book"
           className={styles.textField}
-          onChange={(e) => setComment(e.target.value)}
+          onChange={handleCommentChange}
+          maxLength={MAX_CHARACTERS}
         />
+        {commentError && <p className={styles.errorMessage}>{commentError}</p>}
         <Button
+          data-cy="submit-review-button"
           onClick={handleSubmit}
           className={styles.submit}
-          disabled={!isFormComplete || loading} // Disable if form is incomplete or loading
+          disabled={!isFormComplete || loading || !!commentError}
         >
           {loading ? "Submitting..." : "Submit"}
         </Button>

@@ -1,5 +1,5 @@
 import styles from "./SeachBar.module.css";
-import { Input } from "@/components/ui/input";
+import { Input } from "../../components/ui/input";
 import { useNavigate } from "react-router-dom";
 import useLibraryStore from "../../store/libraryStore";
 import { useState } from "react";
@@ -24,17 +24,18 @@ const SearchBar: React.FC = () => {
   };
 
   return (
-    <>
+    // Wrapper to be able to place x button in the search bar
+    <div className={styles.searchContainer}> 
       <Input
+        data-cy="search-input"
         type="input"
-        placeholder="Search"
+        placeholder="Search for a book title"
         className={styles.searchBar}
         aria-label="Search"
         value={tempInputValue}
         onChange={(e) => setTempInputValue(e.target.value)}
         onKeyDown={handleEnter}
       />
-
       <button
         className={styles.x}
         onClick={() => {
@@ -46,7 +47,7 @@ const SearchBar: React.FC = () => {
       >
         <FontAwesomeIcon icon={faX} />
       </button>
-    </>
+    </div>
   );
 };
 

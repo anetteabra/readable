@@ -8,25 +8,26 @@ import styles from "./Details.module.css";
 import useLibraryStore from "../../store/libraryStore";
 
 const Details: React.FC = () => {
-  const { id } = useParams<{ id: string }>(); // Extract the book id from the route params
+  const { id } = useParams<{ id: string }>(); // Extracts the book id from the route params
   const [book, setBook] = useState<Book | null>(null);
 
-  // Access the books array from Zustand
+  // Accesses Zustand store state at the top level
   const books = useLibraryStore((state) => state.books);
   const loading = useLibraryStore((state) => state.loading);
+  const error = useLibraryStore((state) => state.error);
 
   useEffect(() => {
     if (books.length > 0) {
       const foundBook = books.find((book) => book.id === id);
-      setBook(foundBook || null); // Set the book if found, otherwise null
+      setBook(foundBook || null); // Sets the book if found, otherwise null
     }
-  }, [books, id]); // Trigger effect whenever books or id change
+  }, [books, id]);
 
+  // Conditional rendering based on state values
   if (loading) {
     return <div>Loading book details...</div>;
   }
 
-  const error = useLibraryStore((state) => state.error);
   if (error) {
     return <div>Error loading book details</div>;
   }

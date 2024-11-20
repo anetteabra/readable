@@ -1,63 +1,103 @@
-import { useState, useEffect } from "react";
 import { useQuery } from "@apollo/client";
+import { useEffect, useState, useMemo } from "react";
+import { GET_BOOKS, GetBooksData, Book } from "../../queries";
+import useLibraryStore from "../../store/libraryStore";
 import BookCard from "../BookCard";
 import styles from "./BookBox.module.css";
-import { GET_BOOKS, GetBooksData } from "../../queries";
-import useLibraryStore from "../../store/libraryStore";
-import LoadingButton from "../Loading/LoadingButton";
 
 const BookBox: React.FC = () => {
-  // Apollo query
-  const { loading, error, data } = useQuery<GetBooksData>(GET_BOOKS);
+  const [ offset ] = useState(0);
+  const [ limit ] = useState(12);
+  const sortField = useLibraryStore((state) => state.sortField);
+  const sortOrder = useLibraryStore((state) => state.sortOrder);
+  const inputValue = useLibraryStore((state) => state.inputValue);
+  const genre = useLibraryStore((state) => state.filterBy.genre);
+  const BookSort = {[sortField]: sortOrder };
 
-  // Zustand store actions
+  const userId = useLibraryStore((state) => state.userId);
   const setBooks = useLibraryStore((state) => state.setBooks);
+  const books = useLibraryStore((state) => state.books);
   const setLoading = useLibraryStore((state) => state.setLoading);
   const setError = useLibraryStore((state) => state.setError);
-  const filteredBooks = useLibraryStore((state) => state.filteredBooks);
-  const inputValue = useLibraryStore((state) => state.inputValue);
-
-  // State to control number of books displayed
-  const [visibleBooks, setVisibleBooks] = useState(12);
+  const { filterBy, favorites } = useLibraryStore();
+  
+  const { loading, error, data, fetchMore, refetch } = useQuery<GetBooksData>( GET_BOOKS, 
+    {
+    variables: { options: { limit, offset, sort: BookSort
+      },  genre: genre, searchTerm: inputValue,
+      userId: filterBy.favorited ? userId : undefined },
+  });
 
   useEffect(() => {
+    console.log("Offset value:", offset);
+    console.log("Loading status:", loading);
+    console.log("Sort status:", sortOrder);
+    console.log("genre status:", genre);
+
     setLoading(loading);
+
     if (error) {
+      console.error("GraphQL Error:", error.message);
       setError(error.message);
     } else if (data) {
-      setBooks(data.books);
-      setError(null);
+      console.log("Fetched data.books:", data.books);
+      setBooks(data.books); 
     }
-  }, [loading, error, data, setBooks, setLoading, setError]);
+    console.log("Current books:", books);
+  }, [data, loading, error, offset, sortOrder, genre, books, setBooks, setLoading, setError]);
 
-  const isInSearch = (value: string) => {
-    return value.toLowerCase().includes(inputValue.toLowerCase());
-  };
+  // Memoized filtered list based on the latest favorites
+  const filteredBooks = useMemo(() => {
+    return filterBy.favorited
+      ? books.filter((book) => favorites.includes(book.id))
+      : books;
+  }, [books, favorites, filterBy.favorited]);
+
+  // Re-fetch books when the favorited filter changes
+  useEffect(() => {
+    refetch();
+  }, [filterBy.favorited, refetch]);
 
   const loadMoreBooks = () => {
-    setVisibleBooks((prev) => prev + 12);
+    fetchMore({
+      variables: { options: { limit, offset: books.length, sort: BookSort } },
+      updateQuery: (prevResult, { fetchMoreResult }) => {
+        if (!fetchMoreResult) return prevResult;
+        const newBooks = filterBy.favorited
+          ? fetchMoreResult.books.filter((book) => favorites.includes(book.id))
+          : fetchMoreResult.books;
+        const uniqueBooks = [...new Map([...prevResult.books, ...newBooks].map(book => [book.id, book])).values()];
+        return {
+          books: uniqueBooks,
+        };
+      },
+    });
   };
 
-  if (loading) return <p className={styles.loadingMessage}>Loading...</p>;
+  if (loading && offset === 0)
+    return <p className={styles.loadingMessage}>Loading...</p>;
   if (error)
     return <p className={styles.errorMessage}>Error: {error.message}</p>;
-  if (!filteredBooks.length)
+  if (!books.length)
     return <p className={styles.errorMessage}>No books found</p>;
 
   return (
-    <section className={styles.bookList}>
-      {filteredBooks
-        .filter((set) => isInSearch(set.title) || isInSearch(set.author.name))
-        .slice(0, visibleBooks)
-        .map((book: any) => (
-          <BookCard key={book.id} book={book} />
-        ))}
-
-      {/* Show Load More button only if there are more books to load */}
-      {visibleBooks < filteredBooks.length && (
-        <LoadingButton onClick={loadMoreBooks} />
-      )}
-    </section>
+    <section className={styles.bookListWrapper}> 
+    {" "}
+    {/* Added Wrapper to enable flexbox */} 
+    <div className={styles.bookList} data-cy="book-list"> 
+      {filteredBooks.map((book: Book) => ( 
+        <BookCard key={book.id} book={book} userId={userId} /> 
+      ))} 
+    </div> 
+    <button 
+      onClick={loadMoreBooks} 
+      disabled={loading} 
+      className={styles.loadingButton} 
+    > 
+      {loading ? "Loading..." : "Load more"} 
+    </button> 
+  </section> 
   );
 };
 

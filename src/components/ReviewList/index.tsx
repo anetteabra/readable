@@ -9,7 +9,9 @@ const ReviewList: React.FC<ReviewsProps> = ({ bookId }) => {
   const { loading, error, data } = useQuery<{ reviews: Review[] }>(
     GET_REVIEWS,
     {
-      variables: { bookId },
+      variables: {
+        where: { book: { id: bookId } },
+      },
     },
   );
 
