@@ -121,9 +121,9 @@ Since it was missing book cover photo and genre we decided to import this from g
 Background photo for the homepage is downloaded from unsplash: https://unsplash.com/photos/low-angle-photography-of-brown-2-storey-structure-YQhhlCS9Hto
 
 ## Testing
-For the testing of this web application vitest is used to write component tests. Cypress is utilized for the end to end testing (E2E). When testing our application we have used vi, to mock our data...
+For the testing of this web application vitest is used to write component tests. Cypress is utilized for the end to end testing (E2E). When testing our application we have used vi, to mock our data. 
 
-We tried to test the most important components, that they render correctly and their functionality.
+We tried to test the most important components, that they render correctly and their functionality. A few of the tests are very simple or not complete. The BookBox test just checks that the component renders correctly, here we could test more but it was a bit complex for us. Also the SearchBar test checks that the component renders, here we stuggled with testing the functionality. So the SearchBar test is incomplete. Therefore, we see that we have room for improvement regarding the testing of the application. 
 
 The components that are tested with vitest:
  - Bookbox
