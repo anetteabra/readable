@@ -10,19 +10,19 @@ const InfoDetails: React.FC<InfoDetailsProps> = ({ book }) => {
     <section className={styles.bookDetails}>
       <img src={book.cover} alt={book.title} className={styles.bookImage} />
       <div className={styles.bookInfo}>
-        <h1 data-cy="book-title">
+        <h1>
           <strong>Title:</strong> {book.title}
         </h1>
-        <p data-cy="book-author">
+        <p>
           <strong>Author:</strong> {book.author.name}
         </p>
-        <p data-cy="book-genre">
+        <p>
           <strong>Genre:</strong> {book.genre}
         </p>
-        <p data-cy="book-publication-date">
+        <p>
           <strong>Publication date:</strong> {book.publication_date}
         </p>
-        <p data-cy="book-description">
+        <p>
           <strong>Description:</strong> {book.description}
         </p>
       </div>
