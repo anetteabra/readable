@@ -1,4 +1,4 @@
-import { Book } from "@/queries";
+import { Book } from "../queries";
 import { create } from "zustand";
 import { createJSONStorage, persist } from "zustand/middleware";
 import  getOrCreateUserId from "@/utils/generateUserID";

@@ -1,6 +1,6 @@
 import styles from "./FaveButton.module.css";
-import { Button } from "@/components/ui/button";
-import useLibraryStore from "@/store/libraryStore";
+import { Button } from "../../components/ui/button";
+import useLibraryStore from "../../store/libraryStore";
 import { faHeart } from "@fortawesome/free-solid-svg-icons";
 import { FontAwesomeIcon } from "@fortawesome/react-fontawesome";
 import React from "react";
