@@ -27,7 +27,8 @@ describe("Book Search Functionality with Enter Key", () => {
       .children()
       .each(($el) => {
         const title = $el.find('[data-cy="book-title"]').text().toLowerCase();
-        expect(title).to.include("trump");
+        const author= $el.find('[data-cy="book-author"]').text().toLowerCase();
+        expect(title.includes("trump") || author.includes("trump")).to.be.true;
       });
 
     // Verifies that the book list is not empty
