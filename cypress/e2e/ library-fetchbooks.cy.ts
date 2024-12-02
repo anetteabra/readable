@@ -14,6 +14,7 @@ describe("Library Page Data Fetching", () => {
     });
 
     // Waits for the GraphQL request to complete
+    cy.reload();
     cy.wait("@getBooksQuery").its("response.statusCode").should("eq", 200);
 
     // Checks that the book list is displayed
