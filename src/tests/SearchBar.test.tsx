@@ -1,4 +1,10 @@
-import { render, screen, fireEvent, act, waitFor } from "@testing-library/react";
+import {
+  render,
+  screen,
+  fireEvent,
+  act,
+  waitFor,
+} from "@testing-library/react";
 import { beforeEach, describe, expect, it, vi } from "vitest";
 import { MemoryRouter } from "react-router-dom";
 import SearchBar from "../components/SearchBar";
@@ -28,12 +34,11 @@ const mockStore = {
   isFavorited: vi.fn(),
   sortBooks: vi.fn(),
   setInputValue: vi.fn((newValue) => {
-    mockStore.inputValue = newValue; 
+    mockStore.inputValue = newValue;
   }),
   setSortField: vi.fn(),
   setSortOrder: vi.fn(),
 };
-
 
 // Mock the useNavigate function from React Router
 const mockNavigate = vi.fn();
@@ -92,43 +97,40 @@ describe("SearchBar Component", () => {
       render(
         <MemoryRouter>
           <SearchBar />
-        </MemoryRouter>
+        </MemoryRouter>,
       );
     });
-  
+
     const input = screen.getByPlaceholderText("Search book title or author");
-  
+
     // Endre input-verdien
     fireEvent.change(input, { target: { value: "Test Book" } });
     expect(input).toHaveValue("Test Book");
     fireEvent.keyDown(input, { key: "Enter", code: "Enter" });
-  
+
     expect(mockStore.filterBy.genre).toBe(null);
     expect(mockNavigate).toHaveBeenCalledWith("/library");
-
   });
-  
+
   it("clears the input and resets filters when the clear button is clicked", async () => {
     await act(async () => {
       render(
         <MemoryRouter>
           <SearchBar />
-        </MemoryRouter>
+        </MemoryRouter>,
       );
     });
-  
+
     const input = screen.getByPlaceholderText("Search book title or author");
     const button = screen.getByRole("button", { name: /clear/i });
-  
+
     fireEvent.change(input, { target: { value: "Test Book" } });
     expect(input).toHaveValue("Test Book");
     fireEvent.keyDown(input, { key: "Enter", code: "Enter" });
     fireEvent.click(button);
-  
-  
+
     expect(input).toHaveValue("");
     expect(mockStore.filterBy.genre).toBe(null);
     expect(mockStore.inputValue).toBe("");
   });
-  
 });
