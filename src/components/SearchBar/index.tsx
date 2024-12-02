@@ -29,8 +29,7 @@ const SearchBar: React.FC = () => {
     <div className={styles.searchContainer}>
       <Input
         type="input"
-        data-cy="search-input"
-        placeholder="Search for a book title"
+        placeholder="Search book title or author"
         className={styles.searchBar}
         aria-label="Search field"
         value={tempInputValue}
