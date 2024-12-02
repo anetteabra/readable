@@ -31,6 +31,7 @@ export default function BookCard({ book }: BookCardProps) {
           {book.title}
         </CardTitle>
         <CardDescription
+          data-cy="book-author"
           className={styles.bookCardAuthor}
           aria-label="Book description and author"
         >

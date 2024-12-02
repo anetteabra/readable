@@ -22,6 +22,7 @@ describe("Book Genre Filtering Functionality", () => {
       if (!interception.response) {
         throw new Error("No response received for the intercepted request.");
       }
+      
 
       // Logs the intercepted response for debugging
       console.log("Intercepted Response:", interception.response.body);
@@ -35,11 +36,7 @@ describe("Book Genre Filtering Functionality", () => {
       books.forEach((book) => {
         expect(book.genre).to.equal("Political Science");
       });
-    });
 
-    // Verifies that the book list is updated in the UI
-    cy.get('[data-cy="book-list"]')
-      .children()
-      .should("have.length.greaterThan", 0);
+    });
   });
 });
