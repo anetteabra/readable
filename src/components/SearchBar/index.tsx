@@ -32,6 +32,7 @@ const SearchBar: React.FC = () => {
         placeholder="Search for a book title"
         className={styles.searchBar}
         aria-label="Search"
+        data-cy="search-input"
         value={tempInputValue}
         onChange={(e) => setTempInputValue(e.target.value)}
         onKeyDown={handleEnter}
