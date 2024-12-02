@@ -59,10 +59,10 @@ const BookBox: React.FC = () => {
       console.log("Fetched data.books:", data.books);
       setBooks(data.books);
       if (data.books.length < limit) {
-        setHasMoreBooks(false); // Ingen flere bøker å laste
+        setHasMoreBooks(false);
       }
       if (!(data.books.length < limit)) {
-        setHasMoreBooks(true); // Ingen flere bøker å laste
+        setHasMoreBooks(true);
       }
     }
     console.log("Current books:", books);
@@ -77,6 +77,7 @@ const BookBox: React.FC = () => {
     setBooks,
     setLoading,
     setError,
+    limit,
   ]);
 
   // Memoized filtered list based on the latest favorites

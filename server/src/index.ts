@@ -3,6 +3,7 @@ import { Neo4jGraphQL } from "@neo4j/graphql";
 import { startStandaloneServer } from "@apollo/server/standalone";
 import neo4j, { Driver } from "neo4j-driver";
 import typeDefs from "./schema";
+import { ApolloServerPluginLandingPageLocalDefault } from "@apollo/server/plugin/landingPage/default";
 
 const driver: Driver = neo4j.driver(
   "neo4j://it2810-34.idi.ntnu.no:7687",
@@ -14,10 +15,6 @@ const neoSchema = new Neo4jGraphQL({ typeDefs, driver });
 async function startApolloServer(): Promise<void> {
   try {
     const schema = await neoSchema.getSchema(); // Generate schema with built-in resolvers
-
-    // eslint-disable-next-line @typescript-eslint/no-require-imports
-    const ApolloServerPluginLandingPageLocalDefault =
-      require("apollo-server-core").ApolloServerPluginLandingPageLocalDefault;
 
     const server = new ApolloServer({
       schema,
