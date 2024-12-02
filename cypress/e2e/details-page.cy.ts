@@ -31,6 +31,7 @@ describe("Book Details Page", () => {
 
   it("should display the correct details for the clicked book", () => {
     // Waits for the GET_BOOKS request to complete
+    cy.reload();
     cy.wait("@getBooks");
 
     // Clicks on the book card link to navigate to the details page

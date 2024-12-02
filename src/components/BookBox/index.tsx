@@ -14,6 +14,8 @@ const BookBox: React.FC = () => {
   const genre = useLibraryStore((state) => state.filterBy.genre);
   const BookSort = { [sortField]: sortOrder };
 
+  const [hasMoreBooks, setHasMoreBooks] = useState(true);
+
   const userId = useLibraryStore((state) => state.userId);
   const setBooks = useLibraryStore((state) => state.setBooks);
   const books = useLibraryStore((state) => state.books);
@@ -21,13 +23,22 @@ const BookBox: React.FC = () => {
   const setError = useLibraryStore((state) => state.setError);
   const { filterBy, favorites } = useLibraryStore();
 
+  const capitalizeWords = (str: string) => {
+    if (!str) return str;
+    return str
+      .split(" ")
+      .map((word) => word.charAt(0).toUpperCase() + word.slice(1).toLowerCase())
+      .join(" ");
+  };
+
   const { loading, error, data, fetchMore, refetch } = useQuery<GetBooksData>(
     GET_BOOKS,
     {
       variables: {
         options: { limit, offset, sort: BookSort },
         genre: genre,
-        searchTerm: inputValue,
+        searchTerm: inputValue.toUpperCase(),
+        searchTermAuthor: capitalizeWords(inputValue),
         userId: filterBy.favorited ? userId : undefined,
       },
     },
@@ -47,6 +58,12 @@ const BookBox: React.FC = () => {
     } else if (data) {
       console.log("Fetched data.books:", data.books);
       setBooks(data.books);
+      if (data.books.length < limit) {
+        setHasMoreBooks(false); // Ingen flere bøker å laste
+      }
+      if (!(data.books.length < limit)) {
+        setHasMoreBooks(true); // Ingen flere bøker å laste
+      }
     }
     console.log("Current books:", books);
   }, [
@@ -82,6 +99,9 @@ const BookBox: React.FC = () => {
         const newBooks = filterBy.favorited
           ? fetchMoreResult.books.filter((book) => favorites.includes(book.id))
           : fetchMoreResult.books;
+        if (newBooks.length < limit) {
+          setHasMoreBooks(false);
+        }
         const uniqueBooks = [
           ...new Map(
             [...prevResult.books, ...newBooks].map((book) => [book.id, book]),
@@ -109,13 +129,15 @@ const BookBox: React.FC = () => {
           <BookCard key={book.id} book={book} userId={userId} />
         ))}
       </div>
-      <button
-        onClick={loadMoreBooks}
-        disabled={loading}
-        className={styles.loadingButton}
-      >
-        {loading ? "Loading..." : "Load more"}
-      </button>
+      {hasMoreBooks && (
+        <button
+          onClick={loadMoreBooks}
+          disabled={loading}
+          className={styles.loadingButton}
+        >
+          {loading ? "Loading..." : "Load more"}
+        </button>
+      )}
     </section>
   );
 };

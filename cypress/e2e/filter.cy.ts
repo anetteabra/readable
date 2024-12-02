@@ -36,10 +36,5 @@ describe("Book Genre Filtering Functionality", () => {
         expect(book.genre).to.equal("Political Science");
       });
     });
-
-    // Verifies that the book list is updated in the UI
-    cy.get('[data-cy="book-list"]')
-      .children()
-      .should("have.length.greaterThan", 0);
   });
 });

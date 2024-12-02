@@ -49,6 +49,7 @@ describe("Book Details Page and Add Review", () => {
 
   it("should type a review comment and submit the mutation", () => {
     // Waits for the GET_BOOKS request to complete
+    cy.reload();
     cy.wait("@getBooks");
 
     // Clicks on the book card link to navigate to the details page

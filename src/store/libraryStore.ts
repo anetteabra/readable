@@ -41,7 +41,7 @@ const useLibraryStore = create(
       loading: false,
       error: null,
       inputValue: "",
-      setInputValue: (value) => set({ inputValue: value.toUpperCase() }),
+      setInputValue: (value) => set({ inputValue: value }),
       sortField: "title",
       sortOrder: "ASC",
       favoritesUpdatedAt: Date.now(),

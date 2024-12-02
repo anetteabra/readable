@@ -6,13 +6,17 @@ export const GET_BOOKS = gql`
   query GetBooks(
     $options: BookOptions
     $searchTerm: String
+    $searchTermAuthor: String
     $genre: String
     $userId: ID
   ) {
     books(
       options: $options
       where: {
-        OR: [{ title_CONTAINS: $searchTerm }]
+        OR: [
+          { title_CONTAINS: $searchTerm }
+          { author: { name_CONTAINS: $searchTermAuthor } }
+        ]
         AND: [{ genre_CONTAINS: $genre }, { favoritedBy: { id: $userId } }]
       }
     ) {

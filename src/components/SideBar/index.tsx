@@ -69,7 +69,10 @@ const SideBar = () => {
       <Card className={`${styles.sidebar} ${isOpen ? styles.open : ""}`}>
         <CardHeader>
           <CardTitle> Sort and filter your library </CardTitle>
-          <CardDescription> Select your preferences below </CardDescription>
+          <CardDescription className={styles.description}>
+            {" "}
+            Select your preferences below{" "}
+          </CardDescription>
         </CardHeader>
 
         <CardContent className={styles.cardContent}>
@@ -83,16 +86,30 @@ const SideBar = () => {
                 data-cy="sort-trigger"
                 className={styles.trigger}
                 id="sort"
+                aria-label={`Sort items by ${sortBy}`}
               >
                 {sortBy}
               </SelectTrigger>
               <SelectContent>
-                <SelectItem value="Title a-z">Title a-z</SelectItem>
-                <SelectItem data-cy="sort-z-a" value="Title z-a">
+                <SelectItem
+                  value="Title a-z"
+                  aria-label="Sort by title from a to z"
+                >
+                  Title a-z
+                </SelectItem>
+                <SelectItem
+                  data-cy="sort-z-a"
+                  value="Title z-a"
+                  aria-label="Sort by title from z to a"
+                >
                   Title z-a
                 </SelectItem>
-                <SelectItem value="Newest">Newest</SelectItem>
-                <SelectItem value="Oldest">Oldest</SelectItem>
+                <SelectItem value="Newest" aria-label="Sort by newest books">
+                  Newest
+                </SelectItem>
+                <SelectItem value="Oldest" aria-label="Sort by oldest books">
+                  Oldest
+                </SelectItem>
               </SelectContent>
             </Select>
           </section>
@@ -107,6 +124,7 @@ const SideBar = () => {
                   id="favorited"
                   checked={filterBy.favorited}
                   onCheckedChange={handleFavoriteToggle}
+                  aria-label="Filter by favorited books"
                 />
                 <Label htmlFor="favorited"> Favorited </Label>
               </div>
@@ -120,6 +138,7 @@ const SideBar = () => {
                     id={genre}
                     checked={filterBy.genre === genre}
                     onCheckedChange={() => handleGenreToggle(genre)}
+                    aria-label={`Filter by ${genre}`}
                   />
                   <Label htmlFor={genre}> {genre} </Label>
                 </div>
