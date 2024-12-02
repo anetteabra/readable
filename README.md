@@ -11,6 +11,7 @@
     - [Backend](#backend)
     - [Frontend](#frontend)
     - [Choice of dataset](#choice-of-dataset)
+    - [Access Neo4j](#access-neo4j)
   - [Testing](#testing)
     - [For running the tests:](#for-running-the-tests)
       - [With vitest](#with-vitest)
@@ -118,6 +119,18 @@ Since it was missing book cover photo and genre we decided to import this from g
 
 Background photo for the homepage is downloaded from unsplash: https://unsplash.com/photos/low-angle-photography-of-brown-2-storey-structure-YQhhlCS9Hto
 
+### Access Neo4j
+
+To access the database visit this link:
+
+http://it2810-34.idi.ntnu.no:7474
+
+Use the following information to log in:
+
+**Username:** neo4j
+
+**Password:** readable
+
 ## Testing
 
 For the testing of this web application vitest is used to write component tests. Cypress is utilized for the end to end testing (E2E). When testing our application we have used vi, to mock our data.
@@ -156,16 +169,19 @@ npx vitest
 For different members of our group, not all commands were working. So here are three different ways of running the cypress tests.
 
 Make sure the server and frontend is running before typing this command:
+
 ```sh
 npx cypress run
 ```
 
 Or make sure only the server is running before typing this command:
+
 ```sh
 npx cypress open
 ```
 
 Or make sure only the server is running before typing this command:
+
 ```sh
 npm run cy:e2e
 ```
@@ -174,19 +190,15 @@ npm run cy:e2e
 
 ### Pagination
 
-The webpage will only load 12 books at the time, to load more books, the load more button needs to be clicked. This functionality ensures that all the books in our database isn´t loaded at once, and can therfore handle bigger datasets. 
+The webpage will only load 12 books at the time, to load more books, the load more button needs to be clicked. This functionality ensures that all the books in our database isn´t loaded at once, and can therfore handle bigger datasets.
 
 If you load more books (e.g., 36), then navigate to a book details page or the homepage, and return to the library page, the library will reset to display only 12 books. However, if you perform a search, the library will continue displaying results based on the search query until you clear the search (either by clicking the "X" button or searching with an empty string). Resetting may not be the most sustainable solution, but given the low likelihood of bugs caused by states not resetting, we considered this approach is appropriate for this project.
 
-
-When you click the "Load more" button and there is no more content to load, the button will disappear. Ideally, the button should disappear automatically before needing to click it (one extra time), but we focused on fixing other functionality. 
-
-
-
+When you click the "Load more" button and there is no more content to load, the button will disappear. Ideally, the button should disappear automatically before needing to click it (one extra time), but we focused on fixing other functionality.
 
 ### Search field
 
-When searching on our webpage, the user needs to press enter for the backend call to be executed. This ensures that there aren´t any unnecessary calls to the backend. However, we see that implementing debounce would have made the webpage more userfriendly. 
+When searching on our webpage, the user needs to press enter for the backend call to be executed. This ensures that there aren´t any unnecessary calls to the backend. However, we see that implementing debounce would have made the webpage more userfriendly.
 
 ## Accessability
 
