@@ -13,7 +13,10 @@ export const GET_BOOKS = gql`
     books(
       options: $options
       where: {
-        OR: [{ title_CONTAINS: $searchTerm }, { author: { name_CONTAINS: $searchTermAuthor } }] 
+        OR: [
+          { title_CONTAINS: $searchTerm }
+          { author: { name_CONTAINS: $searchTermAuthor } }
+        ]
         AND: [{ genre_CONTAINS: $genre }, { favoritedBy: { id: $userId } }]
       }
     ) {

@@ -135,7 +135,7 @@ Use the following information to log in:
 
 For the testing of this web application vitest is used to write component tests. Cypress is utilized for the end to end testing (E2E). When testing our application we have used vi, to mock our data.
 
-You might encounter some problems when running the cypress tests, but they have worked as they should the last times we ran them. However, we have encountered some errors earlier that have not been consistent (different for each group member). Sometimes it helps to restart the server and frontend. 
+You might encounter some problems when running the cypress tests, but they have worked as they should the last times we ran them. However, we have encountered some errors earlier that have not been consistent (different for each group member). Sometimes it helps to restart the server and frontend.
 
 We tried to test the most important components, that they render correctly and their functionality. A few of the tests are very simple or not complete. The BookBox test just checks that the component renders correctly, here we could test more but it was a bit complex for us. Also the SearchBar test checks that the component renders, here we stuggled with testing the functionality. Therefore, we see that we have room for improvement regarding the testing of the application.
 
@@ -187,6 +187,7 @@ Or make sure only the server is running before typing this command:
 ```sh
 npm run cy:e2e
 ```
+
 ## Sustainability
 
 ### Pagination
