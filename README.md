@@ -153,8 +153,19 @@ npx vitest
 
 #### With cypress
 
-Make sure the server is running before typing the command:
+For different members of our group, not all commands were working. So here are three different ways of running the cypress tests.
 
+Make sure the server and frontend is running before typing this command:
+```sh
+npx cypress run
+```
+
+Or make sure only the server is running before typing this command:
+```sh
+npx cypress open
+```
+
+Or make sure only the server is running before typing this command:
 ```sh
 npm run cy:e2e
 ```
