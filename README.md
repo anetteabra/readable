@@ -76,7 +76,7 @@ First, clone the repo in your preferred way.
 ## Features
 
 - **List view of books**: List view showcasing books for easy browsing.
-- **Search Functionality**: Search for book titles.
+- **Search Functionality**: Search for book titles and authors.
 - **Sorting Options**: Sort books by title or publication date.
 - **Filtering Options**: Filter books by favorites or genre.
 - **Book Details Page**: Access a details page for each book.
@@ -86,8 +86,6 @@ First, clone the repo in your preferred way.
 - **Favorite**: Click on the heart on the books to favorire them. You can see them displayed in favorites, by using the favorited filter.
 
 The filter functionality only lets you click one genre at the time, a chocie we made based on other websites like Netflix. When choosing genres on such websites, only one category is displayed at the time. If you aren´t sure of which genre you want to read from, you need to switch between them. However, we understand that not everyone thinks this is the best solution, based on earlier feedback from other students.
-
-For the search functionlity our plan was to implement the possibility to search for authors as well as titles. However, this proved more challenging than first anticipated. Unfortunaltley, we needed to prioritize working other parts of the project to get a webpage that meets the requirements.
 
 For the favoriting functionality the favorites are connected to a personal userId that is generated and saved in localstorage when opening the webpage. The userId is saved as user in the database. And the favorites are connected by bookId and userId in the database.
 
@@ -165,15 +163,19 @@ npm run cy:e2e
 
 ### Pagination
 
-The webpage will only load 12 books at the time, to load more books, the load more button needs to be clicked. This functionality ensures that all the books in our database isn´t loaded at once, and can therfore handle bigger datasets.
+The webpage will only load 12 books at the time, to load more books, the load more button needs to be clicked. This functionality ensures that all the books in our database isn´t loaded at once, and can therfore handle bigger datasets. 
 
-The results wont be reloaded when going to homepage from the library and back. This is a choice we made to avoid unnecessary calls to the backend. The possibility of bigger changes when browsing between the pages is low, and therefore we think this soulutions is suitable for this project. However, we see that other websites, will reset when going to the homepage, and that this is functionality that we could have implemented for user friendliness.
+If you load more books (e.g., 36), then navigate to a book details page or the homepage, and return to the library page, the library will reset to display only 12 books. However, if you perform a search, the library will continue displaying results based on the search query until you clear the search (either by clicking the "X" button or searching with an empty string). Resetting may not be the most sustainable solution, but given the low likelihood of bugs caused by states not resetting, we considered this approach is appropriate for this project.
 
-The load more button is visble all the time, even though there isn´t more data to load. This is unfortunaltly not the most intuitive solution, but if there are no more data to load the button does nothing. We tried to fix this, however, it proved more challenging than expected, because it needed to work with all our functinality. Solutions that worked some places, did not work for all over the page, and therefore made the page less userfriendly.
+
+When you click the "Load more" button and there is no more content to load, the button will disappear. Ideally, the button should disappear automatically before needing to click it (one extra time), but we focused on fixing other functionality. 
+
+
+
 
 ### Search field
 
-When searching for booktitles on our webpage, the user needs to press enter for the backend call to be executed. This ensures that there aren´t any unnecessary calls to the backend. However, we see that implementing debounce would have made the webpage more userfriendly, and also limit the backend calls.
+When searching on our webpage, the user needs to press enter for the backend call to be executed. This ensures that there aren´t any unnecessary calls to the backend. However, we see that implementing debounce would have made the webpage more userfriendly. 
 
 ## Accessability
 
