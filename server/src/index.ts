@@ -6,8 +6,8 @@ import typeDefs from "./schema";
 import { ApolloServerPluginLandingPageLocalDefault } from "@apollo/server/plugin/landingPage/default";
 
 const driver: Driver = neo4j.driver(
-  "neo4j://it2810-34.idi.ntnu.no:7687",
-  neo4j.auth.basic("neo4j", "readable"),
+  "neo4j+s://bdbb2a61.databases.neo4j.io",
+  neo4j.auth.basic("neo4j", "vKUwSYjJQHJRyvErgP9Util_yYHFwP_fq1HRNitui4g"),
 );
 
 const neoSchema = new Neo4jGraphQL({ typeDefs, driver });
