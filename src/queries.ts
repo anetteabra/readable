@@ -20,6 +20,7 @@ export const GET_BOOKS = gql`
         AND: [{ genre_CONTAINS: $genre }, { favoritedBy: { id: $userId } }]
       }
     ) {
+      id
       cover
       description
       genre
