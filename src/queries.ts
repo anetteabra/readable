@@ -23,7 +23,6 @@ export const GET_BOOKS = gql`
       cover
       description
       genre
-      id
       isbn13
       publication_date
       title

@@ -2,7 +2,6 @@ import { gql } from "graphql-tag";
 
 const typeDefs = gql`
   type Book {
-    id: ID! @id @unique
     title: String! # Title of the book
     author: Author! @relationship(type: "WROTE", direction: IN) # The author of the book
     cover: String # URL of the book's cover image
