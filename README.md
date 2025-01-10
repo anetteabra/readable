@@ -31,10 +31,6 @@ Readable is a webpage where you can view and search for your favorite books by t
 
 ## Run the project
 
-Click the link below to get to our project on the VM, make sure to be on NTNU network (eduroam), or connect via VPN:
-
-http://it2810-34.idi.ntnu.no/project2
-
 ### Run the project locally
 
 First, clone the repo in your preferred way.
@@ -57,7 +53,7 @@ First, clone the repo in your preferred way.
    npm run start
    ```
 
-   Open a new terminal, and make sure to be in the root of the project (T34-Project-2):
+   Open a new terminal, and make sure to be in the root of the project.
 
 4. **Install dependencies**:
 
