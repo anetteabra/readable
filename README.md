@@ -11,7 +11,6 @@
     - [Backend](#backend)
     - [Frontend](#frontend)
     - [Choice of dataset](#choice-of-dataset)
-    - [Access Neo4j](#access-neo4j)
   - [Testing](#testing)
     - [For running the tests:](#for-running-the-tests)
       - [With vitest](#with-vitest)
@@ -20,7 +19,6 @@
     - [Pagination](#pagination)
     - [Search field](#search-field)
   - [Accessability](#accessability)
-  - [Lessons learned](#lessons-learned)
   - [Code quality and formatting](#code-quality-and-formatting)
     - [To lint the code](#to-lint-the-code)
     - [To format the code](#to-format-the-code)
@@ -115,17 +113,6 @@ Since it was missing book cover photo and genre we decided to import this from g
 
 Background photo for the homepage is downloaded from unsplash: https://unsplash.com/photos/low-angle-photography-of-brown-2-storey-structure-YQhhlCS9Hto
 
-### Access Neo4j
-
-To access the database visit this link:
-
-http://it2810-34.idi.ntnu.no:7474
-
-Use the following information to log in:
-
-**Username:** neo4j
-
-**Password:** readable
 
 ## Testing
 
@@ -210,16 +197,6 @@ Some of the things we focused on for accessability:
 - Buttons give feedback
 - Intuitive design for user friendliness
 - Easy to navigate
-
-## Lessons learned
-
-The group has learnt a lot during this project, especially beacuse none of the group members had extensive experience before starting this project.
-
-Taking this experience into account, we are pleased with the final outcome. However, we see room for improvement on multiple fields, each tried to be explained in other sections.
-
-When implementing pagination we realized the other functionality also needed to happen in the backend for it to work together. Therefore it was neccessary to redo large parts of our codebase.
-
-If we were to do the project again, with the experience gained, we could have completed the project in significantly less time. This project has been a learning curve. We realize that if we had a better initial understanding of the project requirements it could have helped us avoid rework. And we could have progressed further on the project.
 
 ## Code quality and formatting
 
