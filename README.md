@@ -25,7 +25,7 @@
 
 ## Readable project overview
 
-Readable is a webpage where you can view and search for your favorite books by title. Books can be sorted, filtered and favorited. Each book has a details page, where the user also can give a review and rating. Reviews from other users are also displayed. The books are stored in our neo4j database, and fetched to be displayed in the library.
+Readable is a webpage where you can view and search for your favorite books by title. Books can be sorted, filtered and favorited. Each book has a details page, where the user also can give a review and rating. Reviews from other users are also displayed. The books are stored in our neo4j database, and fetched to be displayed in the library. This project uses GraphQL, a query language for APIs, as an alternative to REST. GraphQL allows for more flexible and efficient data fetching by enabling clients to request exactly the data they need in a single query.
 
 ## Run the project
 
